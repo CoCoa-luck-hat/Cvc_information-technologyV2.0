@@ -1,0 +1,18 @@
+{
+  "name": "it_2025_3",
+  "version": "1.0.0",
+  "description": "Information Technology Department website",
+  "main": "index.php",
+  "scripts": {
+    "build:css": "tailwindcss -i ./include/css/input.css -o ./include/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./include/css/input.css -o ./include/css/tailwind.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

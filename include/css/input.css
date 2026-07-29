@@ -1,0 +1,933 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #b71616;
+  --color-primary-light: #e10000;
+  --color-primary-dark: #af0000;
+  --color-neutral-bg: #f8f9fa;
+  --color-neutral-text: #1f2937;
+  
+  --font-sans: "Prompt", sans-serif;
+}
+
+@source "../../*.php";
+@source "../../include/**/*.php";
+@source "../../04_it_coo1/**/*.php";
+@source "../../05_it_s1/**/*.php";
+@source "../../06_techer/**/*.php";
+@source "../../07_classroom/**/*.php";
+@source "../../08_awards/**/*.php";
+
+/* Custom Utility Rules (Lenis Scroll) */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Background Grid Pattern (Light Theme - Subtle Gray lines) */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Neon crimson text glow (Light Theme - soft shadow) */
+.neon-glow {
+  text-shadow: 0 0 8px rgba(183, 22, 22, 0.2);
+}
+
+/* Glassmorphism Panel (Light Theme) */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Owl Carousel Custom Styles (Light Theme) */
+.header-carousel {
+  @apply relative w-full overflow-hidden;
+}
+
+.header-carousel .header-carousel-item {
+  @apply h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] overflow-hidden;
+}
+
+.header-carousel .header-carousel-item img {
+  @apply w-full h-full object-cover;
+}
+
+.header-carousel .owl-nav {
+  @apply absolute bottom-6 right-8 flex space-x-3 z-10;
+}
+
+.header-carousel .owl-nav .owl-prev,
+.header-carousel .owl-nav .owl-next {
+  @apply w-12 h-12 bg-white/90 border border-gray-200 hover:bg-primary text-gray-800 hover:text-white rounded-full flex items-center justify-center text-lg transition-all duration-300 shadow-md cursor-pointer;
+}
+
+.header-carousel .owl-dots {
+  @apply absolute bottom-6 left-8 flex space-x-2 z-10;
+}
+
+.header-carousel .owl-dots .owl-dot {
+  @apply w-2.5 h-2.5 bg-gray-300 rounded-full cursor-pointer transition-all duration-300;
+}
+
+.header-carousel .owl-dots .owl-dot.active {
+  @apply w-6 bg-primary;
+}
+
+/* Custom Scroll-linked animations utility */
+.transition-scroll {
+  transition: transform 0.1s cubic-bezier(0.1, 0.9, 0.2, 1), opacity 0.15s ease-out;
+}
+
+/* Shine Sweep Animation */
+@keyframes shineSweep {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+.animate-shine-sweep {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  animation: shineSweep 5s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* Glow Aura Pulse Animation */
+@keyframes glowPulse {
+  0%, 100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.12;
+  }
+  50% {
+    transform: scale(1.15) translate(20px, -15px);
+    opacity: 0.25;
+  }
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 8s infinite ease-in-out;
+}
+
+/* Custom Cursor (Awwwards Style) */
+@media (pointer: fine) {
+  body.cursor-active {
+    cursor: none !important;
+  }
+  body.cursor-active a, 
+  body.cursor-active button, 
+  body.cursor-active [role="button"], 
+  body.cursor-active select, 
+  body.cursor-active input[type="submit"] {
+    cursor: none !important;
+  }
+  
+  .custom-cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-primary-light);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+  }
+  
+  .custom-cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid var(--color-primary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    will-change: transform, width, height, background-color, border-color;
+    mix-blend-mode: difference;
+    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                height 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                background-color 0.3s ease, 
+                border-color 0.3s ease;
+  }
+
+  .custom-cursor-ring.cursor-hover {
+    width: 56px;
+    height: 56px;
+    background-color: rgba(225, 0, 0, 0.15);
+    border-color: var(--color-primary-light);
+  }
+  
+  .custom-cursor-ring.cursor-magnetic-hover {
+    width: 64px;
+    height: 64px;
+    background-color: rgba(225, 0, 0, 0.15);
+    border-color: var(--color-primary-light);
+  }
+}
+
+/* Preloader Panel (Intro Animation) */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0b0c10;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.preloader-active {
+  overflow: hidden !important;
+  height: 100vh !important;
+}
+
+.preloader-wrap {
+  text-align: center;
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding: 20px;
+}
+
+/* Cyber monospace styling for counts */
+.preloader-count {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 900;
+  font-size: clamp(4rem, 12vw, 8rem);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.08);
+  background: linear-gradient(to bottom, #ffffff 30%, rgba(255,255,255,0.1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
+  letter-spacing: -2px;
+  position: relative;
+}
+
+.preloader-count::after {
+  content: "%";
+  font-size: 0.35em;
+  margin-left: 2px;
+  vertical-align: super;
+}
+
+.preloader-word-box {
+  height: 24px;
+  overflow: hidden;
+  margin-top: 10px;
+  position: relative;
+}
+
+.preloader-word {
+  font-family: "Prompt", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary-light);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  height: 24px;
+  line-height: 24px;
+  display: block;
+}
+
+.preloader-bar-bg {
+  width: 150px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 25px auto 0 auto;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.preloader-bar {
+  width: 0%;
+  height: 100%;
+  background-color: var(--color-primary-light);
+}
+
+/* Transition Curtain */
+#transition-curtain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-primary);
+  z-index: 999990;
+  pointer-events: none;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+/* Extra utility class to prevent clicks during transition */
+.transition-lock {
+  pointer-events: none !important;
+}
+
+/* Smooth fade-in for page changes */
+.page-fade-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-fade-active {
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Floating Capsule Navbar (Awwwards Style) */
+#main-navbar-wrapper {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transform: translateY(0);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* Smart Hide-on-Scroll */
+#main-navbar-wrapper.navbar-hidden {
+  transform: translateY(-130%) !important;
+}
+
+/* Interactive Menu Hover Underline */
+.nav-link-underline {
+  position: relative;
+}
+
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+              left 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: width, left;
+}
+
+.nav-link-underline:hover::after {
+  width: 80%;
+  left: 10%;
+}
+
+/* Vertical Wipe Reveal Careers Section */
+#careers-reveal-section {
+  position: relative;
+  height: 250vh; /* Scroll height for pin */
+  background-color: #f8f9fa;
+  overflow: visible;
+}
+
+.reveal-sticky {
+  position: relative; /* Pinned by GSAP ScrollTrigger */
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+}
+
+/* Base style for Before & After layers */
+.reveal-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  will-change: clip-path;
+}
+
+/* BEFORE CVC IT: Monochromatic & Dull */
+.reveal-layer.layer-before {
+  z-index: 10;
+  background-color: #f3f4f6;
+  /* Grayscale filter to represent the dull 'before' state */
+  filter: grayscale(0.7) opacity(0.85);
+}
+
+/* AFTER CVC IT: Vivid & High-Tech */
+.reveal-layer.layer-after {
+  z-index: 20;
+  background-color: #ffffff;
+  /* Masked/hidden by default, revealed via GSAP clip-path */
+  clip-path: inset(0% 0% 100% 0%);
+}
+
+/* Separator divider line */
+.reveal-divider {
+  position: absolute;
+  top: 0%; /* Animates from 0% to 100% */
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-primary);
+  z-index: 30;
+  pointer-events: none;
+  transform: translateY(-50%);
+  box-shadow: 0 0 15px 2px rgba(183, 22, 22, 0.45);
+  will-change: top, opacity;
+  opacity: 0;
+}
+
+/* Middle cursor helper handle */
+.reveal-divider-handle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  border: 4px solid #ffffff;
+  box-shadow: 0 4px 15px rgba(183, 22, 22, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+/* Glowing Neon Texts for Awwwards Aesthetics */
+.neon-text-red {
+  color: var(--color-primary);
+  text-shadow: 0 0 8px rgba(183, 22, 22, 0.2);
+}
+
+.neon-text-blue {
+  color: #0088cc;
+  text-shadow: 0 0 8px rgba(0, 136, 204, 0.2);
+}
+
+.reveal-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 100%;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .reveal-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Gallery Panorama Horizontal Pinned Scroll Section */
+#gallery-horizontal-section {
+  position: relative;
+  height: 300vh; /* Scroll length for horizontal translation */
+  background-color: #f8f9fa;
+  overflow: visible;
+}
+
+.gallery-sticky {
+  position: relative; /* Pinned by GSAP ScrollTrigger */
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6vh 0 4vh 0;
+}
+
+.gallery-horizontal-track {
+  display: flex;
+  gap: 5vw;
+  padding: 0 10vw;
+  align-items: center;
+  height: 52vh;
+  width: max-content;
+  will-change: transform;
+}
+
+.panorama-card {
+  flex-shrink: 0;
+  width: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.panorama-img-wrapper {
+  width: auto;
+  height: 78%;
+  background-color: transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panorama-img-wrapper img {
+  width: auto;
+  height: 100%;
+  object-fit: contain; /* Prevent cropping, show full image with text */
+  border-radius: 28px;
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.panorama-card:hover {
+  transform: translateY(-8px);
+}
+
+.panorama-card:hover .panorama-img-wrapper img {
+  transform: scale(1.04);
+}
+
+.bottom-scroll-ruler {
+  width: 100%;
+  border-t: 1px solid rgba(229, 231, 235, 0.8);
+  padding: 24px 8vw 0 8vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ruler-item {
+  font-family: "Prompt", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #9ca3af;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.ruler-item.active {
+  color: var(--color-primary);
+}
+
+.ruler-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              left 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: translateX(-50%);
+}
+
+.ruler-item.active::after {
+  width: 100%;
+}
+
+/* Text Splitting / Character Animations */
+.split-text {
+  perspective: 1200px;
+}
+
+.split-text span {
+  display: inline-block;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+/* Redesigned Premium Footer Styles */
+#global-footer {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+#global-footer a {
+  transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Floating Back-to-Top capsule */
+.back-to-top {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ==========================================
+   VIDEO HERO & LOUVER BLINDS
+   ========================================== */
+#heroScrollTrack {
+  position: relative;
+  width: 100%;
+  height: 320vh; /* Scroll track length */
+  background: #b71616; /* Crimson Red matching the closed blinds */
+}
+
+#heroScrollTrack .sticky-viewport {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-hero-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  background-color: #0a0c10; /* Solid dark background to prevent red peeking during load */
+}
+
+.hero-bg-extension {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Covers deep vertical curves to eliminate transition gaps */
+  background-color: #b71616; /* Seamless crimson red background extension */
+  pointer-events: none;
+  z-index: -1;
+}
+
+.home-hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+.home-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay for text contrast */
+  z-index: 2;
+}
+
+.home-hero-content {
+  position: absolute;
+  bottom: 18%;
+  left: 5%;
+  width: 90%;
+  max-width: 900px;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  z-index: 3;
+}
+
+@media (min-width: 768px) {
+  .home-hero-content {
+    bottom: 15%;
+    left: 8%;
+    width: 84%;
+  }
+}
+
+.hero-line-animate span {
+  display: inline-block;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+.home-hero-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.blind-strip-v {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: #b71616; /* Crimson Red brand color */
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transform: rotateY(-90deg);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* ==========================================
+   STORYTELLING CURVED SECTION
+   ========================================== */
+.radius-section {
+  position: relative;
+  background-color: #f8f9fa; /* Light slate background */
+  border-top-left-radius: 1200px;
+  border-top-right-radius: 1200px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-top: -100px; /* Pulls it up slightly to overlap the covered Hero */
+  padding: 120px 0 100px 0;
+  z-index: 20;
+  will-change: border-radius;
+  overflow: hidden;
+  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 1024px) {
+  .radius-section {
+    border-top-left-radius: 300px;
+    border-top-right-radius: 300px;
+    margin-top: -50px;
+    padding: 80px 0 60px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .radius-section {
+    border-top-left-radius: 150px;
+    border-top-right-radius: 150px;
+    margin-top: -30px;
+    padding: 60px 0 50px 0;
+  }
+}
+
+.radius-img-container {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.general-reveal-img {
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+  will-change: clip-path;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.general-reveal-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* ==========================================
+   3D HOLOGRAM & CONTACT SECTION
+   ========================================== */
+.contact-3d-wrapper {
+  perspective: 1200px;
+}
+
+.hologram-card-3d {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.15s cubic-bezier(0.1, 0.9, 0.2, 1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.9) 100%);
+  border: 1px solid rgba(183, 22, 22, 0.2);
+  box-shadow: 0 25px 50px -12px rgba(183, 22, 22, 0.15), 0 0 30px rgba(183, 22, 22, 0.08);
+}
+
+.hologram-card-inner {
+  transform: translateZ(30px);
+}
+
+.hologram-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.5rem;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(225, 0, 0, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.glass-form-3d {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07);
+}
+
+.btn-3d-glow {
+  position: relative;
+  overflow: hidden;
+  background: #b71616;
+  box-shadow: 0 10px 25px -5px rgba(183, 22, 22, 0.4);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.btn-3d-glow:hover {
+  background: #e10000;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 35px -5px rgba(225, 0, 0, 0.5), 0 0 20px rgba(225, 0, 0, 0.3);
+}
+
+.portal-spatial-section {
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}
+
+/* ==========================================
+   AUTHENTIC LAMA LAMA LOGO MORPH PRELOADER
+   ========================================== */
+#preloader {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+  font-family: 'Prompt', sans-serif;
+  user-select: none;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+.ll-preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+}
+
+.ll-logo-wrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.ll-logo-glow {
+  position: absolute;
+  inset: -12px;
+  background: radial-gradient(circle, rgba(183, 22, 22, 0.5) 0%, rgba(0, 0, 0, 0) 75%);
+  border-radius: 50%;
+  filter: blur(12px);
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { transform: scale(0.9); opacity: 0.5; }
+  100% { transform: scale(1.3); opacity: 0.95; }
+}
+
+.ll-preload-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  will-change: transform, opacity;
+}
+
+.ll-counter-container {
+  font-size: clamp(0.9rem, 2vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.85);
+  display: inline-flex;
+  align-items: center;
+}
+
+.ll-counter-number {
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================
+   LAMA LAMA MASKED 3D TEXT & ENTRANCE
+   ========================================== */
+.hero-mask-wrap {
+  overflow: hidden;
+  display: block;
+  perspective: 1000px;
+}
+
+.hero-mask-inner {
+  display: block;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+
+
+
+
