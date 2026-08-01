@@ -871,16 +871,17 @@ function init3DCardStacking() {
                 );
         }
 
-        // 2. 3D Card Deck Stacking (Dynamically Centered Vertically on Mobile)
+        // 2. 3D Card Deck Stacking (Dynamically Centered Vertically on Desktop & Mobile)
         const isDesktop = window.innerWidth >= 768;
         const animDistance = isDesktop ? 450 : 320;
 
-        // Calculate dynamic top offset per card to center it vertically on mobile screens
+        // Calculate dynamic top offset per card to center it vertically on screen
         const getTopOffset = (cardEl) => {
-            if (isDesktop) return 100;
             const vh = window.innerHeight;
-            const cardH = cardEl ? cardEl.offsetHeight : 520;
-            return Math.max(85, Math.round((vh - cardH) / 2));
+            const cardH = cardEl ? cardEl.offsetHeight : (isDesktop ? 450 : 520);
+            const calculatedCenter = Math.round((vh - cardH) / 2);
+            const minTop = isDesktop ? 95 : 85;
+            return Math.max(minTop, calculatedCenter);
         };
 
         // Set explicit initial states and per-card dynamic topOffset pinning
@@ -889,9 +890,9 @@ function init3DCardStacking() {
 
             gsap.set(card, {
                 transformOrigin: "center top",
-                opacity: index === 0 ? 1 : 0,
+                opacity: 0,
                 y: index === 0 ? 0 : 70,
-                scale: index === 0 ? 1 : 0.96
+                scale: index === 0 ? 0.88 : 0.96
             });
 
             // Pin each card at its dynamic topOffset until the end of majorsSection
@@ -906,6 +907,25 @@ function init3DCardStacking() {
                 invalidateOnRefresh: true
             });
         });
+
+        // Entrance Transition for Card 1 (In-place scale-up 0.88 -> 1.0 & fade-in as title stage fades out)
+        const firstCard = cards[0];
+        if (firstCard) {
+            const firstTopOffset = getTopOffset(firstCard);
+            gsap.to(firstCard, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: firstCard,
+                    start: `top ${firstTopOffset + animDistance}px`,
+                    end: `top ${firstTopOffset}px`,
+                    scrub: true,
+                    invalidateOnRefresh: true
+                }
+            });
+        }
 
         // Entrance & Exit Transitions (Frame-Accurate 1:1 Scrub)
         cards.forEach((card, index) => {
@@ -944,6 +964,24 @@ function init3DCardStacking() {
                 });
             }
         });
+
+        // Exit Transition for the Last Card (Fades & Scales out smoothly before unpinning to prevent warp flicker)
+        const lastCard = cards[cards.length - 1];
+        if (lastCard) {
+            gsap.to(lastCard, {
+                scale: 0.88,
+                y: -30,
+                opacity: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#majorsSection",
+                    start: `bottom-=${animDistance}px bottom`,
+                    end: "bottom bottom",
+                    scrub: true,
+                    invalidateOnRefresh: true
+                }
+            });
+        }
     }
 }
 
