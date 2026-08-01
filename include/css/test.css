@@ -1,4 +1,9 @@
-/* Prevent Horizontal Overflow Scrollbar Across Entire Page (Keep HTML/Body Only to Preserve Sticky Position) */
+/* Prevent Horizontal Overflow Scrollbar & Reserve Stable Scrollbar Gutter to Prevent Preloader Layout Warp */
+html {
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
+}
+
 html,
 body {
   height: auto;
@@ -1122,19 +1127,23 @@ body.preloader-active {
   transform: translate(-50%, -50%) !important;
 }
 
-/* Gallery Panorama Card Layout Fix */
+/* Majors Section Layout & Padding Fix */
+#majorsSection {
+  padding-bottom: 100vh !important;
+}
+
 .gallery-horizontal-track {
   height: 58vh !important;
 }
 
 .panorama-card {
-  width: 380px !important;
+  width: auto !important;
   height: 100% !important;
 }
 
 .panorama-img-wrapper {
-  height: 72% !important;
-  max-height: 320px !important;
+  height: 84% !important;
+  max-height: 380px !important;
 }
 
 .panorama-img-wrapper img {
@@ -1142,6 +1151,10 @@ body.preloader-active {
   object-fit: cover !important;
   width: 100% !important;
   height: 100% !important;
+}
+
+.bottom-scroll-ruler {
+  padding-bottom: 28px !important;
 }
 
 /* ==========================================================================
@@ -1233,11 +1246,11 @@ body.preloader-active {
 }
 
 .heading-xl {
-  font-family: 'Azeret Mono', monospace, sans-serif !important;
+  font-family: 'Prompt', sans-serif !important;
   font-size: clamp(3rem, 7vw, 6.4rem) !important;
   line-height: 0.95 !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.03em !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
   text-transform: uppercase !important;
   color: #ffffff !important;
 }
@@ -1335,29 +1348,39 @@ body.preloader-active {
   align-items: center;
 }
 
-.paragraph-l.text-style-alt {
-  font-family: 'La Belle Aurore', cursive !important;
-  font-size: 1.75rem !important;
-  color: #b71616 !important;
-  line-height: 1.1 !important;
+.step-icon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  background-color: #fef2f2 !important;
+  color: #dc2626 !important;
+  border-radius: 9999px;
+  font-family: 'Prompt', sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  border: 1px solid rgba(220, 38, 38, 0.15) !important;
+  margin-bottom: 0.25rem !important;
 }
 
 .step-card-title {
-  font-family: 'Azeret Mono', monospace, sans-serif !important;
-  font-size: clamp(1.1rem, 2vw, 1.75rem) !important;
+  font-family: 'Prompt', sans-serif !important;
+  font-size: clamp(1.1rem, 2vw, 1.45rem) !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   color: #111827 !important;
-  line-height: 1.1 !important;
-  letter-spacing: -0.02em !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.01em !important;
 }
 
 .paragraph-s {
-  font-family: 'Azeret Mono', monospace, sans-serif !important;
-  font-size: 0.9rem !important;
-  line-height: 1.4 !important;
+  font-family: 'Prompt', sans-serif !important;
+  font-size: 0.875rem !important;
+  line-height: 1.6 !important;
   color: #4b5563 !important;
-  letter-spacing: -0.02em !important;
+  font-weight: 400 !important;
 }
 
 .card-shape {
@@ -1513,11 +1536,11 @@ body.preloader-active {
 }
 
 .ribbon-title {
-  font-family: 'Azeret Mono', monospace, sans-serif !important;
-  font-size: clamp(2rem, 4.2vw, 4.5rem) !important;
-  line-height: 0.85 !important;
+  font-family: 'Prompt', sans-serif !important;
+  font-size: clamp(1.4rem, 3.2vw, 3.2rem) !important;
+  line-height: 1.2 !important;
   font-weight: 700 !important;
-  letter-spacing: -0.03em !important;
+  letter-spacing: -0.01em !important;
   text-transform: uppercase !important;
   white-space: nowrap !important;
   color: inherit !important;
@@ -1564,13 +1587,10 @@ body.preloader-active {
 }
 
 @media (max-width: 768px) {
-  .steps-circle {
-    width: 400%;
-    left: -150%;
-  }
-
-  .card.is-step-circle {
-    width: 300px;
+  .steps-circle,
+  .card.is-step-circle,
+  .steps-container {
+    display: none !important;
   }
 
   .heading-xl {
@@ -1587,7 +1607,7 @@ body.preloader-active {
   will-change: transform, opacity;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.04);
   background-color: #ffffff;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transform-origin: center top !important;
 }
 
 /* Kora Framer Comparison Section Styles */
@@ -1655,45 +1675,52 @@ body.preloader-active {
   }
 }
 
+.kora-card-before,
+.kora-card-middle,
+.kora-card-after {
+  will-change: transform, opacity !important;
+  border-radius: 36px !important;
+  padding: 32px 32px !important;
+  height: min(510px, 72vh) !important;
+  max-height: 72vh !important;
+  width: 100% !important;
+  max-width: 360px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  transition: box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1), filter 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
 .kora-card-before {
-  background-color: #f7f7ed !important;
-  border-radius: 40px !important;
-  padding: 36px 40px !important;
-  height: min(560px, 72vh) !important;
-  max-height: 72vh !important;
-  width: 100% !important;
-  max-width: 480px !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05) !important;
-  transition: box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1), filter 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  background-color: #ffffff !important;
+  border: 1px solid rgba(229, 231, 235, 0.8) !important;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08) !important;
 }
 
+.kora-card-middle,
 .kora-card-after {
-  background-color: #5dc39b !important;
-  border-radius: 40px !important;
-  padding: 36px 40px !important;
-  height: min(560px, 72vh) !important;
-  max-height: 72vh !important;
-  width: 100% !important;
-  max-width: 480px !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08) !important;
-  transition: box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1), filter 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  background-color: #b71616 !important;
+  box-shadow: 0 25px 50px -12px rgba(183, 22, 22, 0.25) !important;
+}
+
+.kora-card-middle .kora-icon-box,
+.kora-card-after .kora-icon-box {
+  background-color: #ffffff !important;
+  color: #b71616 !important;
 }
 
 .kora-card-before:hover,
+.kora-card-middle:hover,
 .kora-card-after:hover {
   box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.22) !important;
   filter: brightness(1.025) !important;
 }
 
 .kora-item {
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 12px !important;
   transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1) !important;
   will-change: transform !important;
 }
@@ -1702,49 +1729,376 @@ body.preloader-active {
   transform: translateX(8px) !important;
 }
 
-background-color: #f7f7ed !important;
-border-radius: 40px !important;
-padding: 36px 40px !important;
-height: min(560px, 72vh) !important;
-max-height: 72vh !important;
-width: 100% !important;
-max-width: 480px !important;
-box-sizing: border-box !important;
-display: flex !important;
-flex-direction: column !important;
-justify-content: space-between !important;
-box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05) !important;
-transition: box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1),
-filter 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+.kora-icon-box {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  margin-right: 14px !important;
 }
 
-.kora-card-after {
-  background-color: #5dc39b !important;
-  border-radius: 40px !important;
-  padding: 36px 40px !important;
-  height: min(560px, 72vh) !important;
-  max-height: 72vh !important;
+.kora-card-before .kora-icon-box {
+  background-color: rgba(183, 22, 22, 0.1) !important;
+  color: #b71616 !important;
+}
+
+.kora-card-after .kora-icon-box {
+  background-color: #ffffff !important;
+  color: #b71616 !important;
+}
+
+/* Restore normal default system cursor */
+body,
+body *,
+body.cursor-active {
+  cursor: auto !important;
+}
+
+a,
+button,
+select,
+input[type="submit"],
+[role="button"],
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.custom-cursor-dot,
+.custom-cursor-ring {
+  display: none !important;
+}
+
+/* Interactive Liquid Fill Buttons & Arrow Bounce */
+.btn-liquid {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease !important;
+}
+
+.btn-liquid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #111827;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: inherit;
+}
+
+.btn-liquid:hover::before {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.btn-liquid:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25) !important;
+  transform: translateY(-2px);
+}
+
+.btn-liquid .fa-arrow-right,
+.btn-liquid .fa-chevron-right {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.btn-liquid:hover .fa-arrow-right,
+.btn-liquid:hover .fa-chevron-right {
+  transform: translateX(6px);
+}
+
+/* Animated Underline Draw for Text Links */
+.link-draw-underline {
+  position: relative;
+  text-decoration: none !important;
+}
+
+.link-draw-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #dc2626;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-draw-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Footer Rotating Red Aura Ring (4s) & Hover Pulse */
+.footer-rotating-aura {
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(from 0deg, #dc2626, transparent 35%, #ef4444 65%, transparent);
+  animation: rotateFooterAura 4s linear infinite;
+  opacity: 0.45;
+  filter: blur(10px);
+  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.group:hover .footer-rotating-aura {
+  opacity: 0.85;
+  filter: blur(14px);
+}
+
+@keyframes rotateFooterAura {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Majors Section Centered Fullscreen Title Stage */
+#majorsTitleStage {
   width: 100% !important;
-  max-width: 480px !important;
-  box-sizing: border-box !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
   display: flex !important;
   flex-direction: column !important;
-  justify-content: space-between !important;
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08) !important;
-  transition: box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1), filter 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
 }
 
-.kora-card-before:hover,
-.kora-card-after:hover {
-  box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.22) !important;
-  filter: brightness(1.025) !important;
+#majorsTitleContent {
+  margin: auto !important;
 }
 
-.kora-item {
-  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1) !important;
-  will-change: transform !important;
+/* Seamless Radius Section Transition to Majors Section */
+.radius-section {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: #f8f9fa !important;
 }
 
-.kora-item:hover {
-  transform: translateX(8px) !important;
+#majorsSection {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Back-to-Top Button Exact Icon Centering */
+.back-to-top {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 0 !important;
+}
+
+.back-to-top i,
+.back-to-top svg {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  vertical-align: middle !important;
+}
+
+/* Mobile Responsive Overhaul Rules */
+@media (max-width: 1023px) {
+  /* Fluid Title Typography for Mobile */
+  #majorsTitleStage h2 {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
+    line-height: 1.2 !important;
+    padding: 0 16px !important;
+  }
+  
+  #majorsTitleStage p {
+    font-size: clamp(0.95rem, 4vw, 1.25rem) !important;
+    padding: 0 20px !important;
+  }
+
+  /* 3D Stacking Card Container Adjustments on Mobile */
+  .stacking-card {
+    min-height: auto !important;
+    padding: 24px 18px !important;
+    border-radius: 24px !important;
+    margin: 0 12px !important;
+  }
+
+  /* Hide desktop 3D orbit steps container on mobile screens (< 768px) */
+  .steps-pin-height,
+  .steps-container,
+  .steps-circle,
+  .card.is-step-circle,
+  .card-shape,
+  .card-border-svg,
+  .steps-pizza {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .section_steps {
+    margin-top: 0 !important;
+    padding-top: 1rem !important;
+  }
+
+  .section-border.is-steps {
+    top: -35px !important;
+    height: 36px !important;
+  }
+
+  .section-border-svg {
+    height: 36px !important;
+  }
+
+  .steps-title .padding-160px {
+    padding-top: 20px !important;
+  }
+
+  /* Mobile Touch Carousel Slider Styling */
+  #mobileStepsSlider {
+    display: block !important;
+    position: relative !important;
+    z-index: 30 !important;
+    margin-top: 1rem !important;
+    margin-bottom: 2.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .mobile-steps-track::-webkit-scrollbar {
+    display: none !important;
+  }
+  .mobile-steps-track {
+    overflow-x: auto !important;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+    touch-action: pan-x pan-y !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Prevent Section Ribbons from bleeding over Mobile Slider & Scale Ribbons for Mobile */
+  .section_ribbons {
+    margin-top: 0 !important;
+    z-index: 10 !important;
+    padding-top: 2.5rem !important;
+    padding-bottom: 3rem !important;
+    overflow: hidden !important;
+  }
+
+  .ribbon {
+    min-height: 68px !important;
+    padding: 0.75rem 0 !important;
+    gap: 1rem !important;
+  }
+
+  .ribbon-title {
+    font-size: clamp(0.85rem, 3.6vw, 1.25rem) !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .ribbon-rating {
+    gap: 0.2rem !important;
+  }
+
+  .ribbon-rating_svg {
+    width: 1.15rem !important;
+    height: 1.15rem !important;
+  }
+
+  /* Horizontal Panorama Gallery Vertical Card Stack on Mobile */
+  #gallery-horizontal-section {
+    height: auto !important;
+    margin-top: 3rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .gallery-sticky {
+    position: relative !important;
+    height: auto !important;
+    padding: 1rem 0 !important;
+    overflow: visible !important;
+  }
+
+  .gallery-horizontal-track {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 16px !important;
+    gap: 24px !important;
+    transform: none !important;
+  }
+
+  .panorama-card {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .panorama-img-wrapper {
+    width: 100% !important;
+    height: 220px !important;
+  }
+
+  .panorama-img-wrapper img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 16px !important;
+  }
+
+  /* Hide Bottom Scroll Ruler on Mobile */
+  .bottom-scroll-ruler {
+    display: none !important;
+  }
+
+  /* Steps Title Padding */
+  .heading-xl {
+    font-size: clamp(1.75rem, 6vw, 3rem) !important;
+    line-height: 1.25 !important;
+    text-align: center !important;
+  }
+
+  /* Career Reveal Mobile Spacing */
+  .kora-card {
+    padding: 20px 16px !important;
+    border-radius: 20px !important;
+  }
+
+  /* Back-to-top button position on Mobile */
+  .back-to-top {
+    right: 16px !important;
+    bottom: 20px !important;
+    z-index: 90 !important;
+  }
+
+  /* Footer Padding */
+  #global-footer {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
 }

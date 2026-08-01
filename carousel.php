@@ -27,10 +27,7 @@
             
             <!-- CTAs -->
             <div class="flex flex-wrap justify-start gap-4 mt-8 md:mt-12" id="heroCtaGroup">
-                <a href="#majorsSection" class="bg-primary hover:bg-white hover:text-gray-900 text-white font-medium py-3 px-8 rounded-xl transition duration-300 shadow-md" data-magnetic>
-                    <span>สำรวจหลักสูตรของเรา</span>
-                </a>
-                <a href="tel:+053713036" class="bg-white/10 hover:bg-white/20 text-white border border-white/25 font-medium py-3 px-8 rounded-xl transition duration-300 shadow-sm" data-magnetic>
+                <a href="tel:+053713036" class="bg-primary hover:bg-white hover:text-gray-900 text-white font-medium py-3 px-8 rounded-xl transition duration-300 shadow-md" data-magnetic>
                     <span>ติดต่อสอบถาม</span>
                 </a>
             </div>
@@ -87,11 +84,6 @@
                         ที่แผนกเทคโนโลยีสารสนเทศ เราเน้นการเรียนรู้แบบปฏิบัติจริง ฝึกฝนทักษะการเขียนโค้ด เครือข่าย คลาวด์ และแอนิเมชัน ผ่านโปรเจกต์จริงเพื่อบ่มเพาะยอดฝีมือที่พร้อมสู่อุตสาหกรรมในยุคดิจิทัล
                     </p>
                 </div>
-                
-                <!-- CTA Button -->
-                <a href="#majorsSection" class="story-button inline-flex items-center justify-center bg-primary hover:bg-gray-900 text-white font-medium py-3 px-8 rounded-xl transition duration-300" data-magnetic>
-                    <span>ค้นพบหลักสูตร</span>
-                </a>
             </div>
             
         </div>

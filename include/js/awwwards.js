@@ -34,16 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
  * Dynamically inserts the required HTML structures so templates don't need manual changes.
  */
 function createInteractiveElements() {
-    // Custom Cursor Elements
-    if (window.matchMedia("(pointer: fine)").matches && !document.querySelector(".custom-cursor-dot")) {
-        const dot = document.createElement("div");
-        dot.className = "custom-cursor-dot";
-        const ring = document.createElement("div");
-        ring.className = "custom-cursor-ring";
-        document.body.appendChild(dot);
-        document.body.appendChild(ring);
-        document.body.classList.add("cursor-active");
-    }
+    // Custom Cursor Elements disabled per user request
+    document.body.classList.remove("cursor-active");
 
     // Curtain Wipe Element
 
@@ -144,6 +136,7 @@ function initCareersWipe() {
  * Panorama Horizontal Pinned Scroll Gallery
  */
 function initGalleryHorizontal() {
+    if (window.innerWidth < 768) return;
     const track = document.querySelector(".gallery-horizontal-track");
     if (!track) return;
 
@@ -164,9 +157,7 @@ function initGalleryHorizontal() {
             return -(track.scrollWidth - window.innerWidth);
         };
 
-        gsap.to(track, {
-            x: getScrollAmount,
-            ease: "none",
+        const galleryTl = gsap.timeline({
             scrollTrigger: {
                 trigger: section,
                 pin: sticky,
@@ -175,9 +166,10 @@ function initGalleryHorizontal() {
                 scrub: 1,
                 invalidateOnRefresh: true,
                 onUpdate: (self) => {
-                    const progress = self.progress;
+                    // Normalize progress over 75% scroll movement so last card holds for remaining 25% (~1.5-2 steps)
+                    const normProgress = Math.min(1, self.progress / 0.75);
                     const activeIndex = Math.min(
-                        Math.floor(progress * cards.length),
+                        Math.floor(normProgress * cards.length),
                         cards.length - 1
                     );
 
@@ -191,6 +183,57 @@ function initGalleryHorizontal() {
                 }
             }
         });
+
+        // Horizontal scroll movement (0% -> 75% of section height)
+        galleryTl.to(track, {
+            x: getScrollAmount,
+            ease: "none",
+            duration: 0.75
+        })
+        // Card 06 Hold Phase (75% -> 100% of section height: stays 100% locked and steady)
+        .to(track, {
+            x: getScrollAmount,
+            ease: "none",
+            duration: 0.25
+        });
+
+        // Entrance Staggered Reveal Animation for Gallery Header and Panorama Cards
+        const headerContainer = section.querySelector(".gallery-header-anim");
+        if (headerContainer) {
+            gsap.fromTo(headerContainer,
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.9,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        }
+
+        if (cards.length) {
+            gsap.fromTo(cards,
+                { y: 70, opacity: 0, scale: 0.95 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    stagger: 0.12,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 75%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        }
     }
 
     // 3D Reveal animation for section_steps title & subtle wave parallax
@@ -240,7 +283,8 @@ let mouseX = 0, mouseY = 0;
 let ringX = 0, ringY = 0;
 
 function initCursor() {
-    const dot = document.querySelector(".custom-cursor-dot");
+    // Custom cursor disabled per user request
+    return;
     const ring = document.querySelector(".custom-cursor-ring");
 
     if (!dot || !ring) return;
@@ -766,8 +810,7 @@ function initHeroParallax() {
     const subtitle = document.getElementById("heroSubtitle");
     const ctaGroup = document.getElementById("heroCtaGroup");
     const indicator = document.getElementById("heroScrollIndicator");
-    const glowBall = document.getElementById("heroGlowBall");
-    if (!headline || !subtitle || !ctaGroup || !indicator || !glowBall) return;
+    if (!headline || !subtitle || !ctaGroup || !indicator) return;
 
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
         gsap.registerPlugin(ScrollTrigger);
@@ -784,8 +827,7 @@ function initHeroParallax() {
         tl.to(headline, { scale: 0.88, y: 80, opacity: 0, ease: "none" }, 0)
             .to(subtitle, { y: 40, opacity: 0, ease: "none" }, 0)
             .to(ctaGroup, { y: 60, opacity: 0, ease: "none" }, 0)
-            .to(indicator, { opacity: 0, ease: "none" }, 0)
-            .to(glowBall, { scale: 1.4, y: 150, opacity: 0, ease: "none" }, 0);
+            .to(indicator, { opacity: 0, ease: "none" }, 0);
     }
 }
 
@@ -793,82 +835,113 @@ function initHeroParallax() {
  * 3D Card Deck Stacking Animation using GSAP ScrollTrigger with Pause Phase & Snap
  */
 function init3DCardStacking() {
+    const titleStage = document.getElementById("majorsTitleStage");
+    const titleContent = document.getElementById("majorsTitleContent");
     const cards = gsap.utils.toArray("#majorsSection .majors-card");
-    if (!cards.length) return;
 
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
         gsap.registerPlugin(ScrollTrigger);
 
-        const pinTriggers = [];
+        // 1. Fullscreen Title Pinning & Scrubbed Timeline (Pin -> Fade In -> Hold -> Scale Up Fade Out)
+        if (titleStage && titleContent) {
+            const isMobile = window.innerWidth < 768;
+            const endVal = isMobile ? "+=60%" : "+=120%";
+            const titleTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: titleStage,
+                    start: "top top",
+                    end: endVal,
+                    pin: true,
+                    scrub: 0.8,
+                    invalidateOnRefresh: true
+                }
+            });
 
+            titleTl
+                // Stage 1: Fade In to Dead Center (starts ONLY after pinning at top top)
+                .fromTo(titleContent,
+                    { opacity: 0, scale: 0.88, y: 0 },
+                    { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power2.out" }
+                )
+                // Hold phase in dead center
+                .to(titleContent, { opacity: 1, scale: 1, y: 0, duration: 1 })
+                // Stage 2: Scale Up Expand & Fade Out
+                .to(titleContent,
+                    { opacity: 0, scale: 1.25, y: 0, duration: 1, ease: "power2.in" }
+                );
+        }
+
+        // 2. 3D Card Deck Stacking (Dynamically Centered Vertically on Mobile)
+        const isDesktop = window.innerWidth >= 768;
+        const animDistance = isDesktop ? 450 : 320;
+
+        // Calculate dynamic top offset per card to center it vertically on mobile screens
+        const getTopOffset = (cardEl) => {
+            if (isDesktop) return 100;
+            const vh = window.innerHeight;
+            const cardH = cardEl ? cardEl.offsetHeight : 520;
+            return Math.max(85, Math.round((vh - cardH) / 2));
+        };
+
+        // Set explicit initial states and per-card dynamic topOffset pinning
         cards.forEach((card, index) => {
-            const isDesktop = window.innerWidth >= 768;
-            const topOffset = isDesktop ? 110 : 80;
+            const topOffset = getTopOffset(card);
 
-            // Pin each card at topOffset so subsequent cards slide over completely
-            const st = ScrollTrigger.create({
+            gsap.set(card, {
+                transformOrigin: "center top",
+                opacity: index === 0 ? 1 : 0,
+                y: index === 0 ? 0 : 70,
+                scale: index === 0 ? 1 : 0.96
+            });
+
+            // Pin each card at its dynamic topOffset until the end of majorsSection
+            ScrollTrigger.create({
                 trigger: card,
                 start: `top ${topOffset}px`,
                 endTrigger: "#majorsSection",
                 end: "bottom bottom",
                 pin: true,
                 pinSpacing: false,
+                anticipatePin: 1,
                 invalidateOnRefresh: true
             });
-            pinTriggers.push(st);
-
-            // Scale down & fade out previous card ONLY when nextCard gets close (creating a hold/pause phase)
-            const nextCard = cards[index + 1];
-            if (nextCard) {
-                gsap.to(card, {
-                    scrollTrigger: {
-                        trigger: nextCard,
-                        start: "top 45%",
-                        end: `top ${topOffset + 30}px`,
-                        scrub: true,
-                        invalidateOnRefresh: true
-                    },
-                    scale: 0.92,
-                    opacity: 0,
-                    transformOrigin: "center center",
-                    ease: "none"
-                });
-            }
         });
 
-        // Add section-wide scroll snapping to lock onto each card's pin position
-        ScrollTrigger.create({
-            trigger: "#majorsSection",
-            start: "top top",
-            end: "bottom bottom",
-            snap: {
-                snapTo: (progress, self) => {
-                    if (!pinTriggers.length || !self || self.max <= 0) return progress;
-                    
-                    const totalDist = self.end - self.start;
-                    if (totalDist <= 0) return progress;
+        // Entrance & Exit Transitions (Frame-Accurate 1:1 Scrub)
+        cards.forEach((card, index) => {
+            const nextCard = cards[index + 1];
+            if (nextCard) {
+                const nextTopOffset = getTopOffset(nextCard);
 
-                    // Calculate normalized positions (0..1) where each card reaches its pin threshold
-                    const snapPoints = pinTriggers.map(st => {
-                        const raw = (st.start - self.start) / totalDist;
-                        return Math.max(0, Math.min(1, raw));
-                    });
-
-                    // Find nearest card snap point
-                    let closest = snapPoints[0];
-                    let minDiff = Math.abs(progress - closest);
-                    for (let i = 1; i < snapPoints.length; i++) {
-                        const diff = Math.abs(progress - snapPoints[i]);
-                        if (diff < minDiff) {
-                            minDiff = diff;
-                            closest = snapPoints[i];
-                        }
+                // Next card slides in and fades in 0 -> 1 to its centered topOffset
+                gsap.to(nextCard, {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: nextCard,
+                        start: `top ${nextTopOffset + animDistance}px`,
+                        end: `top ${nextTopOffset}px`,
+                        scrub: true,
+                        invalidateOnRefresh: true
                     }
-                    return closest;
-                },
-                duration: { min: 0.2, max: 0.45 },
-                delay: 0.05,
-                ease: "power1.inOut"
+                });
+
+                // Current card scales back to 0.88, moves up (-30px), and fades out 1 -> 0
+                gsap.to(card, {
+                    scale: 0.88,
+                    y: -30,
+                    opacity: 0,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: nextCard,
+                        start: `top ${nextTopOffset + animDistance}px`,
+                        end: `top ${nextTopOffset}px`,
+                        scrub: true,
+                        invalidateOnRefresh: true
+                    }
+                });
             }
         });
     }
@@ -1205,6 +1278,7 @@ function init3DSpatialPortalTransitions() {
  * Pizza Amici Steps Pinned Orbit Carousel GSAP Animation
  */
 function initStepsPinScroll() {
+    if (window.innerWidth < 1024) return;
     const pinSection = document.querySelector(".steps-pin-height");
     const container = document.querySelector(".steps-container");
     if (!pinSection || !container) return;
@@ -1359,16 +1433,17 @@ function initKoraComparisonScroll() {
     const titleLine2 = document.getElementById("koraTitleLine2");
     const cardsContainer = document.getElementById("koraCardsContainer");
     const cardBefore = document.getElementById("koraCardBefore");
+    const cardMiddle = document.getElementById("koraCardMiddle");
     const cardAfter = document.getElementById("koraCardAfter");
 
-    if (!stickyViewport || !titleBox || !titleLine1 || !titleLine2 || !cardsContainer || !cardBefore || !cardAfter) return;
+    if (!stickyViewport || !titleBox || !titleLine1 || !titleLine2 || !cardsContainer || !cardBefore) return;
 
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
         gsap.registerPlugin(ScrollTrigger);
 
         const isDesktop = window.innerWidth >= 1024;
-        const shiftX = isDesktop ? 265 : 0;
-        const shiftY = isDesktop ? 0 : 340;
+        const shiftX = isDesktop ? 380 : 0;
+        const shiftY = isDesktop ? 0 : 320;
         const splitTextShift = isDesktop ? 220 : 80;
 
         // Initial States
@@ -1377,10 +1452,18 @@ function initKoraComparisonScroll() {
         gsap.set(titleLine2, { opacity: 1, x: 0, y: 0, scale: 1 });
         gsap.set(cardsContainer, { opacity: 1, scale: 1, y: 0 });
 
-        // Card 1 starts hidden in exact center
+        // Card 1 starts hidden in Center
         gsap.set(cardBefore, { opacity: 0, scale: 0.95, x: 0, y: 0 });
-        // Card 2 starts hidden off to the right (or below on mobile)
-        gsap.set(cardAfter, { opacity: 0, scale: 0.88, x: isDesktop ? shiftX + 120 : 0, y: isDesktop ? 0 : shiftY + 80 });
+        
+        // Card 2 starts hidden off to the Right
+        if (cardMiddle) {
+            gsap.set(cardMiddle, { opacity: 0, scale: 0.9, x: isDesktop ? 200 : 0, y: isDesktop ? 0 : shiftY });
+        }
+        
+        // Card 3 starts hidden further to the Right
+        if (cardAfter) {
+            gsap.set(cardAfter, { opacity: 0, scale: 0.88, x: isDesktop ? shiftX + 200 : 0, y: isDesktop ? 0 : shiftY * 2 });
+        }
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -1397,72 +1480,120 @@ function initKoraComparisonScroll() {
         tl.to(titleLine1, { opacity: 1, x: 0, y: 0, duration: 0.10 }, 0)
             .to(titleLine2, { opacity: 1, x: 0, y: 0, duration: 0.10 }, 0)
 
-            // 2. Phase 2: Split Text Exit & Reveal Card 1 Centered (10% -> 40%) - Matches Image 1
-            // Line 1 splits LEFT (-220px), Line 2 splits RIGHT (+220px), both shoot UP (-180px) & fade out
+            // 2. Phase 2: Split Text Exit & Reveal Card 1 Centered (10% -> 35%)
             .to(titleLine1, {
                 x: -splitTextShift,
                 y: -180,
                 opacity: 0,
                 ease: "power2.inOut",
-                duration: 0.30
+                duration: 0.25
             }, 0.10)
             .to(titleLine2, {
                 x: splitTextShift,
                 y: -180,
                 opacity: 0,
                 ease: "power2.inOut",
-                duration: 0.30
+                duration: 0.25
             }, 0.10)
-            // Card 1 (Before) fades in & zooms to full size CENTERED (x: 0)
             .to(cardBefore, {
                 opacity: 1,
                 scale: 1.0,
                 x: 0,
                 y: 0,
                 ease: "power2.out",
-                duration: 0.30
+                duration: 0.25
             }, 0.10)
 
-            // 3. Phase 3: Card 1 Standalone Center View (40% -> 55%) - Card 1 sits SOLO in Center (Matches Image 2)
+            // 3. Phase 3: Card 1 shifts Left while Card 2 (ปวส. IT) and Card 3 (ปวส. Game Animation) slide in SIMULTANEOUSLY TOGETHER (35% -> 80%)
             .to(cardBefore, {
+                x: isDesktop ? -shiftX : 0,
+                y: isDesktop ? 0 : -shiftY,
+                opacity: 1,
+                ease: "power2.inOut",
+                duration: 0.40
+            }, 0.35);
+
+        if (cardMiddle) {
+            tl.to(cardMiddle, {
                 opacity: 1,
                 scale: 1.0,
                 x: 0,
                 y: 0,
-                duration: 0.15
-            }, 0.40)
-            .to(cardAfter, {
-                opacity: 0,
-                x: isDesktop ? shiftX + 120 : 0,
-                duration: 0.15
-            }, 0.40)
+                ease: "power2.out",
+                duration: 0.40
+            }, 0.35);
+        }
 
-            // 4. Phase 4: Card 1 Shift Left & Card 2 Slide In Right (55% -> 90%) - Matches Image 3
-            // Card 1 shifts to Left and becomes slightly faint (opacity: 0.75)
-            .to(cardBefore, {
-                x: isDesktop ? -shiftX : 0,
-                y: isDesktop ? 0 : -shiftY,
-                opacity: 0.75,
-                ease: "power2.inOut",
-                duration: 0.35
-            }, 0.55)
-            // Card 2 slides in from Right to take its place on the right
-            .to(cardAfter, {
+        if (cardAfter) {
+            tl.to(cardAfter, {
                 opacity: 1,
                 scale: 1.0,
                 x: isDesktop ? shiftX : 0,
                 y: 0,
                 ease: "power2.out",
-                duration: 0.35
-            }, 0.55)
+                duration: 0.40
+            }, 0.35);
+        }
 
-            // 5. Phase 5: Reading Lock (90% -> 100%) - Both cards locked side-by-side
-            .to({}, { duration: 0.10 });
+        // 4. Phase 4: Reading Lock (80% -> 100%) - All 3 cards locked in 3-column view
+        tl.to({}, { duration: 0.20 });
     } else {
         // Fallback for non-GSAP environments
         if (cardBefore) cardBefore.style.opacity = "1";
+        if (cardMiddle) cardMiddle.style.opacity = "1";
         if (cardAfter) cardAfter.style.opacity = "1";
     }
+}
+
+/**
+ * Mobile Touch Carousel Slider Controller ([ 01 / 04 ] Counter + Arrows)
+ */
+function initMobileStepsSlider() {
+    const track = document.querySelector('.mobile-steps-track');
+    const counter = document.getElementById('mobileStepCounter');
+    const prevBtn = document.getElementById('prevMobileStepBtn');
+    const nextBtn = document.getElementById('nextMobileStepBtn');
+
+    if (!track || !counter) return;
+
+    const cards = track.querySelectorAll('.mobile-step-card');
+    const total = cards.length;
+
+    const updateCounter = () => {
+        const cardWidth = cards[0]?.offsetWidth || 300;
+        const gap = 16;
+        const scrollPos = track.scrollLeft;
+        const activeIndex = Math.min(total - 1, Math.max(0, Math.round(scrollPos / (cardWidth + gap))));
+        const numStr = String(activeIndex + 1).padStart(2, '0');
+        const totalStr = String(total).padStart(2, '0');
+        counter.textContent = `[ ${numStr} / ${totalStr} ]`;
+    };
+
+    track.addEventListener('scroll', updateCounter, { passive: true });
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const cardWidth = cards[0]?.offsetWidth || 300;
+            track.scrollBy({ left: -(cardWidth + 16), behavior: 'smooth' });
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const cardWidth = cards[0]?.offsetWidth || 300;
+            track.scrollBy({ left: cardWidth + 16, behavior: 'smooth' });
+        });
+    }
+
+    updateCounter();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileStepsSlider);
+} else {
+    initMobileStepsSlider();
 }
 
 

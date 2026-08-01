@@ -122,7 +122,7 @@
 </section>
 
 
-<!-- Section: Kora Comparison ("What changes when you work with us.") -->
+<!-- Section: Kora Comparison ("IT Career Degree Pathways") -->
 <section id="koraComparisonSection" class="kora-comparison-section relative z-10 w-full bg-[#fafaf7] text-[#242424] h-[220vh]">
     <div class="kora-sticky-viewport min-h-screen relative flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 pt-16 pb-8 z-10">
         
@@ -133,10 +133,10 @@
             <div id="koraTitleBox" class="kora-title-box absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none px-4 sm:px-8">
                 <div class="max-w-5xl w-full mx-auto flex flex-col space-y-2">
                     <h2 id="koraTitleLine1" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#242424] leading-[1.05] text-left self-start sm:ml-4 md:ml-8" style="will-change: transform, opacity;">
-                        What changes <span class="text-[#616161] font-normal">when</span>
+                        เส้นทางสายอาชีพ <span class="text-[#616161] font-normal">ไอที</span>
                     </h2>
                     <h2 id="koraTitleLine2" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-[#616161] leading-[1.05] text-right self-end sm:mr-4 md:mr-8" style="will-change: transform, opacity;">
-                        you work with us.
+                        แยกตามระดับวุฒิ
                     </h2>
                 </div>
             </div>
@@ -144,116 +144,160 @@
             <!-- 2. Animated Cards Container (Absolute Centered Overlay) -->
             <div id="koraCardsContainer" class="kora-cards-container absolute inset-0 w-full flex items-center justify-center z-20 pointer-events-auto" style="will-change: opacity, transform;">
                 
-                <!-- Card 1: Before (Centered initially, then shifts Left) -->
-                <div id="koraCardBefore" class="kora-card kora-card-before absolute bg-[#f7f7ed] rounded-[36px] sm:rounded-[40px] p-[28px] sm:p-[36px] shadow-xl flex flex-col justify-between border border-black/5 w-full max-w-[460px] h-[520px] max-h-[72vh] overflow-hidden">
-                    <div>
+                <!-- Card 1: ปวช. IT -->
+                <div id="koraCardBefore" class="kora-card kora-card-before absolute bg-white rounded-[36px] sm:rounded-[40px] p-6 sm:p-8 shadow-xl flex flex-col justify-between border border-gray-200/80 w-full max-w-[360px] h-[510px] max-h-[72vh] overflow-hidden">
+                    <div class="space-y-4">
                         <!-- Header / Badge -->
-                        <div class="mb-4 sm:mb-6">
-                            <span class="text-xs sm:text-sm font-semibold tracking-wider text-[#8a8a8a] block mb-1">Before</span>
-                            <div class="flex items-center gap-2 text-[#616161] font-bold text-lg sm:text-xl tracking-tight">
-                                <div class="w-6 h-6 rounded-full border-2 border-[#616161] flex items-center justify-center shrink-0">
-                                    <svg class="w-3.5 h-3.5 text-[#616161]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        <div>
+                            <span class="text-xs font-semibold tracking-wider text-primary block mb-1.5 uppercase">VOCATIONAL CERTIFICATE</span>
+                            <div class="flex items-center text-gray-900 font-bold text-base sm:text-lg tracking-tight">
+                                <div class="kora-icon-box border-2 border-primary">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
                                 </div>
-                                <span>kora™</span>
+                                <span>วุฒิ ปวช. IT</span>
                             </div>
                         </div>
                         
                         <!-- Main Card Headline -->
-                        <h3 class="text-2xl sm:text-3xl font-bold text-[#616161] leading-[1.18] mb-4 sm:mb-6">
-                            Guessing what<br>grows revenue.
+                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 leading-snug">
+                            ปูพื้นฐานไอทีแน่น<br>พร้อมต่อยอดทันที
                         </h3>
                     </div>
 
-                    <!-- Item List (Clean rows with X circle icons, 100% Kora match) -->
-                    <div class="space-y-3">
-                        <div class="kora-item flex items-center gap-3 text-[#616161]">
-                            <div class="w-7 h-7 rounded-full bg-[#7a7a7a] text-white flex items-center justify-center shrink-0">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    <!-- Item List -->
+                    <div class="pt-4 border-t border-gray-100">
+                        <div class="kora-item text-gray-700">
+                            <div class="kora-icon-box">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                             </div>
-                            <span class="text-sm sm:text-base font-medium leading-snug">Hiring more reps to fix a conversion problem.</span>
+                            <span class="text-xs sm:text-sm font-medium leading-snug">เขียนโค้ด Web & Software</span>
                         </div>
 
-                        <div class="kora-item flex items-center gap-3 text-[#616161]">
-                            <div class="w-7 h-7 rounded-full bg-[#7a7a7a] text-white flex items-center justify-center shrink-0">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        <div class="kora-item text-gray-700">
+                            <div class="kora-icon-box">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             </div>
-                            <span class="text-sm sm:text-base font-medium leading-snug">Pipeline that looks full but never closes.</span>
+                            <span class="text-xs sm:text-sm font-medium leading-snug">ระบบเครือข่าย ซ่อมบำรุง PC</span>
                         </div>
 
-                        <div class="kora-item flex items-center gap-3 text-[#616161]">
-                            <div class="w-7 h-7 rounded-full bg-[#7a7a7a] text-white flex items-center justify-center shrink-0">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        <div class="kora-item text-gray-700">
+                            <div class="kora-icon-box">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </div>
-                            <span class="text-sm sm:text-base font-medium leading-snug">Pricing based on what competitors charge.</span>
+                            <span class="text-xs sm:text-sm font-medium leading-snug">เงินเดือน 12,000 - 18,000 บาท</span>
                         </div>
 
-                        <div class="kora-item flex items-center gap-3 text-[#616161]">
-                            <div class="w-7 h-7 rounded-full bg-[#7a7a7a] text-white flex items-center justify-center shrink-0">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        <div class="kora-item text-gray-700">
+                            <div class="kora-icon-box">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                             </div>
-                            <span class="text-sm sm:text-base font-medium leading-snug">Every quarter starts from zero.</span>
+                            <span class="text-xs sm:text-sm font-medium leading-snug">ต่อยอด ปวส. หรือ ป.ตรี ทันที</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 2: After (Slides in from Right) -->
-                <div id="koraCardAfter" class="kora-card kora-card-after absolute bg-[#5dc39b] text-white rounded-[36px] sm:rounded-[40px] p-[28px] sm:p-[36px] shadow-xl flex flex-col justify-between border border-black/5 w-full max-w-[460px] h-[520px] max-h-[72vh] overflow-hidden">
-                    <div>
+                <!-- Card 2: ปวส. IT -->
+                <div id="koraCardMiddle" class="kora-card kora-card-middle absolute bg-[#b71616] text-white rounded-[36px] sm:rounded-[40px] p-6 sm:p-8 shadow-2xl flex flex-col justify-between border border-primary/20 w-full max-w-[360px] h-[510px] max-h-[72vh] overflow-hidden">
+                    <div class="space-y-4">
                         <!-- Header / Badge -->
-                        <div class="mb-4 sm:mb-6">
-                            <span class="text-xs sm:text-sm font-semibold tracking-wider text-white/80 block mb-1">After</span>
-                            <div class="flex items-center gap-2 text-white font-bold text-lg sm:text-xl tracking-tight">
-                                <div class="w-6 h-6 rounded-full border-2 border-white flex items-center justify-center shrink-0">
-                                    <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                        <div>
+                            <span class="text-xs font-semibold tracking-wider text-white/80 block mb-1.5 uppercase">HIGH DIPLOMA</span>
+                            <div class="flex items-center text-white font-bold text-base sm:text-lg tracking-tight">
+                                <div class="kora-icon-box border-2 border-white">
+                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
                                 </div>
-                                <span>kora™</span>
+                                <span>วุฒิ ปวส. เทคโนโลยีสารสนเทศ</span>
                             </div>
                         </div>
                         
                         <!-- Main Card Headline -->
-                        <h3 class="text-2xl sm:text-3xl font-bold text-white leading-[1.18] mb-4 sm:mb-6">
-                            Knowing exactly<br>what moves<br>the number.
+                        <h3 class="text-xl sm:text-2xl font-bold text-white leading-snug">
+                            ยกระดับสู่มืออาชีพ<br>เทคโนโลยีขั้นสูง
                         </h3>
                     </div>
 
-                    <!-- Item List (Clean rows with Checkmark circle icons, 100% Kora match) -->
-                    <div class="space-y-3">
-                        <div class="kora-item flex items-center gap-3 text-white">
-                            <div class="w-7 h-7 rounded-full bg-white text-[#5dc39b] flex items-center justify-center shrink-0">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                    <!-- Item List -->
+                    <div class="pt-4 border-t border-white/15">
+                        <div class="kora-item text-white">
+                            <div class="kora-icon-box">
+                                <svg class="w-4 h-4 text-[#b71616]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                             </div>
-                            <span class="text-sm sm:text-base font-medium leading-snug">Every dollar of spend tied to revenue.</span>
+                            <span class="text-xs sm:text-sm font-medium leading-snug">Fullstack Dev & Cloud App</span>
                         </div>
 
-                        <div class="kora-item flex items-center gap-3 text-white">
-                            <div class="w-7 h-7 rounded-full bg-white text-[#5dc39b] flex items-center justify-center shrink-0">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                        <div class="kora-item text-white">
+                            <div class="kora-icon-box">
+                                <svg class="w-4 h-4 text-[#b71616]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             </div>
-                            <span class="text-sm sm:text-base font-medium leading-snug">Pipeline that converts predictably.</span>
+                            <span class="text-xs sm:text-sm font-medium leading-snug">วิเคราะห์ระบบ & Data Network</span>
                         </div>
 
-                        <div class="kora-item flex items-center gap-3 text-white">
-                            <div class="w-7 h-7 rounded-full bg-white text-[#5dc39b] flex items-center justify-center shrink-0">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                        <div class="kora-item text-white">
+                            <div class="kora-icon-box">
+                                <svg class="w-4 h-4 text-[#b71616]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                             </div>
-                            <span class="text-sm sm:text-base font-medium leading-snug">Pricing built on what customers will pay.</span>
+                            <span class="text-xs sm:text-sm font-medium leading-snug">เงินเดือน 20,000 - 45,000+ บาท</span>
                         </div>
 
-                        <div class="kora-item flex items-center gap-3 text-white">
-                            <div class="w-7 h-7 rounded-full bg-white text-[#5dc39b] flex items-center justify-center shrink-0">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                        <div class="kora-item text-white">
+                            <div class="kora-icon-box">
+                                <svg class="w-4 h-4 text-[#b71616]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             </div>
-                            <span class="text-sm sm:text-base font-medium leading-snug">Compounding growth, quarter over quarter.</span>
+                            <span class="text-xs sm:text-sm font-medium leading-snug">พร้อมทำงานองค์กรชั้นนำ</span>
                         </div>
                     </div>
                 </div>
 
-            </div>
+                <!-- Card 3: ปวส. Game Animation -->
+                <div id="koraCardAfter" class="kora-card kora-card-after absolute bg-[#b71616] text-white rounded-[36px] sm:rounded-[40px] p-6 sm:p-8 shadow-2xl flex flex-col justify-between border border-primary/20 w-full max-w-[360px] h-[510px] max-h-[72vh] overflow-hidden">
+                    <div class="space-y-4">
+                        <!-- Header / Badge -->
+                        <div>
+                            <span class="text-xs font-semibold tracking-wider text-white/80 block mb-1.5 uppercase">HIGH DIPLOMA</span>
+                            <div class="flex items-center text-white font-bold text-base sm:text-lg tracking-tight">
+                                <div class="kora-icon-box border-2 border-white">
+                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                                </div>
+                                <span>วุฒิ ปวส. เกมและแอนิเมชัน</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Main Card Headline -->
+                        <h3 class="text-xl sm:text-2xl font-bold text-white leading-snug">
+                            สร้างสรรค์สื่อดิจิทัล<br>และเกม 3D มืออาชีพ
+                        </h3>
+                    </div>
 
-        </div>
+                    <!-- Item List -->
+                    <div class="pt-4 border-t border-white/15">
+                        <div class="kora-item text-white">
+                            <div class="kora-icon-box">
+                                <svg class="w-4 h-4 text-[#b71616]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                            </div>
+                            <span class="text-xs sm:text-sm font-medium leading-snug">3D Modeling & Animation</span>
+                        </div>
 
-    </div>
-</section>          </div>
+                        <div class="kora-item text-white">
+                            <div class="kora-icon-box">
+                                <svg class="w-4 h-4 text-[#b71616]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                            </div>
+                            <span class="text-xs sm:text-sm font-medium leading-snug">Unreal Engine & Game Dev</span>
+                        </div>
+
+                        <div class="kora-item text-white">
+                            <div class="kora-icon-box">
+                                <svg class="w-4 h-4 text-[#b71616]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            </div>
+                            <span class="text-xs sm:text-sm font-medium leading-snug">เงินเดือน 22,000 - 50,000+ บาท</span>
+                        </div>
+
+                        <div class="kora-item text-white">
+                            <div class="kora-icon-box">
+                                <svg class="w-4 h-4 text-[#b71616]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                            </div>
+                            <span class="text-xs sm:text-sm font-medium leading-snug">พร้อมลุยวงการ Game & Studio</span>
+                        </div>
+                    </div>
                 </div>
 
             </div>

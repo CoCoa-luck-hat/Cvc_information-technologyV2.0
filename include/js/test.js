@@ -47,4 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
 // Initialize Lenis Smooth Scroll
 const lenis = new Lenis({
   autoRaf: true,
+  lerp: 0.1, // Ultra smooth 60fps scrolling
+});
+window.lenis = lenis;
+
+lenis.on('scroll', () => {
+  if (typeof ScrollTrigger !== 'undefined') {
+    ScrollTrigger.update();
+  }
 });

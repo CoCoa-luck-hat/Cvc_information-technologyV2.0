@@ -35,6 +35,9 @@
     box-shadow: none !important;
     outline: none !important;
     will-change: transform !important;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
 }
 
 #preloader-curtain-bottom {
@@ -49,6 +52,9 @@
     box-shadow: none !important;
     outline: none !important;
     will-change: transform !important;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
 }
 
 #preloader-canvas {

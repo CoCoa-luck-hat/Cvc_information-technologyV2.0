@@ -15,9 +15,9 @@
             <div class="lg:col-span-5 flex flex-col space-y-6">
                 <a href="index.php" class="flex items-center space-x-3 w-max hover:opacity-90 transition-opacity" data-magnetic>
                     <div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 shadow-lg relative group overflow-hidden">
-                        <!-- Red glow behind logo -->
-                        <div class="absolute -inset-1 bg-primary/20 rounded-full blur-xl group-hover:bg-primary/40 transition"></div>
-                        <img src="02_design/Logo-it2.png" class="w-10 h-10 object-contain relative z-10" alt="IT Logo">
+                        <!-- Rotating Red Aura Ring (4s) -->
+                        <div class="footer-rotating-aura"></div>
+                        <img src="02_design/Logo-it2.png" class="w-10 h-10 object-contain relative z-10 transition-transform duration-300 group-hover:scale-110" alt="IT Logo">
                     </div>
                     <div class="flex flex-col">
                         <span class="text-white font-bold text-lg leading-tight tracking-wide">เทคโนโลยีสารสนเทศ CVC</span>
@@ -132,6 +132,6 @@
 <!-- Footer End -->
 
 <!-- Back to Top (Awwwards Magnetic Style) -->
-<a href="#" class="fixed right-8 bottom-8 w-12 h-12 bg-white/5 hover:bg-primary border border-white/10 hover:border-transparent text-primary hover:text-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 z-50 back-to-top hidden" onclick="if(window.lenis){window.lenis.scrollTo(0); return false;}" data-magnetic>
-    <i class="fa fa-arrow-up text-sm"></i>
+<a href="#" class="fixed right-8 bottom-8 w-12 h-12 bg-white/5 hover:bg-primary border border-white/10 hover:border-transparent text-primary hover:text-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 z-50 back-to-top hidden" onclick="if(window.lenis){window.lenis.scrollTo(0); return false;}" data-magnetic aria-label="Back to top">
+    <i class="fas fa-arrow-up text-sm leading-none m-0 p-0"></i>
 </a>

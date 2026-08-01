@@ -22,15 +22,23 @@
 
         const hidePreloader = () => {
             if (animFrameId) cancelAnimationFrame(animFrameId);
-            if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
             document.body.style.overflow = '';
             
-            // Refresh layout and ScrollTrigger after preloader closes
-            window.dispatchEvent(new Event('resize'));
-            if (typeof ScrollTrigger !== 'undefined') {
-                setTimeout(() => {
-                    ScrollTrigger.refresh();
-                }, 100);
+            if (overlay) {
+                gsap.to(overlay, {
+                    opacity: 0,
+                    duration: 0.25,
+                    ease: 'power2.inOut',
+                    onComplete: () => {
+                        if (overlay && overlay.parentNode) {
+                            overlay.parentNode.removeChild(overlay);
+                        }
+                        window.dispatchEvent(new Event('resize'));
+                        if (typeof ScrollTrigger !== 'undefined') {
+                            ScrollTrigger.refresh();
+                        }
+                    }
+                });
             }
         };
 
@@ -157,12 +165,25 @@
             ease: 'power3.out'
         }, '<');
 
-        // 6. Hold & Smooth Content Zoom Exit
+        // 6. Hold & Smooth Hardware-Accelerated Curtain Reveal
         tl.to(contentBox, { scale: 1.04, duration: 0.35, ease: 'power1.inOut' }, '+=0.35')
           .to(contentBox, { opacity: 0, scale: 0.9, duration: 0.4, ease: 'power2.in' }, '+=0.05')
           .to(canvas, { opacity: 0, duration: 0.3 }, '-=0.3')
-          .to(curtainTop, { yPercent: -100, duration: 0.85, ease: 'power4.inOut' }, '-=0.1')
-          .to(curtainBottom, { yPercent: 100, duration: 0.85, ease: 'power4.inOut' }, '<');
+          .to(curtainTop, {
+              yPercent: -100,
+              duration: 1.2,
+              ease: 'power2.inOut',
+              force3D: true,
+              onStart: () => {
+                  document.body.style.overflow = '';
+              }
+          }, '-=0.1')
+          .to(curtainBottom, {
+              yPercent: 100,
+              duration: 1.2,
+              ease: 'power2.inOut',
+              force3D: true
+          }, '<');
     };
 
     if (document.readyState === 'loading') {
