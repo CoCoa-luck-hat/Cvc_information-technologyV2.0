@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /it_2025_3/
+
+    # Do not rewrite existing files, directories, or symbolic links
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Route all other URLs to index.php with route parameter
+    RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]
+</IfModule>

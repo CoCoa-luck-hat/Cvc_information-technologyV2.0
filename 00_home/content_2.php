@@ -19,7 +19,7 @@
                 <div class="panorama-img-wrapper">
                     <img src="02_design/blog-6.jpg" alt="สายอาชีพ จบแล้วมีงานทำรองรับ">
                 </div>
-                <div class="flex justify-between items-center px-2 mt-4">
+                <div class="hidden md:flex justify-between items-center px-2 mt-4">
                     <h4 class="text-xl md:text-2xl font-bold text-gray-900 leading-tight">High-Demand Careers</h4>
                     <span class="text-sm font-bold text-primary tracking-widest ml-4">01</span>
                 </div>
@@ -30,7 +30,7 @@
                 <div class="panorama-img-wrapper">
                     <img src="02_design/blog-7.jpg" alt="ครู/อาจารย์เข้าถึงง่าย พร้อมให้คำปรึกษา">
                 </div>
-                <div class="flex justify-between items-center px-2 mt-4">
+                <div class="hidden md:flex justify-between items-center px-2 mt-4">
                     <h4 class="text-xl md:text-2xl font-bold text-gray-900 leading-tight">Personal Mentorship</h4>
                     <span class="text-sm font-bold text-primary tracking-widest ml-4">02</span>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="panorama-img-wrapper">
                     <img src="02_design/blog-8.jpg" alt="เรียนแบบลงมือทำจริง">
                 </div>
-                <div class="flex justify-between items-center px-2 mt-4">
+                <div class="hidden md:flex justify-between items-center px-2 mt-4">
                     <h4 class="text-xl md:text-2xl font-bold text-gray-900 leading-tight">Practical Learning</h4>
                     <span class="text-sm font-bold text-primary tracking-widest ml-4">03</span>
                 </div>
@@ -52,7 +52,7 @@
                 <div class="panorama-img-wrapper">
                     <img src="02_design/blog-9.jpg" alt="สังคมเปิดกว้าง เป็นตัวเองได้เต็มที่">
                 </div>
-                <div class="flex justify-between items-center px-2 mt-4">
+                <div class="hidden md:flex justify-between items-center px-2 mt-4">
                     <h4 class="text-xl md:text-2xl font-bold text-gray-900 leading-tight">Inclusive Culture</h4>
                     <span class="text-sm font-bold text-primary tracking-widest ml-4">04</span>
                 </div>
@@ -63,7 +63,7 @@
                 <div class="panorama-img-wrapper">
                     <img src="02_design/blog-10.jpg" alt="กิจกรรมแน่นมาก ไม่เหงาแน่นอน">
                 </div>
-                <div class="flex justify-between items-center px-2 mt-4">
+                <div class="hidden md:flex justify-between items-center px-2 mt-4">
                     <h4 class="text-xl md:text-2xl font-bold text-gray-900 leading-tight">Vibrant Campus Life</h4>
                     <span class="text-sm font-bold text-primary tracking-widest ml-4">05</span>
                 </div>
@@ -74,7 +74,7 @@
                 <div class="panorama-img-wrapper">
                     <img src="02_design/blog-11.jpg" alt="สร้างสรรค์ผลงานที่ยอดเยี่ยม">
                 </div>
-                <div class="flex justify-between items-center px-2 mt-4">
+                <div class="hidden md:flex justify-between items-center px-2 mt-4">
                     <h4 class="text-xl md:text-2xl font-bold text-gray-900 leading-tight">Outstanding Innovation</h4>
                     <span class="text-sm font-bold text-primary tracking-widest ml-4">06</span>
                 </div>

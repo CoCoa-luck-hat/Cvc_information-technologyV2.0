@@ -1228,6 +1228,27 @@ body.preloader-active {
   will-change: transform;
 }
 
+.section-border.is-steps-bottom {
+  z-index: 99 !important;
+  position: absolute !important;
+  bottom: -118px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 121px !important;
+  margin: 0 !important;
+  display: block !important;
+  pointer-events: none !important;
+  overflow: visible !important;
+}
+
+.section-border-svg-bottom {
+  width: 100% !important;
+  height: 121px !important;
+  display: block !important;
+  transform-origin: center top !important;
+  will-change: transform;
+}
+
 /* Steps Title & Typography */
 .steps-title {
   z-index: 1;
@@ -1651,6 +1672,29 @@ body.preloader-active {
   text-align: center !important;
   z-index: 10 !important;
   pointer-events: none !important;
+  padding: 0 1rem !important;
+}
+
+#koraTitleLine1,
+#koraTitleLine2 {
+  font-size: clamp(2rem, 8.5vw, 4.5rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.02em !important;
+}
+
+@media (max-width: 1023px) {
+  #koraTitleBox .max-w-5xl {
+    align-items: center !important;
+  }
+  #koraTitleLine1,
+  #koraTitleLine2 {
+    text-align: center !important;
+    align-self: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    font-size: clamp(2.1rem, 8.5vw, 3.2rem) !important;
+  }
 }
 
 #koraCardsContainer {
@@ -1963,36 +2007,97 @@ input[type="submit"],
 
   .section_steps {
     margin-top: 0 !important;
-    padding-top: 1rem !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding-top: 6rem !important;
+    padding-bottom: 6rem !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    background-color: #7f1d1d !important;
+    overflow: visible !important;
   }
 
   .section-border.is-steps {
-    top: -35px !important;
-    height: 36px !important;
+    display: block !important;
+    position: absolute !important;
+    top: -37px !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 38px !important;
+    pointer-events: none !important;
+    z-index: 50 !important;
   }
 
   .section-border-svg {
-    height: 36px !important;
+    display: block !important;
+    width: 100% !important;
+    height: 38px !important;
+  }
+
+  .section-border.is-steps-bottom {
+    display: block !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 38px !important;
+    margin-top: -1px !important;
+    pointer-events: none !important;
+    z-index: 50 !important;
+  }
+
+  .section-border-svg-bottom {
+    display: block !important;
+    width: 100% !important;
+    height: 38px !important;
+  }
+
+  .steps-title {
+    padding-top: 0 !important;
+    padding-bottom: 1.75rem !important;
+    margin-top: 0 !important;
   }
 
   .steps-title .padding-160px {
-    padding-top: 20px !important;
+    padding-top: 0 !important;
+  }
+
+  .heading-xl {
+    font-size: clamp(1.65rem, 6.5vw, 2.4rem) !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    text-align: center !important;
+    line-height: 1.25 !important;
+    margin-bottom: 0.5rem !important;
   }
 
   /* Mobile Touch Carousel Slider Styling */
   #mobileStepsSlider {
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
     position: relative !important;
     z-index: 30 !important;
-    margin-top: 1rem !important;
-    margin-bottom: 2.5rem !important;
-    padding-bottom: 1.5rem !important;
+    width: 100% !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    gap: 1.75rem !important;
   }
 
   .mobile-steps-track::-webkit-scrollbar {
     display: none !important;
   }
   .mobile-steps-track {
+    width: 100% !important;
+    padding: 0.5rem 8vw !important;
+    gap: 16px !important;
+    scroll-padding: 0 8vw !important;
     overflow-x: auto !important;
     -ms-overflow-style: none !important;
     scrollbar-width: none !important;
@@ -2000,33 +2105,22 @@ input[type="submit"],
     -webkit-overflow-scrolling: touch !important;
   }
 
-  /* Prevent Section Ribbons from bleeding over Mobile Slider & Scale Ribbons for Mobile */
+  .mobile-step-card {
+    width: 84vw !important;
+    max-width: 360px !important;
+    border-radius: 24px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  /* Hide Section Ribbons on Mobile */
   .section_ribbons {
-    margin-top: 0 !important;
-    z-index: 10 !important;
-    padding-top: 2.5rem !important;
-    padding-bottom: 3rem !important;
+    display: none !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
     overflow: hidden !important;
-  }
-
-  .ribbon {
-    min-height: 68px !important;
-    padding: 0.75rem 0 !important;
-    gap: 1rem !important;
-  }
-
-  .ribbon-title {
-    font-size: clamp(0.85rem, 3.6vw, 1.25rem) !important;
-    letter-spacing: -0.01em !important;
-  }
-
-  .ribbon-rating {
-    gap: 0.2rem !important;
-  }
-
-  .ribbon-rating_svg {
-    width: 1.15rem !important;
-    height: 1.15rem !important;
+    visibility: hidden !important;
   }
 
   /* Horizontal Panorama Gallery Vertical Card Stack on Mobile */
@@ -2083,7 +2177,43 @@ input[type="submit"],
     text-align: center !important;
   }
 
-  /* Career Reveal Mobile Spacing */
+  /* Career Reveal Mobile Spacing & Pinned Wipe Layout */
+  #careers-reveal-section {
+    background-color: #f8f9fa !important;
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  .reveal-sticky {
+    height: 100vh !important;
+    height: 100svh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1rem !important;
+    overflow: hidden !important;
+  }
+
+  .reveal-layer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .reveal-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 380px !important;
+    margin: 0 auto !important;
+  }
+
   .kora-card {
     padding: 20px 16px !important;
     border-radius: 20px !important;
@@ -2101,4 +2231,71 @@ input[type="submit"],
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
+}
+
+/* ==========================================================================
+   Cinematic Dark Blinds Page Transition (Awwwards Style)
+   ========================================================================== */
+#cinematic-blinds-wrapper {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100svh !important;
+  display: flex !important;
+  z-index: 999999 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+}
+
+#cinematic-blinds-wrapper.active {
+  pointer-events: all !important;
+}
+
+.cinematic-blind-strip {
+  flex: 1 !important;
+  height: 100% !important;
+  background: #0a0c10 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.04) !important;
+  transform: scaleY(0);
+  transform-origin: top;
+  will-change: transform;
+}
+
+.cinematic-blinds-center {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+  opacity: 0;
+}
+
+.cinematic-blinds-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(183, 22, 22, 0.15);
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 35px rgba(220, 38, 38, 0.4);
+  padding: 10px;
+}
+
+.cinematic-blinds-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+body.transition-lock {
+  pointer-events: none !important;
+  cursor: wait !important;
 }

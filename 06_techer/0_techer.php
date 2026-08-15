@@ -19,7 +19,7 @@
 
                                  <!-- ลิ้งคลิกไปหน้าประวัติส่วนตัวคนที่ 1 --> 
                                  <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4"
-                                     href="index_it.php?click=1_thawatchai"><i class="fa fa-graduation-cap"></i></a>
+                                     href="index.php?click=1_thawatchai"><i class="fa fa-graduation-cap"></i></a>
                              </div>
                          </div>
                          <div class="team-title p-4 pb-3">
@@ -40,7 +40,7 @@
                                  alt="">
                              <div class="team-icon">
 
-                                 <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4" href="index_it.php?click=3_plaopilart"><i
+                                 <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4" href="index.php?click=3_plaopilart"><i
                                          class="fa fa-graduation-cap"></i></a>
                              </div>
                          </div>
@@ -61,7 +61,7 @@
                                  alt="">
                              <div class="team-icon">
                                  <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4"
-                                     href="index_it.php?click=2_piyamat"><i class="fa fa-graduation-cap"></i></a>
+                                     href="index.php?click=2_piyamat"><i class="fa fa-graduation-cap"></i></a>
                              </div>
                          </div>
                          <div class="team-title p-4 pb-3">
@@ -80,7 +80,7 @@
                              <img src="03_photo/3.3_teacher/crop2_เจม.png" class="img-fluid rounded-top w-100" alt="">
                              <div class="team-icon">
                                  <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4"
-                                     href="index_it.php?click=7_jam"><i class="fa fa-graduation-cap"></i></a>
+                                     href="index.php?click=7_jam"><i class="fa fa-graduation-cap"></i></a>
                              </div>
                          </div>
                          <div class="team-title p-4 pb-3">
@@ -102,7 +102,7 @@
                                      href="https://www.youtube.com/@t-rodsathon/videos"><i
                                          class="fab fa-youtube "></i></a>
                                  <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4"
-                                     href="index_it.php?click=4_rodsathon"><i class="fa fa-graduation-cap"></i></a>
+                                     href="index.php?click=4_rodsathon"><i class="fa fa-graduation-cap"></i></a>
                              </div>
                          </div>
                          <div class="team-title p-4 pb-3">
@@ -122,7 +122,7 @@
                                  alt="">
                              <div class="team-icon">
                                  <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4"
-                                     href="index_it.php?click=5_teerapat"><i class="fa fa-graduation-cap"></i></a>
+                                     href="index.php?click=5_teerapat"><i class="fa fa-graduation-cap"></i></a>
                              </div>
                          </div>
                          <div class="team-title p-4 pb-3">

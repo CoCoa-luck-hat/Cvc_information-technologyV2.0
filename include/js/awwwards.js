@@ -37,14 +37,170 @@ function createInteractiveElements() {
     // Custom Cursor Elements disabled per user request
     document.body.classList.remove("cursor-active");
 
-    // Curtain Wipe Element
+    // Cinematic Dark Blinds Transition Container (6 Strips + Center Logo)
+    let wrapper = document.getElementById("cinematic-blinds-wrapper");
+    if (!wrapper) {
+        wrapper = document.createElement("div");
+        wrapper.id = "cinematic-blinds-wrapper";
+        for (let i = 0; i < 6; i++) {
+            const strip = document.createElement("div");
+            strip.className = "cinematic-blind-strip";
+            wrapper.appendChild(strip);
+        }
+        const centerBox = document.createElement("div");
+        centerBox.className = "cinematic-blinds-center";
+        centerBox.innerHTML = `
+            <div class="cinematic-blinds-logo">
+                <img src="02_design/Logo-it-04.png" alt="IT Logo">
+            </div>
+        `;
+        wrapper.appendChild(centerBox);
+        document.body.appendChild(wrapper);
+    }
 
-    if (!document.getElementById("transition-curtain")) {
-        const curtain = document.createElement("div");
-        curtain.id = "transition-curtain";
-        document.body.appendChild(curtain);
+    // Check if we came from a full-page transition
+    if (sessionStorage.getItem("cvc_page_transition_active") === "1") {
+        sessionStorage.removeItem("cvc_page_transition_active");
+        wrapper.classList.add("active");
+        const strips = wrapper.querySelectorAll(".cinematic-blind-strip");
+        const centerBox = wrapper.querySelector(".cinematic-blinds-center");
+        if (typeof gsap !== "undefined" && strips.length) {
+            gsap.set(strips, { scaleY: 1, transformOrigin: "bottom" });
+            if (centerBox) gsap.set(centerBox, { opacity: 1, scale: 1 });
+            setTimeout(() => {
+                triggerCinematicBlindsIn();
+            }, 60);
+        } else {
+            resetCinematicBlinds();
+        }
+    } else {
+        resetCinematicBlinds();
     }
 }
+
+/**
+ * Safely resets and hides the transition blinds overlay
+ */
+function resetCinematicBlinds() {
+    document.body.classList.remove("transition-lock");
+    const wrapper = document.getElementById("cinematic-blinds-wrapper");
+    if (wrapper) {
+        wrapper.classList.remove("active");
+        const strips = wrapper.querySelectorAll(".cinematic-blind-strip");
+        const centerBox = wrapper.querySelector(".cinematic-blinds-center");
+        if (typeof gsap !== "undefined") {
+            if (strips.length) {
+                gsap.killTweensOf(strips);
+                gsap.set(strips, { scaleY: 0, transformOrigin: "top" });
+            }
+            if (centerBox) {
+                gsap.killTweensOf(centerBox);
+                gsap.set(centerBox, { opacity: 0 });
+            }
+        } else {
+            strips.forEach(s => s.style.transform = "scaleY(0)");
+            if (centerBox) centerBox.style.opacity = "0";
+        }
+    }
+}
+
+/**
+ * Triggers Cinematic Dark Blinds closing transition (out)
+ */
+function triggerCinematicBlindsOut(callback) {
+    document.body.classList.add("transition-lock");
+    const wrapper = document.getElementById("cinematic-blinds-wrapper");
+    if (!wrapper) {
+        if (callback) callback();
+        return;
+    }
+    wrapper.classList.add("active");
+    const strips = wrapper.querySelectorAll(".cinematic-blind-strip");
+    const centerBox = wrapper.querySelector(".cinematic-blinds-center");
+
+    if (typeof gsap !== "undefined" && strips.length) {
+        gsap.killTweensOf(strips);
+        if (centerBox) gsap.killTweensOf(centerBox);
+
+        gsap.set(strips, { transformOrigin: "top" });
+        if (centerBox) gsap.set(centerBox, { opacity: 0, scale: 0.8 });
+
+        const tl = gsap.timeline({
+            onComplete: () => {
+                if (callback) callback();
+            }
+        });
+
+        tl.fromTo(strips,
+            { scaleY: 0 },
+            {
+                scaleY: 1,
+                duration: 0.4,
+                stagger: 0.04,
+                ease: "power4.inOut"
+            }
+        );
+
+        if (centerBox) {
+            tl.to(centerBox, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.3,
+                ease: "back.out(1.4)"
+            }, "-=0.25");
+        }
+    } else {
+        if (callback) callback();
+    }
+}
+
+/**
+ * Triggers Cinematic Dark Blinds opening transition (in)
+ */
+function triggerCinematicBlindsIn() {
+    const wrapper = document.getElementById("cinematic-blinds-wrapper");
+    if (!wrapper) {
+        resetCinematicBlinds();
+        return;
+    }
+    const strips = wrapper.querySelectorAll(".cinematic-blind-strip");
+    const centerBox = wrapper.querySelector(".cinematic-blinds-center");
+
+    if (typeof gsap !== "undefined" && strips.length) {
+        gsap.killTweensOf(strips);
+        if (centerBox) gsap.killTweensOf(centerBox);
+
+        const tl = gsap.timeline({
+            onComplete: () => {
+                resetCinematicBlinds();
+            }
+        });
+
+        if (centerBox) {
+            tl.to(centerBox, {
+                opacity: 0,
+                scale: 1.15,
+                duration: 0.25,
+                ease: "power2.in"
+            });
+        }
+
+        tl.set(strips, { transformOrigin: "bottom" })
+          .to(strips, {
+            scaleY: 0,
+            duration: 0.45,
+            stagger: 0.04,
+            ease: "power4.inOut"
+        }, centerBox ? "-=0.1" : 0);
+    } else {
+        resetCinematicBlinds();
+    }
+}
+
+// BFCache (Back/Forward Navigation) Safety Trigger
+window.addEventListener("pageshow", () => {
+    resetCinematicBlinds();
+});
 
 /**
  * Smart Hide-on-Scroll and Floating Capsule Navbar transition
@@ -105,8 +261,11 @@ function initCareersWipe() {
                 pin: revealSticky,
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 0.5,
-                anticipatePin: 1
+                scrub: true,
+                anticipatePin: 0,
+                fastScrollEnd: true,
+                preventOverlaps: true,
+                invalidateOnRefresh: true
             }
         });
 
@@ -190,12 +349,12 @@ function initGalleryHorizontal() {
             ease: "none",
             duration: 0.75
         })
-        // Card 06 Hold Phase (75% -> 100% of section height: stays 100% locked and steady)
-        .to(track, {
-            x: getScrollAmount,
-            ease: "none",
-            duration: 0.25
-        });
+            // Card 06 Hold Phase (75% -> 100% of section height: stays 100% locked and steady)
+            .to(track, {
+                x: getScrollAmount,
+                ease: "none",
+                duration: 0.25
+            });
 
         // Entrance Staggered Reveal Animation for Gallery Header and Panorama Cards
         const headerContainer = section.querySelector(".gallery-header-anim");
@@ -525,6 +684,9 @@ function initMagneticElements() {
  * PJAX Custom Page Transition
  */
 function initPageTransitions() {
+    // Ensure blinds overlay is reset on init
+    resetCinematicBlinds();
+
     document.addEventListener("click", (e) => {
         const link = e.target.closest("a");
 
@@ -558,54 +720,17 @@ function initPageTransitions() {
         // Valid internal link: trigger page transition
         e.preventDefault();
 
-        // Lock actions during swap
-        document.body.classList.add("transition-lock");
-
-        const curtain = document.getElementById("transition-curtain");
-        if (curtain) {
-            curtain.classList.add("active");
-            // Slide Curtain UP
-            gsap.to(curtain, {
-                yPercent: -100,
-                duration: 0.6,
-                ease: "power3.inOut",
-                onStart: () => {
-                    // Reset curtain position to bottom if it was slid up
-                    gsap.set(curtain, { yPercent: 100 });
-                }
-            });
-
-            gsap.to(curtain, {
-                yPercent: 0,
-                duration: 0.6,
-                ease: "power3.inOut",
-                onComplete: () => {
-                    // Fetch new page content
-                    performPageSwap(url);
-                }
-            });
-        } else {
-            // Fallback if no curtain
+        // Trigger Cinematic Dark Blinds Out transition
+        triggerCinematicBlindsOut(() => {
             performPageSwap(url);
-        }
+        });
     });
 
     // Handle browser back/forward buttons
     window.addEventListener("popstate", () => {
-        const curtain = document.getElementById("transition-curtain");
-        if (curtain) {
-            gsap.set(curtain, { yPercent: 100 });
-            gsap.to(curtain, {
-                yPercent: 0,
-                duration: 0.5,
-                ease: "power3.inOut",
-                onComplete: () => {
-                    performPageSwap(window.location.href, false);
-                }
-            });
-        } else {
+        triggerCinematicBlindsOut(() => {
             performPageSwap(window.location.href, false);
-        }
+        });
     });
 }
 
@@ -625,6 +750,9 @@ function performPageSwap(url, pushToHistory = true) {
             if (newContainer && currentContainer) {
                 // Update DOM content
                 currentContainer.innerHTML = newContainer.innerHTML;
+
+                // Execute inline & external scripts inside swapped container
+                executeContainerScripts(currentContainer);
 
                 // Update page metadata
                 document.title = newDoc.title;
@@ -650,46 +778,82 @@ function performPageSwap(url, pushToHistory = true) {
                     history.pushState(null, "", url);
                 }
 
-                // Scroll to top
-                if (typeof lenis !== "undefined") {
-                    lenis.scrollTo(0, { immediate: true });
-                } else {
+                // Force immediate synchronous scroll reset to top
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+                if (typeof window.lenis !== "undefined" && window.lenis) {
+                    window.lenis.scroll = 0;
+                    if (typeof window.lenis.scrollTo === "function") {
+                        window.lenis.scrollTo(0, { immediate: true });
+                    }
+                }
+
+                // Execute scripts and re-init animations AFTER scroll position is strictly guaranteed 0
+                requestAnimationFrame(() => {
                     window.scrollTo(0, 0);
-                }
+                    if (typeof window.lenis !== "undefined" && window.lenis && typeof window.lenis.scrollTo === "function") {
+                        window.lenis.scrollTo(0, { immediate: true });
+                    }
 
-                // Re-initialize page scripts
-                reinitPageScripts();
+                    // Re-initialize page scripts
+                    reinitPageScripts();
 
-                // Animate dynamic entry fade-in
-                gsap.fromTo(currentContainer,
-                    { opacity: 0, y: 15 },
-                    { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
-                );
-
-                // Slide Curtain DOWN (wipe out)
-                const curtain = document.getElementById("transition-curtain");
-                if (curtain) {
-                    gsap.to(curtain, {
-                        yPercent: -100,
-                        duration: 0.6,
-                        ease: "power3.inOut",
-                        onComplete: () => {
-                            document.body.classList.remove("transition-lock");
-                            curtain.classList.remove("active");
+                    // Animate dynamic entry camera zoom & fade-in (Opacity & subtle scale only)
+                    gsap.fromTo(currentContainer,
+                        { opacity: 0, scale: 0.98 },
+                        {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 0.4,
+                            ease: "power3.out",
+                            onComplete: () => {
+                                gsap.set(currentContainer, { clearProps: "all" });
+                                if (typeof ScrollTrigger !== "undefined") {
+                                    ScrollTrigger.refresh(true);
+                                }
+                            }
                         }
-                    });
-                } else {
-                    document.body.classList.remove("transition-lock");
-                }
+                    );
+
+                    // Trigger Cinematic Dark Blinds In transition (Reveal page)
+                    triggerCinematicBlindsIn();
+                });
             } else {
-                // Fallback redirect if page structure doesn't match
+                // Fallback redirect if page structure doesn't match (#swup-container missing)
+                sessionStorage.setItem("cvc_page_transition_active", "1");
                 window.location.href = url;
             }
         })
         .catch(err => {
             console.error("PJAX load error: ", err);
+            resetCinematicBlinds();
             window.location.href = url;
         });
+}
+
+/**
+ * Extracts and executes all <script> tags within a dynamic container element
+ */
+function executeContainerScripts(container) {
+    if (!container) return;
+    const scripts = Array.from(container.querySelectorAll("script"));
+    scripts.forEach(oldScript => {
+        const newScript = document.createElement("script");
+        Array.from(oldScript.attributes).forEach(attr => {
+            newScript.setAttribute(attr.name, attr.value);
+        });
+        if (oldScript.src) {
+            if (!document.querySelector(`script[src="${oldScript.src}"]`)) {
+                newScript.src = oldScript.src;
+                document.head.appendChild(newScript);
+            }
+        } else {
+            newScript.textContent = oldScript.textContent;
+            document.body.appendChild(newScript);
+            document.body.removeChild(newScript);
+        }
+    });
 }
 
 /**
@@ -763,18 +927,99 @@ function reinitPageScripts() {
         ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     }
 
+    // Force scroll top 0 again before constructing section ScrollTriggers
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    if (window.lenis) {
+        window.lenis.scroll = 0;
+        if (typeof window.lenis.scrollTo === "function") {
+            window.lenis.scrollTo(0, { immediate: true });
+        }
+    }
+
     // 7. Re-apply card tilt interactions in test.js
     if (typeof initTiltEffect === "function") {
         initTiltEffect();
     }
 
-    // 8. Re-apply all scroll triggers & text splitting
-    initGlobalBackgroundParallax();
-    initHeroParallax();
-    init3DCardStacking();
-    initTextSplitting();
-    initCareersWipe();
-    initGalleryHorizontal();
+    // 8. Re-apply all scroll triggers & text splitting for Home & Subpages
+    if (typeof initGlobalBackgroundParallax === "function") initGlobalBackgroundParallax();
+    if (typeof initHeroParallax === "function") initHeroParallax();
+    if (typeof initVideoHeroBlinds === "function") initVideoHeroBlinds();
+    if (typeof initStorytellingTransition === "function") initStorytellingTransition();
+    if (typeof init3DCardStacking === "function") init3DCardStacking();
+    if (typeof initTextSplitting === "function") initTextSplitting();
+    if (typeof initHeadingFadeAnimations === "function") initHeadingFadeAnimations();
+    if (typeof initCareersWipe === "function") initCareersWipe();
+    if (typeof initKoraComparisonScroll === "function") initKoraComparisonScroll();
+    if (typeof initGalleryHorizontal === "function") initGalleryHorizontal();
+    if (typeof init3DSpatialPortalTransitions === "function") init3DSpatialPortalTransitions();
+    if (typeof initStepsPinScroll === "function") initStepsPinScroll();
+    if (typeof initRibbonsMomentumHover === "function") initRibbonsMomentumHover();
+
+    // 9. Re-initialize subpage sections strictly in top-to-bottom DOM hierarchy order
+    // Section 1: Hero Section
+    if (typeof window.initMwgHeroSection === "function") {
+        const heroSec = document.querySelector(".h-hero");
+        if (heroSec) {
+            delete heroSec.dataset.initialized;
+            window.initMwgHeroSection(true);
+        }
+    }
+
+    // Section 2: PVC Fees & Benefits Orbit Wheel
+    if (typeof initPvcHTextsAndCards === "function") initPvcHTextsAndCards();
+
+    // Section 3: PVC Curriculum 3D Card Stacking Sequence
+    if (typeof window.initSec3Sequence === "function") {
+        window.initSec3Sequence();
+    }
+
+    // Section 5: Admission Monster Text Horizontal Scroll & Hero CTA Card
+    if (typeof initMwgHLatestAndPricing === "function") initMwgHLatestAndPricing();
+
+    // 10. Refresh Lenis Smooth Scroll & ScrollTrigger calculations after dynamic DOM updates
+    if (window.lenis && typeof window.lenis.resize === "function") {
+        window.lenis.resize();
+    }
+
+    if (typeof ScrollTrigger !== "undefined") {
+        ScrollTrigger.sort();
+        ScrollTrigger.refresh(true);
+        requestAnimationFrame(() => {
+            ScrollTrigger.sort();
+            ScrollTrigger.refresh(true);
+        });
+        setTimeout(() => {
+            ScrollTrigger.sort();
+            ScrollTrigger.refresh(true);
+        }, 200);
+    }
+
+    const newImages = Array.from(document.querySelectorAll("#swup-container img"));
+    if (newImages.length) {
+        let loadedImgCount = 0;
+        const checkAllImagesLoaded = () => {
+            loadedImgCount++;
+            if (loadedImgCount >= newImages.length || loadedImgCount >= 4) {
+                if (window.lenis && typeof window.lenis.resize === "function") {
+                    window.lenis.resize();
+                }
+                if (typeof ScrollTrigger !== "undefined") {
+                    ScrollTrigger.refresh();
+                }
+            }
+        };
+        newImages.forEach(img => {
+            if (img.complete) {
+                checkAllImagesLoaded();
+            } else {
+                img.addEventListener("load", checkAllImagesLoaded, { once: true });
+                img.addEventListener("error", checkAllImagesLoaded, { once: true });
+            }
+        });
+    }
 }
 
 /**
@@ -871,77 +1116,77 @@ function init3DCardStacking() {
                 );
         }
 
-        // 2. 3D Card Deck Stacking (Dynamically Centered Vertically on Mobile)
-        const isDesktop = window.innerWidth >= 768;
-        const animDistance = isDesktop ? 450 : 320;
-
-        // Calculate dynamic top offset per card to center it vertically on mobile screens
+        // 2. 3D Card Deck Stacking (Dynamically Centered Vertically on Desktop & Mobile)
         const getTopOffset = (cardEl) => {
-            if (isDesktop) return 100;
             const vh = window.innerHeight;
-            const cardH = cardEl ? cardEl.offsetHeight : 520;
-            return Math.max(85, Math.round((vh - cardH) / 2));
+            const cardH = cardEl && cardEl.offsetHeight ? cardEl.offsetHeight : 450;
+            const minOffset = window.innerWidth < 768 ? 65 : 110;
+            return Math.max(minOffset, Math.round((vh - cardH) / 2));
         };
+
+        const animDistance = Math.min(480, Math.round(window.innerHeight * 0.5));
 
         // Set explicit initial states and per-card dynamic topOffset pinning
         cards.forEach((card, index) => {
-            const topOffset = getTopOffset(card);
-
             gsap.set(card, {
-                transformOrigin: "center top",
+                transformOrigin: "center center",
                 opacity: index === 0 ? 1 : 0,
-                y: index === 0 ? 0 : 70,
                 scale: index === 0 ? 1 : 0.96
             });
 
             // Pin each card at its dynamic topOffset until the end of majorsSection
             ScrollTrigger.create({
                 trigger: card,
-                start: `top ${topOffset}px`,
+                start: () => `top ${getTopOffset(card)}px`,
                 endTrigger: "#majorsSection",
                 end: "bottom bottom",
                 pin: true,
                 pinSpacing: false,
-                anticipatePin: 1,
                 invalidateOnRefresh: true
             });
         });
 
-        // Entrance & Exit Transitions (Frame-Accurate 1:1 Scrub)
+        // Entrance & Exit Transitions (Frame-Accurate 1:1 Natural Velocity Scrub)
         cards.forEach((card, index) => {
             const nextCard = cards[index + 1];
             if (nextCard) {
-                const nextTopOffset = getTopOffset(nextCard);
-
-                // Next card slides in and fades in 0 -> 1 to its centered topOffset
+                // Next card fades in 0 -> 1 & scales 0.96 -> 1 with natural 1.0x scroll velocity as it reaches topOffset
                 gsap.to(nextCard, {
                     opacity: 1,
-                    y: 0,
                     scale: 1,
                     ease: "none",
                     scrollTrigger: {
                         trigger: nextCard,
-                        start: `top ${nextTopOffset + animDistance}px`,
-                        end: `top ${nextTopOffset}px`,
+                        start: () => `top ${getTopOffset(nextCard) + animDistance}px`,
+                        end: () => `top ${getTopOffset(nextCard)}px`,
                         scrub: true,
                         invalidateOnRefresh: true
                     }
                 });
 
-                // Current card scales back to 0.88, moves up (-30px), and fades out 1 -> 0
+                // Current card recedes smoothly (scale 1 -> 0.94, opacity 1 -> 0)
                 gsap.to(card, {
-                    scale: 0.88,
-                    y: -30,
+                    scale: 0.94,
                     opacity: 0,
                     ease: "none",
                     scrollTrigger: {
                         trigger: nextCard,
-                        start: `top ${nextTopOffset + animDistance}px`,
-                        end: `top ${nextTopOffset}px`,
+                        start: () => `top ${getTopOffset(nextCard) + animDistance}px`,
+                        end: () => `top ${getTopOffset(nextCard)}px`,
                         scrub: true,
                         invalidateOnRefresh: true
                     }
                 });
+            }
+        });
+
+        // Trigger ScrollTrigger.refresh() when images inside #majorsSection complete loading
+        const majorsImages = document.querySelectorAll("#majorsSection img");
+        majorsImages.forEach(img => {
+            if (img.complete) {
+                ScrollTrigger.refresh();
+            } else {
+                img.addEventListener("load", () => ScrollTrigger.refresh());
             }
         });
     }
@@ -1317,22 +1562,22 @@ function initStepsPinScroll() {
         if (circle1) {
             tl.fromTo(circle1,
                 { transform: "translate(10%, 0%) rotate(20deg)" },
-                { transform: "translate(-7%, 0%) rotate(5.62deg)", ease: "none", duration: 0.2 }, 0);
+                { transform: "translate(-7%, 0%) rotate(-4deg)", ease: "none", duration: 0.2 }, 0);
         }
         if (circle2) {
             tl.fromTo(circle2,
                 { transform: "translate(15%, 0%) rotate(22deg)" },
-                { transform: "translate(-3%, 0%) rotate(8.33deg)", ease: "none", duration: 0.2 }, 0);
+                { transform: "translate(-2.3%, 0%) rotate(-1.5deg)", ease: "none", duration: 0.2 }, 0);
         }
         if (circle3) {
             tl.fromTo(circle3,
                 { transform: "translate(20%, 0%) rotate(24deg)" },
-                { transform: "translate(2%, 0%) rotate(11.04deg)", ease: "none", duration: 0.2 }, 0);
+                { transform: "translate(2.3%, 0%) rotate(1.5deg)", ease: "none", duration: 0.2 }, 0);
         }
         if (circle4) {
             tl.fromTo(circle4,
                 { transform: "translate(25%, 0%) rotate(26deg)" },
-                { transform: "translate(5%, 0%) rotate(15.10deg)", ease: "none", duration: 0.2 }, 0);
+                { transform: "translate(7%, 0%) rotate(4deg)", ease: "none", duration: 0.2 }, 0);
         }
 
         // Phase 2: Rotate cards along arc while staying fixed in columns (20% to 70% of scroll)
@@ -1340,13 +1585,13 @@ function initStepsPinScroll() {
             tl.to(circle1, { transform: "translate(-7%, 0%) rotate(-6deg)", ease: "none", duration: 0.5 }, 0.2);
         }
         if (circle2) {
-            tl.to(circle2, { transform: "translate(-3%, 0%) rotate(-2deg)", ease: "none", duration: 0.5 }, 0.2);
+            tl.to(circle2, { transform: "translate(-2.3%, 0%) rotate(-2deg)", ease: "none", duration: 0.5 }, 0.2);
         }
         if (circle3) {
-            tl.to(circle3, { transform: "translate(2%, 0%) rotate(2deg)", ease: "none", duration: 0.5 }, 0.2);
+            tl.to(circle3, { transform: "translate(2.3%, 0%) rotate(2deg)", ease: "none", duration: 0.5 }, 0.2);
         }
         if (circle4) {
-            tl.to(circle4, { transform: "translate(5%, 0%) rotate(8deg)", ease: "none", duration: 0.5 }, 0.2);
+            tl.to(circle4, { transform: "translate(7%, 0%) rotate(6deg)", ease: "none", duration: 0.5 }, 0.2);
         }
 
         // Phase 3: Simultaneous Sinking Exit Animation (70% to 100% of scroll)
@@ -1354,13 +1599,13 @@ function initStepsPinScroll() {
             tl.to(circle1, { transform: "translate(-7%, 85vh) rotate(-6deg)", ease: "power1.in", duration: 0.3 }, 0.7);
         }
         if (circle2) {
-            tl.to(circle2, { transform: "translate(-3%, 85vh) rotate(-2deg)", ease: "power1.in", duration: 0.3 }, 0.7);
+            tl.to(circle2, { transform: "translate(-2.3%, 85vh) rotate(-2deg)", ease: "power1.in", duration: 0.3 }, 0.7);
         }
         if (circle3) {
-            tl.to(circle3, { transform: "translate(2%, 85vh) rotate(2deg)", ease: "power1.in", duration: 0.3 }, 0.7);
+            tl.to(circle3, { transform: "translate(2.3%, 85vh) rotate(2deg)", ease: "power1.in", duration: 0.3 }, 0.7);
         }
         if (circle4) {
-            tl.to(circle4, { transform: "translate(5%, 85vh) rotate(8deg)", ease: "power1.in", duration: 0.3 }, 0.7);
+            tl.to(circle4, { transform: "translate(7%, 85vh) rotate(6deg)", ease: "power1.in", duration: 0.3 }, 0.7);
         }
 
         // Continuous Emblem Rotation (0% to 100%)
@@ -1454,12 +1699,12 @@ function initKoraComparisonScroll() {
 
         // Card 1 starts hidden in Center
         gsap.set(cardBefore, { opacity: 0, scale: 0.95, x: 0, y: 0 });
-        
+
         // Card 2 starts hidden off to the Right
         if (cardMiddle) {
             gsap.set(cardMiddle, { opacity: 0, scale: 0.9, x: isDesktop ? 200 : 0, y: isDesktop ? 0 : shiftY });
         }
-        
+
         // Card 3 starts hidden further to the Right
         if (cardAfter) {
             gsap.set(cardAfter, { opacity: 0, scale: 0.88, x: isDesktop ? shiftX + 200 : 0, y: isDesktop ? 0 : shiftY * 2 });
@@ -1476,67 +1721,86 @@ function initKoraComparisonScroll() {
             }
         });
 
-        // 1. Phase 1: Entrance Hold (0% -> 10%) - Split Title lines at rest
-        tl.to(titleLine1, { opacity: 1, x: 0, y: 0, duration: 0.10 }, 0)
-            .to(titleLine2, { opacity: 1, x: 0, y: 0, duration: 0.10 }, 0)
+        if (isDesktop) {
+            // Desktop: 3-column simultaneous reveal
+            tl.to(titleLine1, { opacity: 1, x: 0, y: 0, duration: 0.10 }, 0)
+                .to(titleLine2, { opacity: 1, x: 0, y: 0, duration: 0.10 }, 0)
+                .to(titleLine1, {
+                    x: -splitTextShift,
+                    y: -180,
+                    opacity: 0,
+                    ease: "power2.inOut",
+                    duration: 0.25
+                }, 0.10)
+                .to(titleLine2, {
+                    x: splitTextShift,
+                    y: -180,
+                    opacity: 0,
+                    ease: "power2.inOut",
+                    duration: 0.25
+                }, 0.10)
+                .to(cardBefore, {
+                    opacity: 1,
+                    scale: 1.0,
+                    x: 0,
+                    y: 0,
+                    ease: "power2.out",
+                    duration: 0.25
+                }, 0.10)
+                .to(cardBefore, {
+                    x: -shiftX,
+                    y: 0,
+                    opacity: 1,
+                    ease: "power2.inOut",
+                    duration: 0.40
+                }, 0.35);
 
-            // 2. Phase 2: Split Text Exit & Reveal Card 1 Centered (10% -> 35%)
-            .to(titleLine1, {
-                x: -splitTextShift,
-                y: -180,
-                opacity: 0,
-                ease: "power2.inOut",
-                duration: 0.25
-            }, 0.10)
-            .to(titleLine2, {
-                x: splitTextShift,
-                y: -180,
-                opacity: 0,
-                ease: "power2.inOut",
-                duration: 0.25
-            }, 0.10)
-            .to(cardBefore, {
-                opacity: 1,
-                scale: 1.0,
-                x: 0,
-                y: 0,
-                ease: "power2.out",
-                duration: 0.25
-            }, 0.10)
+            if (cardMiddle) {
+                tl.to(cardMiddle, {
+                    opacity: 1,
+                    scale: 1.0,
+                    x: 0,
+                    y: 0,
+                    ease: "power2.out",
+                    duration: 0.40
+                }, 0.35);
+            }
 
-            // 3. Phase 3: Card 1 shifts Left while Card 2 (ปวส. IT) and Card 3 (ปวส. Game Animation) slide in SIMULTANEOUSLY TOGETHER (35% -> 80%)
-            .to(cardBefore, {
-                x: isDesktop ? -shiftX : 0,
-                y: isDesktop ? 0 : -shiftY,
-                opacity: 1,
-                ease: "power2.inOut",
-                duration: 0.40
-            }, 0.35);
+            if (cardAfter) {
+                tl.to(cardAfter, {
+                    opacity: 1,
+                    scale: 1.0,
+                    x: shiftX,
+                    y: 0,
+                    ease: "power2.out",
+                    duration: 0.40
+                }, 0.35);
+            }
 
-        if (cardMiddle) {
-            tl.to(cardMiddle, {
-                opacity: 1,
-                scale: 1.0,
-                x: 0,
-                y: 0,
-                ease: "power2.out",
-                duration: 0.40
-            }, 0.35);
+            tl.to({}, { duration: 0.20 });
+        } else {
+            // Mobile: Sequential Card Deck Stacking (1 by 1 with zero overlap)
+            tl.to(titleLine1, { opacity: 1, duration: 0.08 }, 0)
+                .to(titleLine2, { opacity: 1, duration: 0.08 }, 0)
+                .to(titleLine1, { y: -50, opacity: 0, ease: "power2.inOut", duration: 0.15 }, 0.08)
+                .to(titleLine2, { y: -50, opacity: 0, ease: "power2.inOut", duration: 0.15 }, 0.08)
+                .to(cardBefore, { opacity: 1, scale: 1.0, x: 0, y: 0, ease: "power2.out", duration: 0.20 }, 0.12)
+                .to({}, { duration: 0.12 });
+
+            if (cardMiddle) {
+                tl.to(cardBefore, { opacity: 0, scale: 0.92, y: -40, ease: "power2.inOut", duration: 0.18 })
+                    .to(cardMiddle, { opacity: 1, scale: 1.0, x: 0, y: 0, ease: "power2.out", duration: 0.20 }, "<0.05")
+                    .to({}, { duration: 0.12 });
+            }
+
+            if (cardAfter) {
+                if (cardMiddle) {
+                    tl.to(cardMiddle, { opacity: 0, scale: 0.92, y: -40, ease: "power2.inOut", duration: 0.18 });
+                }
+                tl.to(cardAfter, { opacity: 1, scale: 1.0, x: 0, y: 0, ease: "power2.out", duration: 0.20 }, "<0.05")
+                    .to({}, { duration: 0.15 });
+            }
         }
-
-        if (cardAfter) {
-            tl.to(cardAfter, {
-                opacity: 1,
-                scale: 1.0,
-                x: isDesktop ? shiftX : 0,
-                y: 0,
-                ease: "power2.out",
-                duration: 0.40
-            }, 0.35);
-        }
-
-        // 4. Phase 4: Reading Lock (80% -> 100%) - All 3 cards locked in 3-column view
-        tl.to({}, { duration: 0.20 });
     } else {
         // Fallback for non-GSAP environments
         if (cardBefore) cardBefore.style.opacity = "1";
@@ -1546,44 +1810,607 @@ function initKoraComparisonScroll() {
 }
 
 /**
- * Mobile Touch Carousel Slider Controller ([ 01 / 04 ] Counter + Arrows)
+ * MADEWITHGSAP EXACT: H-TEXTS & H-CARDS DYNAMIC RE-CENTERING FAN & IMPACT EXPLOSION
+ */
+function initPvcHTextsAndCards() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const mainSection = document.querySelector('#pvc-fees-section');
+    if (!mainSection) return;
+
+    // Clean up any existing ScrollTriggers on this section
+    ScrollTrigger.getAll().forEach(st => {
+        if (st.vars.id === 'pvc-fees-pin' || st.vars.id === 'pvc-fees-master') {
+            st.kill();
+        }
+    });
+
+    const pinHeight = mainSection.querySelector('.pin-height');
+    const container = mainSection.querySelector('.pvc-stage-container') || mainSection.querySelector('.container');
+    const textsWrapper = mainSection.querySelector('.pvc-h-texts-wrapper');
+    const cardsWrapper = mainSection.querySelector('.pvc-h-cards-wrapper');
+    const titleContainers = mainSection.querySelectorAll('.title-l, .title-mob');
+    const circlesContainer = mainSection.querySelector('.circles');
+    const circles = Array.from(mainSection.querySelectorAll('.circle'));
+
+    if (!pinHeight || !container || !textsWrapper || !cardsWrapper) return;
+
+    // Helper: Split text into grapheme clusters for Thai support
+    function splitWordsToChars(containerEl) {
+        if (!containerEl) return [];
+        const words = containerEl.querySelectorAll('.mwg-word');
+        const targetElements = words.length ? Array.from(words) : [containerEl];
+        const chars = [];
+
+        targetElements.forEach(wordEl => {
+            const rawText = wordEl.getAttribute('data-raw-text') || wordEl.textContent;
+            wordEl.setAttribute('data-raw-text', rawText);
+            wordEl.textContent = "";
+
+            let graphemes = [];
+            if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+                const segmenter = new Intl.Segmenter("th", { granularity: "grapheme" });
+                graphemes = Array.from(segmenter.segment(rawText), s => s.segment);
+            } else {
+                graphemes = rawText.split("");
+            }
+
+            graphemes.forEach(ch => {
+                const span = document.createElement("span");
+                span.className = "char";
+                span.textContent = ch === " " ? "\u00A0" : ch;
+                wordEl.appendChild(span);
+                chars.push(span);
+            });
+        });
+        return chars;
+    }
+
+    const isMobile = window.innerWidth < 900;
+    const activeTitle = isMobile ? mainSection.querySelector('.title-mob') : mainSection.querySelector('.title-l');
+    const allChars = splitWordsToChars(activeTitle);
+
+    // Initial state: Title text is intact and fully visible
+    gsap.set(allChars, { visibility: "visible", opacity: 1, x: 0, y: 0, rotation: 0, scale: 1 });
+    gsap.set(cardsWrapper, { y: window.innerHeight, autoAlpha: 1 });
+
+    // Generate 360-degree scatter vectors for impact explosion
+    const scatterVectors = allChars.map(() => {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 900 + Math.random() * 900;
+        return {
+            x: Math.cos(angle) * distance,
+            y: Math.sin(angle) * distance,
+            rotation: (Math.random() - 0.5) * 720,
+            scale: 0.8 + Math.random() * 1.2
+        };
+    });
+
+    let isExploded = false;
+
+    // Trigger 1.3s cinematic shockwave scatter explosion
+    function explodeText() {
+        allChars.forEach((ch, i) => {
+            const v = scatterVectors[i] || { x: (Math.random() - 0.5) * 1200, y: (Math.random() - 0.5) * 1200, rotation: 180, scale: 1.5 };
+            gsap.to(ch, {
+                x: v.x * (1.1 + Math.random() * 0.4),
+                y: v.y * (1.1 + Math.random() * 0.4),
+                rotation: v.rotation * 1.2,
+                scale: v.scale * 1.3,
+                opacity: 0,
+                duration: 1.3,
+                ease: "power3.out",
+                stagger: {
+                    amount: 0.15,
+                    from: "center"
+                },
+                overwrite: "auto"
+            });
+        });
+    }
+
+    // Reassemble text cleanly when scrolling back up
+    function assembleText() {
+        allChars.forEach((ch) => {
+            gsap.to(ch, {
+                x: 0,
+                y: 0,
+                rotation: 0,
+                scale: 1,
+                opacity: 1,
+                duration: 0.8,
+                ease: "power2.out",
+                overwrite: "auto"
+            });
+        });
+    }
+
+    const numCards = circles.length;
+
+    // Pre-computed Dynamic Re-centering Fan Coordinate Tables for 1, 2, 3, and 4 cards (Radius = 1100px)
+    const fanStates = {
+        1: [
+            { x: 0, y: 0, rot: 0 }
+        ],
+        2: [
+            { x: -86.3, y: 3.4, rot: -4.5 },
+            { x: 86.3, y: 3.4, rot: 4.5 }
+        ],
+        3: [
+            { x: -134.1, y: 8.2, rot: -7.0 },
+            { x: 0, y: 0, rot: 0 },
+            { x: 134.1, y: 8.2, rot: 7.0 }
+        ],
+        4: [
+            { x: -181.7, y: 15.1, rot: -9.5 },
+            { x: -61.4, y: 1.7, rot: -3.2 },
+            { x: 61.4, y: 1.7, rot: 3.2 },
+            { x: 181.7, y: 15.1, rot: 9.5 }
+        ]
+    };
+
+    // Stage 1 Entrance Thresholds for Cards 0, 1, 2, 3 (Optimized for 600vh Track)
+    const CARD_THRESHOLDS = [0.10, 0.26, 0.42, 0.58];
+    const STAGE2_START = 0.74;
+    const STAGE2_SPREAD_DURATION = 0.10; // 0.74 -> 0.84 is un-fanning, 0.84 -> 1.00 is generous 4-col reading hold (~96vh)
+
+    let lastActiveCount = 0; // 0 = none, 1 = 1 card, 2 = 2 cards, 3 = 3 cards, 4 = 4 cards
+
+    // Initial state: Card 0 centered, all others hidden
+    circles.forEach((c, idx) => {
+        gsap.set(c, { rotation: 0 });
+        const media = c.querySelector('.media');
+        if (media) {
+            if (idx === 0) {
+                c.classList.add('on');
+                gsap.set(media, { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1, xPercent: -50, yPercent: -50 });
+            } else {
+                c.classList.remove('on');
+                gsap.set(media, { x: 0, y: 0, rotation: 0, scale: 0.65, opacity: 0, xPercent: -50, yPercent: -50 });
+            }
+        }
+    });
+
+    // Animate cards dynamically when state changes (e.g. 1 -> 2 -> 3 -> 4)
+    function applyFanState(activeK, isForward) {
+        if (activeK < 1) activeK = 1;
+        if (activeK > 4) activeK = 4;
+        const stateConfig = fanStates[activeK];
+
+        circles.forEach((c, idx) => {
+            const media = c.querySelector('.media');
+            if (!media) return;
+
+            if (idx < activeK) {
+                c.classList.add('on');
+                const target = stateConfig[idx];
+
+                if (isForward && idx === activeK - 1 && activeK > 1) {
+                    // New card drops in from top with elastic bounce
+                    gsap.fromTo(
+                        media,
+                        { x: target.x, y: target.y - 140, rotation: target.rot, scale: 0.85, opacity: 0, xPercent: -50, yPercent: -50 },
+                        {
+                            x: target.x,
+                            y: target.y,
+                            rotation: target.rot,
+                            scale: 1,
+                            opacity: 1,
+                            xPercent: -50,
+                            yPercent: -50,
+                            ease: 'elastic.out(1, 0.6)',
+                            duration: 1.2,
+                            overwrite: 'auto'
+                        }
+                    );
+                } else {
+                    // Existing cards smoothly adjust position & angle
+                    gsap.to(media, {
+                        x: target.x,
+                        y: target.y,
+                        rotation: target.rot,
+                        scale: 1,
+                        opacity: 1,
+                        xPercent: -50,
+                        yPercent: -50,
+                        duration: 0.6,
+                        ease: 'power2.out',
+                        overwrite: 'auto'
+                    });
+                }
+            } else {
+                // Card is exiting (scroll back up)
+                if (c.classList.contains('on')) {
+                    gsap.to(media, {
+                        y: 40,
+                        scale: 0.65,
+                        opacity: 0,
+                        xPercent: -50,
+                        yPercent: -50,
+                        duration: 0.35,
+                        ease: 'power2.out',
+                        overwrite: 'auto',
+                        onComplete: () => {
+                            if (idx >= activeK) c.classList.remove('on');
+                        }
+                    });
+                } else {
+                    c.classList.remove('on');
+                    gsap.set(media, { opacity: 0, xPercent: -50, yPercent: -50 });
+                }
+            }
+        });
+    }
+
+    // ─── MASTER ScrollTrigger ─────────────────────────────────────────────
+    ScrollTrigger.create({
+        id: 'pvc-fees-master',
+        trigger: pinHeight,
+        start: "top top",
+        end: "bottom bottom",
+        pin: container,
+        scrub: true,
+        onUpdate: (self) => {
+            const prog = self.progress; // 0 → 1
+            const currentIsMobile = window.innerWidth < 900;
+
+            // 1. Card 1 Ascends from bottom to center (0% → 10%)
+            const ascendProg = Math.min(1, Math.max(0, prog / 0.10));
+            gsap.set(cardsWrapper, { y: (1 - ascendProg) * window.innerHeight });
+
+            // 2. Card Collision Impact Shockwave Text Explosion (Auto-play 1.3s, not tied to scroll speed)
+            if (prog >= 0.10 && !isExploded) {
+                isExploded = true;
+                explodeText();
+            } else if (prog < 0.08 && isExploded) {
+                isExploded = false;
+                assembleText();
+            }
+
+            if (currentIsMobile) {
+                // ── MOBILE ADAPTIVE MODE (Single Focus Card Transitions) ──
+                if (prog >= 0.10) {
+                    const mobileProg = Math.min(1, Math.max(0, (prog - 0.10) / 0.85)); // 0 → 1
+                    const slotSize = 1.0 / numCards;
+                    const activeIdx = Math.min(numCards - 1, Math.floor(mobileProg / slotSize));
+                    const localProg = Math.min(1, (mobileProg - activeIdx * slotSize) / slotSize);
+
+                    circles.forEach((c, idx) => {
+                        const media = c.querySelector('.media');
+                        if (!media) return;
+
+                        if (idx === activeIdx) {
+                            c.classList.add('on');
+                            const entrance = Math.min(1, localProg / 0.25);
+                            const exit = localProg > 0.8 ? (localProg - 0.8) / 0.2 : 0;
+                            const cardScale = idx === numCards - 1 ? 1 : 1 - exit * 0.08;
+                            const cardOpacity = idx === numCards - 1 ? 1 : 1 - exit;
+
+                            gsap.set(c, { rotation: 0 });
+                            gsap.set(media, {
+                                x: 0,
+                                y: (1 - entrance) * 30 - exit * 30,
+                                xPercent: -50,
+                                yPercent: -50,
+                                scale: 0.92 + 0.08 * entrance * cardScale,
+                                opacity: entrance * cardOpacity,
+                                rotation: 0
+                            });
+                        } else {
+                            c.classList.remove('on');
+                            gsap.set(media, { opacity: 0, xPercent: -50, yPercent: -50 });
+                        }
+                    });
+                    gsap.set(circlesContainer, { rotation: 0 });
+                }
+            } else {
+                // ── DESKTOP MODE (Dynamic Re-centering Fan + 4-Col Spread-Out) ──
+                const cardWidth = 290;
+                const gap = 24;
+                const spreadSpacing = Math.min(cardWidth + gap, (window.innerWidth - 80) / 4);
+                const spreadOffsets = [
+                    -1.5 * spreadSpacing,
+                    -0.5 * spreadSpacing,
+                     0.5 * spreadSpacing,
+                     1.5 * spreadSpacing
+                ];
+
+                // Stage 1: Dynamic Re-centering Fan (0% → 74%)
+                if (prog < STAGE2_START && numCards > 0) {
+                    let currentK = 1;
+                    if (prog >= CARD_THRESHOLDS[3]) currentK = 4;
+                    else if (prog >= CARD_THRESHOLDS[2]) currentK = 3;
+                    else if (prog >= CARD_THRESHOLDS[1]) currentK = 2;
+                    else currentK = 1;
+
+                    if (currentK !== lastActiveCount) {
+                        applyFanState(currentK, currentK > lastActiveCount);
+                        lastActiveCount = currentK;
+                    }
+                    gsap.set(circlesContainer, { rotation: 0 });
+                }
+
+                // Stage 2: Spread-out 4-col row (74% → 100%, un-fans from 74% → 84%, holds from 84% → 100%)
+                if (prog >= STAGE2_START && numCards > 0) {
+                    const s2 = Math.min(1, Math.max(0, (prog - STAGE2_START) / STAGE2_SPREAD_DURATION));
+
+                    circles.forEach(c => c.classList.add('on'));
+                    gsap.set(circlesContainer, { rotation: 0 });
+
+                    const finalFan = fanStates[4];
+                    circles.forEach((c, i) => {
+                        const media = c.querySelector('.media');
+                        if (media) {
+                            const pos = finalFan[i];
+                            const curX = (1 - s2) * pos.x + s2 * spreadOffsets[i];
+                            const curY = (1 - s2) * pos.y + s2 * 0;
+                            const curRot = (1 - s2) * pos.rot + s2 * 0;
+
+                            gsap.set(media, {
+                                x: curX,
+                                y: curY,
+                                rotation: curRot,
+                                xPercent: -50,
+                                yPercent: -50,
+                                opacity: 1,
+                                scale: 1
+                            });
+                        }
+                    });
+                }
+            }
+        }
+    });
+}
+
+
+
+function initMwgHLatestAndPricing() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const latestSection = document.querySelector('#pvc-admission-latest');
+    if (!latestSection) return;
+
+    // 1. Grapheme Text Reveal for Title 1
+    const graphemeTitle = latestSection.querySelector('.mwg-grapheme-title');
+    if (graphemeTitle) {
+        const textNodes = [];
+        graphemeTitle.childNodes.forEach(node => {
+            if (node.nodeType === 3) {
+                const text = node.textContent;
+                const wrapper = document.createElement('span');
+                let graphemes = [];
+                if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+                    const segmenter = new Intl.Segmenter("th", { granularity: "grapheme" });
+                    graphemes = Array.from(segmenter.segment(text), s => s.segment);
+                } else {
+                    graphemes = text.split("");
+                }
+                graphemes.forEach(ch => {
+                    const span = document.createElement("span");
+                    span.className = "mwg-grapheme-char";
+                    span.style.display = "inline-block";
+                    span.style.opacity = "0";
+                    span.textContent = ch === " " ? "\u00A0" : ch;
+                    wrapper.appendChild(span);
+                    textNodes.push(span);
+                });
+                node.replaceWith(wrapper);
+            } else if (node.nodeType === 1) {
+                const text = node.textContent;
+                node.textContent = "";
+                let graphemes = [];
+                if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+                    const segmenter = new Intl.Segmenter("th", { granularity: "grapheme" });
+                    graphemes = Array.from(segmenter.segment(text), s => s.segment);
+                } else {
+                    graphemes = text.split("");
+                }
+                graphemes.forEach(ch => {
+                    const span = document.createElement("span");
+                    span.className = "mwg-grapheme-char";
+                    span.style.display = "inline-block";
+                    span.style.opacity = "0";
+                    span.textContent = ch === " " ? "\u00A0" : ch;
+                    node.appendChild(span);
+                    textNodes.push(span);
+                });
+            }
+        });
+
+        if (textNodes.length) {
+            gsap.to(textNodes, {
+                opacity: 1,
+                stagger: { each: 0.02, from: "random" },
+                ease: "power1.out",
+                scrollTrigger: {
+                    trigger: graphemeTitle,
+                    start: "top 80%",
+                    end: "bottom 30%",
+                    scrub: true
+                }
+            });
+        }
+    }
+
+    // 2. Monster Horizontal Scroll Text Translation (.l-sentence - 100% Full Scroll)
+    const monsterText = latestSection.querySelector('.mwg-monster-text');
+    const pinHeight = latestSection.querySelector('.mwg_landing4 .pin-height');
+    const container = latestSection.querySelector('.mwg_landing4 .container');
+
+    if (monsterText && pinHeight && container) {
+        // Set explicit initial state upfront to eliminate any 1-frame text warp
+        gsap.set(monsterText, { opacity: 1, x: () => window.innerWidth });
+
+        let monsterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: pinHeight,
+                start: "top top",
+                end: "bottom bottom",
+                pin: container,
+                scrub: 1,
+                invalidateOnRefresh: true
+            }
+        });
+
+        // Continuous full horizontal scroll starting strictly from the right edge to left
+        monsterTl.fromTo(monsterText,
+            {
+                x: () => window.innerWidth,
+                opacity: 1
+            },
+            {
+                x: () => -(monsterText.scrollWidth + window.innerWidth * 0.2),
+                opacity: 1,
+                duration: 1.0,
+                ease: "none"
+            },
+            0
+        );
+    }
+
+    // 3. SVG Curve Bezier Morph Animation & Card Elevation on Scroll
+    const curvePath = document.querySelector('#pricing-curve-path');
+    const pricingCardSec = document.querySelector('#pvc-admission-card');
+    const innerCard = document.querySelector('#pvc-pricing-inner-card');
+
+    if (curvePath && pricingCardSec) {
+        const curveTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.h-top-pricing',
+                start: "top 80%",
+                endTrigger: pricingCardSec,
+                end: "top 30%",
+                scrub: 1,
+                invalidateOnRefresh: true
+            }
+        });
+
+        // Dynamic Bezier Morphing: Extended 120% width to hide corner seams 100% offscreen!
+        curveTl.fromTo(curvePath,
+            { attr: { d: "M0 240 C540 180, 1100 180, 1640 240 L1640 240 L0 240 Z" } },
+            { attr: { d: "M0 240 C540 20, 1100 20, 1640 240 L1640 240 L0 240 Z" }, ease: "power1.out" },
+            0
+        );
+
+        // Smooth Card Elevation & Fade-In
+        if (innerCard) {
+            curveTl.fromTo(innerCard,
+                { y: 80, opacity: 0.4, scale: 0.96 },
+                { y: -110, opacity: 1, scale: 1, ease: "power1.out" },
+                0
+            );
+        }
+    }
+}
+
+function initPvcMwgHeroSection() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const heroSec = document.querySelector('#pvc-mwg-hero-section');
+    if (!heroSec) return;
+
+    const titleLeft = heroSec.querySelector('.hero-title-left');
+    const titleRight = heroSec.querySelector('.hero-title-right');
+    const subBar = heroSec.querySelector('.h-hero-sub-bar');
+
+    if (titleLeft && titleRight) {
+        gsap.to([titleLeft, titleRight, subBar], {
+            opacity: 0,
+            y: -50,
+            ease: "power1.out",
+            scrollTrigger: {
+                trigger: heroSec,
+                start: "top top",
+                end: "bottom 40%",
+                scrub: 1,
+                invalidateOnRefresh: true
+            }
+        });
+    }
+}
+
+/**
+ * Mobile Steps Slider Controller & Scroll Pinning
  */
 function initMobileStepsSlider() {
     const track = document.querySelector('.mobile-steps-track');
     const counter = document.getElementById('mobileStepCounter');
     const prevBtn = document.getElementById('prevMobileStepBtn');
     const nextBtn = document.getElementById('nextMobileStepBtn');
+    const stepsSection = document.querySelector('.section_steps');
 
     if (!track || !counter) return;
 
     const cards = track.querySelectorAll('.mobile-step-card');
     const total = cards.length;
+    if (!total) return;
+
+    let currentIndex = 0;
 
     const updateCounter = () => {
-        const cardWidth = cards[0]?.offsetWidth || 300;
-        const gap = 16;
-        const scrollPos = track.scrollLeft;
-        const activeIndex = Math.min(total - 1, Math.max(0, Math.round(scrollPos / (cardWidth + gap))));
-        const numStr = String(activeIndex + 1).padStart(2, '0');
+        const trackCenter = track.scrollLeft + track.clientWidth / 2;
+        let closestIndex = 0;
+        let minDiff = Infinity;
+
+        cards.forEach((card, idx) => {
+            const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+            const diff = Math.abs(trackCenter - cardCenter);
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestIndex = idx;
+            }
+        });
+
+        currentIndex = closestIndex;
+        const numStr = String(currentIndex + 1).padStart(2, '0');
         const totalStr = String(total).padStart(2, '0');
         counter.textContent = `[ ${numStr} / ${totalStr} ]`;
     };
 
-    track.addEventListener('scroll', updateCounter, { passive: true });
+    let scrollTimeout;
+    track.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(updateCounter, 50);
+        updateCounter();
+    }, { passive: true });
+
+    const scrollToCard = (index) => {
+        const targetCard = cards[index];
+        if (targetCard && track) {
+            const cardCenter = targetCard.offsetLeft + targetCard.offsetWidth / 2;
+            const trackCenter = track.clientWidth / 2;
+            const targetScrollLeft = cardCenter - trackCenter;
+            track.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+            currentIndex = index;
+            const numStr = String(currentIndex + 1).padStart(2, '0');
+            const totalStr = String(total).padStart(2, '0');
+            counter.textContent = `[ ${numStr} / ${totalStr} ]`;
+        }
+    };
 
     if (prevBtn) {
         prevBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            const cardWidth = cards[0]?.offsetWidth || 300;
-            track.scrollBy({ left: -(cardWidth + 16), behavior: 'smooth' });
+            if (currentIndex > 0) {
+                scrollToCard(currentIndex - 1);
+            } else {
+                scrollToCard(total - 1);
+            }
         });
     }
 
     if (nextBtn) {
         nextBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            const cardWidth = cards[0]?.offsetWidth || 300;
-            track.scrollBy({ left: cardWidth + 16, behavior: 'smooth' });
+            if (currentIndex < total - 1) {
+                scrollToCard(currentIndex + 1);
+            } else {
+                scrollToCard(0);
+            }
         });
     }
 
@@ -1591,17 +2418,15 @@ function initMobileStepsSlider() {
 }
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMobileStepsSlider);
+    document.addEventListener('DOMContentLoaded', () => {
+        initPvcMwgHeroSection();
+        initPvcHTextsAndCards();
+        initMwgHLatestAndPricing();
+        initMobileStepsSlider();
+    });
 } else {
+    initPvcMwgHeroSection();
+    initPvcHTextsAndCards();
+    initMwgHLatestAndPricing();
     initMobileStepsSlider();
 }
-
-
-
-
-
-
-
-
-
-

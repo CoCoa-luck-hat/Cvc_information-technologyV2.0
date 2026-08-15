@@ -1,8 +1,10 @@
 <?php
 session_start();
 error_reporting(0);
-?>
 
+// Unified Master Router
+$route = trim($_GET['route'] ?? $_GET['click'] ?? $_GET['page'] ?? '', '/');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,14 +36,23 @@ error_reporting(0);
     <link href="include/css/tailwind.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="02_design/Logo-it2.png">
-    <!--สำหรับเพิ่มไอคอนเว็บไซต์ -->
+
+    <!-- GSAP Core & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Observer.min.js"></script>
+    <script>
+        if (typeof gsap !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger, Observer);
+        }
+    </script>
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="include/css/test.css?v=<?= time() ?>">
 </head>
 
 
-<body class="bg-neutral-bg text-neutral-text relative font-sans">
+<body class="bg-neutral-bg text-neutral-text relative font-sans overflow-x-hidden">
     <!-- Cinematic Dark Tech Preloader -->
     <?php include('include/preloader.php'); ?>
 
@@ -50,24 +61,110 @@ error_reporting(0);
 
     <div class="relative z-10 w-full">
         <!-- ส่วน เมนู -->
-        <?php include('n_navbar.php'); ?>
+        <?php include('components/n_navbar.php'); ?>
 
-        <!-- ส่วน แบนเนอร์ -->
+        <!-- Dynamic Main Content Section -->
         <main id="swup-container">
-            <?php include('carousel.php'); ?>
+            <?php
+            switch ($route) {
+                // 1. หลักสูตร ปวช.
+                case 'it_coo1':
+                case 'pvc':
+                    include('04_it_coo1/it_coo1.php');
+                    include('04_it_coo1/it_coo2.php');
+                    include('04_it_coo1/it_coo3.php');
+                    include('04_it_coo1/it_coo4.php');
+                    include('04_it_coo1/it_coo5.php');
+                    break;
 
-            <!-- ส่วน Content -->
-            <div class="bg-neutral-bg w-full relative z-10">
-                <?php include('content_1.php'); ?>
-                <?php include('content_2.php'); ?>
-                <?php include('content_steps.php'); ?>
-                <?php include('content_ribbons.php'); ?>
-                <?php include('content_jop.php'); ?>
-            </div>
+                // 2. หลักสูตร ปวส.
+                case 'it_s1':
+                case 'pvs':
+                    include('05_it_s1/it_s1.php');
+                    include('05_it_s1/it_s2.php');
+                    include('05_it_s1/it_s3.php');
+                    include('05_it_s1/it_s4.php');
+                    break;
+
+                // 3. คณะครูผู้สอน
+                case '0_techer':
+                case 'teachers':
+                    include('06_techer/0_techer.php');
+                    break;
+                case '1_thawatchai':
+                    include('06_techer/1_thawatchai.php');
+                    break;
+                case '2_piyamat':
+                    include('06_techer/2_piyamat.php');
+                    break;
+                case '3_plaopilart':
+                    include('06_techer/3_plaopilart.php');
+                    break;
+                case '4_rodsathon':
+                    include('06_techer/4_rodsathon.php');
+                    break;
+                case '5_teerapat':
+                    include('06_techer/5_teerapat.php');
+                    break;
+                case '6_teem':
+                    include('06_techer/6_teem.php');
+                    break;
+                case '7_jam':
+                    include('06_techer/7_jam.php');
+                    break;
+
+                // 4. แนะนำอาคารเรียน / ห้องเรียน
+                case 'c_all':
+                    include('07_classroom/c_all.php');
+                    break;
+                case 'c_241':
+                    include('07_classroom/c_241.php');
+                    break;
+                case 'c_242':
+                    include('07_classroom/c_242.php');
+                    break;
+                case 'c_653':
+                case 'classroom':
+                    include('07_classroom/c_653.php');
+                    break;
+                case 'c_654':
+                    include('07_classroom/c_654.php');
+                    break;
+                case 'gallery':
+                    include('07_classroom/gallery.php');
+                    break;
+
+                // 5. ผลงาน & บัณฑิต
+                case 'awards_it':
+                case 'awards':
+                    include('08_awards/awards_it.php');
+                    break;
+                case 'awards_sd':
+                    include('08_awards/awards_sd.php');
+                    break;
+                case 'graduate':
+                    include('08_awards/graduate.php');
+                    break;
+
+                // 0. Default Homepage
+                case '':
+                case 'home':
+                default:
+                    include('00_home/carousel.php');
+                    echo '<div class="bg-neutral-bg w-full relative z-10">';
+                    include('00_home/content_1.php');
+                    include('00_home/content_2.php');
+                    include('00_home/content_steps.php');
+                    include('00_home/content_ribbons.php');
+                    include('00_home/content_jop.php');
+                    echo '</div>';
+                    break;
+            }
+            ?>
         </main>
         
         <!-- ส่วน footer -->
-        <?php include('footer.php'); ?>
+        <?php include('components/footer.php'); ?>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -80,21 +177,14 @@ error_reporting(0);
     <script src="include/lib/lightbox/js/lightbox.min.js"></script>
     <script src="include/lib/owlcarousel/owl.carousel.min.js"></script>
 
-
     <!-- Template Javascript -->
     <script src="include/js/lenis.min.js"></script>
     <script src="include/js/main.js"></script>
-
-
     <script src="include/js/test.js"></script>
 
     <!-- GSAP & Awwwards Interactions -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="include/js/awwwards.js?v=<?= time() ?>"></script>
     <script src="include/js/preloader.js?v=<?= time() ?>"></script>
-
-
 
     <script>
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -107,15 +197,14 @@ error_reporting(0);
                         lenis.scrollTo(targetElement, { offset: -50 });
                     } else {
                         targetElement.scrollIntoView({
-                            behavior: 'smooth', // เลื่อนแบบสมูธ
-                            block: 'center', // จัดตำแหน่งเป้าหมายให้อยู่ตรงกลาง
+                            behavior: 'smooth',
+                            block: 'center',
                         });
                     }
                 }
             });
         });
     </script>
-
 </body>
 
 </html>

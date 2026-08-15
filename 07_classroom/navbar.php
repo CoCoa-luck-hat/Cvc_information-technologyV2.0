@@ -17,10 +17,10 @@
                     </button>
                     <ul class="dropdown12-content" aria-labelledby="dropdownMenuButton"
                         style="padding-left: 0px !important; padding-bottom: 8px;">
-                        <a href="index_it.php?click=c_241">
+                        <a href="index.php?click=c_241">
                             <li class="dropdown-item" data-filter=".first1">ห้อง 241</li>
                         </a>
-                        <a href="index_it.php?click=c_242">
+                        <a href="index.php?click=c_242">
                             <li class="dropdown-item" data-filter=".first1">ห้อง 242</li>
                         </a>
                     </ul>
@@ -37,10 +37,10 @@
                     </button>
                     <ul class="dropdown12-content" aria-labelledby="dropdownMenuButton"
                         style="padding-left: 0px !important; padding-bottom: 8px;">
-                        <a href="index_it.php?click=c_653">
+                        <a href="index.php?click=c_653">
                             <li class="dropdown-item" data-filter=".first1">ห้อง 653</li>
                         </a>
-                        <a href="index_it.php?click=c_654">
+                        <a href="index.php?click=c_654">
                             <li class="dropdown-item" data-filter=".first1">ห้อง 654</li>
                         </a>
                     </ul>

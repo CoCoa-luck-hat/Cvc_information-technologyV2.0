@@ -1,8 +1,8 @@
 <?php
 // Active page check helper
-$current_page = basename($_SERVER['PHP_SELF']);
-$current_click = isset($_GET['click']) ? $_GET['click'] : '';
-$is_home_active = ($current_page == 'index.php' && empty($current_click));
+$current_page  = basename($_SERVER['PHP_SELF']);
+$current_route = trim($_GET['route'] ?? $_GET['click'] ?? $_GET['page'] ?? '', '/');
+$is_home_active = (empty($current_route) || $current_route == 'home');
 ?>
 <style>
     #main-navbar-wrapper {
@@ -183,8 +183,8 @@ $is_home_active = ($current_page == 'index.php' && empty($current_click));
                     </button>
                     <!-- Dropdown Menu -->
                     <div class="nav-dropdown-menu lg:absolute left-0 top-full mt-2 z-50" style="min-width: 200px; background: #ffffff; border-radius: 16px; border: 1px solid #e5e7eb; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); padding: 6px 0; overflow: hidden;">
-                        <a href="index_it.php?click=it_coo1" class="nav-dropdown-item">ในระดับ (ปวช.)</a>
-                        <a href="index_it.php?click=it_s1" class="nav-dropdown-item">ในระดับ (ปวส.)</a>
+                        <a href="index.php?click=it_coo1" class="nav-dropdown-item">ในระดับ (ปวช.)</a>
+                        <a href="index.php?click=it_s1" class="nav-dropdown-item">ในระดับ (ปวส.)</a>
                     </div>
                 </div>
 
@@ -196,15 +196,15 @@ $is_home_active = ($current_page == 'index.php' && empty($current_click));
                     </button>
                     <!-- Dropdown Menu -->
                     <div class="nav-dropdown-menu lg:absolute left-0 top-full mt-2 z-50" style="min-width: 220px; background: #ffffff; border-radius: 16px; border: 1px solid #e5e7eb; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); padding: 6px 0; overflow: hidden;">
-                        <a href="index_it.php?click=0_techer" class="nav-dropdown-item">แนะนำครูผู้สอน</a>
-                        <a href="index_it.php?click=c_653" class="nav-dropdown-item">แนะนำอาคารเรียน/ห้องเรียน</a>
-                        <a href="index_it.php?click=gallery" class="nav-dropdown-item">ภาพกิจกรรมต่างๆ</a>
+                        <a href="index.php?click=0_techer" class="nav-dropdown-item">แนะนำครูผู้สอน</a>
+                        <a href="index.php?click=c_653" class="nav-dropdown-item">แนะนำอาคารเรียน/ห้องเรียน</a>
+                        <a href="index.php?click=gallery" class="nav-dropdown-item">ภาพกิจกรรมต่างๆ</a>
                         <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" class="nav-dropdown-item">รางวัลของแผนกฯ</a>
                     </div>
                 </div>
 
                 <!-- ทำเนียบบัณฑิต -->
-                <a href="index_it.php?click=graduate" target="_blank" style="white-space: nowrap; padding: 6px 14px; font-size: 15px; font-weight: 500; color: #374151; text-decoration: none; border-radius: 9999px; transition: all 0.2s;" data-magnetic>
+                <a href="index.php?click=graduate" target="_blank" style="white-space: nowrap; padding: 6px 14px; font-size: 15px; font-weight: 500; color: #374151; text-decoration: none; border-radius: 9999px; transition: all 0.2s;" data-magnetic>
                     <span class="link-draw-underline">ทำเนียบบัณฑิต</span>
                 </a>
 
@@ -273,8 +273,8 @@ $is_home_active = ($current_page == 'index.php' && empty($current_click));
                 <i class="fa fa-chevron-down acc-icon" style="font-size: 14px; opacity: 0.5; transition: transform 0.25s ease;"></i>
             </button>
             <div id="acc-majors" class="mobile-sub-accordion">
-                <a href="index_it.php?click=it_coo1" class="mobile-sub-link">• ระดับประกาศนียบัตรวิชาชีพ (ปวช.)</a>
-                <a href="index_it.php?click=it_s1" class="mobile-sub-link">• ระดับประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)</a>
+                <a href="index.php?click=it_coo1" class="mobile-sub-link">• ระดับประกาศนียบัตรวิชาชีพ (ปวช.)</a>
+                <a href="index.php?click=it_s1" class="mobile-sub-link">• ระดับประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)</a>
             </div>
 
             <!-- แนะนำสาขาฯ (Accordion) -->
@@ -283,14 +283,14 @@ $is_home_active = ($current_page == 'index.php' && empty($current_click));
                 <i class="fa fa-chevron-down acc-icon" style="font-size: 14px; opacity: 0.5; transition: transform 0.25s ease;"></i>
             </button>
             <div id="acc-about" class="mobile-sub-accordion">
-                <a href="index_it.php?click=0_techer" class="mobile-sub-link">• แนะนำครูผู้สอน</a>
-                <a href="index_it.php?click=c_653" class="mobile-sub-link">• แนะนำอาคารเรียน / ห้องเรียน</a>
-                <a href="index_it.php?click=gallery" class="mobile-sub-link">• ภาพกิจกรรมต่างๆ</a>
+                <a href="index.php?click=0_techer" class="mobile-sub-link">• แนะนำครูผู้สอน</a>
+                <a href="index.php?click=c_653" class="mobile-sub-link">• แนะนำอาคารเรียน / ห้องเรียน</a>
+                <a href="index.php?click=gallery" class="mobile-sub-link">• ภาพกิจกรรมต่างๆ</a>
                 <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" class="mobile-sub-link">• รางวัลของแผนกฯ</a>
             </div>
 
             <!-- ทำเนียบบัณฑิต -->
-            <a href="index_it.php?click=graduate" target="_blank" class="mobile-nav-link">
+            <a href="index.php?click=graduate" target="_blank" class="mobile-nav-link">
                 <span>ทำเนียบบัณฑิต</span>
                 <i class="fa fa-external-link-alt" style="font-size: 14px; opacity: 0.5;"></i>
             </a>

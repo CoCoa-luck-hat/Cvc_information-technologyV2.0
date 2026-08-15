@@ -1,235 +1,571 @@
-<!-- ภาพส่วนหัวหน้าเว็บ -->
-<div class="container-fluid bg-breadcrumb p-0" style="position: relative;">
-    <img src="02_design/page-1.jpg" class="w-100 " alt="">
-</div>
+<?php
+/**
+ * SECTION 1: H-HERO IT DEPARTMENT VOCATIONAL CERTIFICATE (ปวช.)
+ * 04_it_coo1/it_coo1.php
+ * 
+ * Authentic Hero Section for CVC IT Department (ปวช. เทคโนโลยีสารสนเทศ).
+ * Features:
+ * - GSAP Observer 3D Vertical Photo Gallery Stack & Scrub Dragging
+ * - 5 Primary Facility & Lab Photos from 03_photo/3.4_room/ (P1, P2, 3.0, 5.0, 4)
+ * - Thai Kinetic Split Wording Headlines ("หลักสูตร ปวช." / "เทคโนโลยีสารสนเทศ")
+ * - Auto-cycling photo deck (2.5s interval)
+ * - Clean Minimal UI (No CTA buttons or floating badges)
+ * - Responsive Mobile Horizontal Scroll fallback (< 900px)
+ */
+?>
 
-<style>
-    img {
-        max-width: 100%;
-        vertical-align: top;
-    }
-
-    .gallery {
-        display: flex;
-        margin: 10px auto;
-        max-width: 600px;
-        position: relative;
-        padding-top: 66.6666666667%;
-    }
-
-    @media screen and (min-width: 600px) {
-        .gallery {
-            padding-top: 400px;
+<!-- DEPENDENCY LOADER (GSAP 3, SCROLLTRIGGER, OBSERVER) -->
+<script>
+(function() {
+    function initAll() {
+        if (typeof window.initMwgHeroSection === 'function') {
+            window.initMwgHeroSection();
         }
     }
-
-    .ob_fit {
-        object-fit: cover;
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAll);
+    } else {
+        initAll();
     }
+})();
+</script>
 
-    .gallery__img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-    }
+<!-- HERO SECTION SCOPED STYLES -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800&display=swap');
 
-    .gallery__thumb {
-        padding-top: 6px;
-        margin: 6px;
-        display: block;
-    }
+:root {
+    --mwg2-white: #FFFFFF;
+    --mwg2-black: #0A0A0B;
+    --mwg2-grey: #777777;
+    --grid-margin: 25px;
+    --font-prompt: 'Prompt', sans-serif !important;
+}
 
-    .gallery__selector {
-        position: absolute;
-        opacity: 0;
-        visibility: hidden;
-    }
+/* Master Section Wrapper */
+section.h-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 650px;
+    background-color: var(--mwg2-white) !important;
+    color: var(--mwg2-black);
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    box-sizing: border-box;
+    font-family: var(--font-prompt);
+    z-index: 5;
+    margin: 0;
+    padding: 0;
+}
 
-    .gallery__selector:checked+.gallery__img {
-        opacity: 1;
-    }
+section.h-hero .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
 
-    .gallery__selector:checked~.gallery__thumb>img {
-        box-shadow: 0 0 0 2px #5b94ff;
-    }
+/* Wording Headlines (Centered Vertically) */
+.h-hero > .wording-headline {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    padding: 0 var(--grid-margin);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: min(3.4vw, 46px);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    z-index: 3;
+    pointer-events: none;
+    font-family: var(--font-prompt);
+}
 
-    .fa-check {
-        color: white;
-        background: #EB0000;
-        padding: 6px;
-        border-radius: 5px;
-        font-size: 10px;
-        height: 100%;
-    }
+.h-hero > .wording-headline .l {
+    width: calc(50% - 20vw - var(--grid-margin));
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow: visible;
+}
 
+.h-hero > .wording-headline .r {
+    width: calc(50% - 20vw - var(--grid-margin));
+    display: flex;
+    gap: 0px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow: visible;
+    color: var(--mwg2-black);
+}
 
-    .gallery2 {
-        display: flex;
-        margin: 10px auto;
-        max-width: 600px;
+.h-hero > .wording-headline span {
+    display: inline-block;
+    color: var(--mwg2-black);
+    font-family: var(--font-prompt);
+}
+
+/* Container & Vertical Card Deck Engine */
+.h-hero .hero-deck-container {
+    width: 35vw;
+    min-width: 360px;
+    max-width: 560px;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    overflow: hidden !important;
+}
+
+.h-hero .hero-deck-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 25vw;
+    min-width: 260px;
+    max-width: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: max-content;
+    will-change: transform;
+}
+
+.h-hero .media {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    min-height: 180px;
+    border-radius: 12px;
+    object-fit: cover;
+    display: block;
+    background-color: #1a1a1a;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
+    will-change: transform, opacity;
+    cursor: grab;
+    transition: filter 0.3s ease, border-color 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.h-hero .media:active {
+    cursor: grabbing;
+}
+
+.h-hero.grey .media {
+    filter: brightness(0.85);
+}
+
+/* Subtitle Tagline (Bottom Left) */
+.h-hero .join {
+    position: absolute;
+    bottom: 35px;
+    left: var(--grid-margin);
+    font-size: 16px;
+    line-height: 1.45;
+    color: #4b5563;
+    font-weight: 500;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    font-family: var(--font-prompt);
+    z-index: 5;
+}
+
+/* Responsive Rules (< 900px) */
+@media (max-width: 900px) {
+    .h-hero > .wording-headline {
         position: relative;
-        padding-top: 66.6666666667%;
+        top: initial;
+        transform: initial;
+        font-size: 32px;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px;
+        padding: 0 15px;
     }
+    
+    .h-hero > .wording-headline .l, .h-hero > .wording-headline .r {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .h-hero .hero-deck-container {
+        width: calc(100% + 30px);
+        height: auto;
+        overflow-x: auto;
+        margin: 25px 0 0 -15px;
+        scroll-snap-type: x mandatory;
+    }
+
+    .h-hero .hero-deck-content {
+        position: relative;
+        flex-direction: row;
+        width: max-content;
+        gap: 15px;
+        padding: 0 25px;
+        margin: 0;
+        left: auto;
+        right: auto;
+        transform: none !important;
+    }
+
+    .h-hero .media {
+        width: calc(100vw - 60px);
+        max-width: 450px;
+        scroll-snap-align: center;
+        transform: none !important;
+    }
+
+    .h-hero .join {
+        display: none;
+    }
+}
 </style>
 
+<!-- MAIN HERO SECTION HTML MARKUP -->
+<section class="h-hero pr intro-playing">
+    <h1 class="sr-only">หลักสูตร ปวช. เทคโนโลยีสารสนเทศ วิทยาลัยอาชีวศึกษาชลบุรี CVC IT</h1>
 
-
-<div class="container-fluid bg-light about pb-5 mt-5">
-    <div class="container pb-5">
-        <!-- แุถวที่ 1 -->
-        <div class="row g-5">
-
-            <!-- col ที่ 1 แสดงรูปภาพ -->
-            <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
-                <div class="about-item-content bg-white rounded p-4 h-100 ">
-                    <section class="gallery">
-                        <div class="gallery__item">
-                            <input type="radio" id="img-1" checked name="gallery" class="gallery__selector" />
-                            <img class="GGG gallery__img " src="03_photo/3.4_room/P1.jpg" alt="" />
-                            <label for="img-1" class="gallery__thumb">
-                                <img width="150" height="60" src="03_photo/3.4_room/P1.jpg" alt=""
-                                    class="ob_fit" /></label>
-                        </div>
-                        <div class="gallery__item">
-                            <input type="radio" id="img-2" name="gallery" class="gallery__selector" />
-                            <img class="GGG gallery__img " src="03_photo/3.4_room/P2.jpg" alt="" />
-                            <label for="img-2" class="gallery__thumb">
-                                <img width="150" height="60" src="03_photo/3.4_room/P2.jpg" alt=""
-                                    class="ob_fit" /></label>
-                        </div>
-                        <div class="gallery__item">
-                            <input type="radio" id="img-3" name="gallery" class="gallery__selector" />
-                            <img class="GGG gallery__img " src="03_photo/3.4_room/3.0.jpg" alt="" />
-                            <label for="img-3" class="gallery__thumb">
-                                <img width="150" height="60" src="03_photo/3.4_room/3.0.jpg" alt=""
-                                    class="ob_fit" /></label>
-                        </div>
-                        <div class="gallery__item">
-                            <input type="radio" id="img-4" name="gallery" class="gallery__selector" />
-                            <img class="GGG gallery__img " src="03_photo/3.4_room/5.0.jpg" alt="" />
-                            <label for="img-4" class="gallery__thumb">
-                                <img width="150" height="60" src="03_photo/3.4_room/5.0.jpg" alt=""
-                                    class="ob_fit" /></label>
-                        </div>
-                        <div class="gallery__item">
-                            <input type="radio" id="img-5" name="gallery" class="gallery__selector" />
-                            <img class="GGG gallery__img " src="03_photo/3.4_room/4.jpg" alt="" />
-                            <label for="img-5" class="gallery__thumb">
-                                <img width="150" height="60" src="03_photo/3.4_room/4.jpg" alt=""
-                                    class="ob_fit" /></label>
-                        </div>
-
-                    </section>
-                </div>
-            </div>
-
-
-            <!-- col ที่ 2 จุดเด่นหลักสูตร -->
-            <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
-                <div class="bg-white rounded p-5 h-100">
-                    <div class="row g-4 justify-content-center">
-
-                        <div class=" pt-0">
-                            
-                            <h2 class="mb-3 display-5 " style="color: #cb0707;">จุดเด่นของหลักสูตร</h2>
-                            <p class=" resize16px" style="color: #787878; font-size: 20px;">
-                                หลักสูตร ปวช. 2567 เทคโนโลยีสารสนเทศ
-                            </p>
-                         
-                            <div class="row mb-4">
-                                <div class="col-12 mb-2">
-                                    <div class=" d-flex align-items-center">
-                                        <i class="fa fa-check  recheckre2" aria-hidden="true"></i>
-                                        <p class="mb-0 repfont"
-                                            style="font-weight: 600;  padding-left: 10px;   font-size: 22px;">
-                                            เน้นทักษะปฏิบัติจริง – 80 % ลงมือทำ
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class=" d-flex align-items-center">
-                                        <i class="fa fa-check  recheckre2" aria-hidden="true"></i>
-                                        <p class="mb-0 repfont"
-                                            style="font-weight: 600;  padding-left: 10px;   font-size: 22px;">
-                                            รายวิชาที่สอดคล้องกับอาชีพ IT โดยตรง
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class=" d-flex align-items-center">
-                                        <i class="fa fa-check  recheckre2" aria-hidden="true"></i>
-                                        <p class="mb-0 repfont"
-                                            style="font-weight: 600;  padding-left: 10px;   font-size: 22px;">
-                                            โครงงานและผลงานจริง
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class=" d-flex align-items-center">
-                                        <i class="fa fa-check  recheckre2" aria-hidden="true"></i>
-                                        <p class="mb-0 repfont"
-                                            style="font-weight: 600;  padding-left: 10px;   font-size: 22px;">
-                                            เพิ่มทักษะการเขียนโปรแกรม
-                                        </p>
-                            
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class=" d-flex align-items-center">
-                                        <i class="fa fa-check  recheckre2" aria-hidden="true"></i>
-                                        <p class="mb-0 repfont"
-                                            style="font-weight: 600;  padding-left: 10px;   font-size: 22px;">
-                                            เพิ่มทักษะระบบเครือข่ายและอินเทอร์เน็ต
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class=" d-flex align-items-center">
-                                        <i class="fa fa-check  recheckre2" aria-hidden="true"></i>
-                                        <p class="mb-0 repfont"
-                                            style="font-weight: 600;  padding-left: 10px;   font-size: 22px;">
-                                            เพิ่มทักษะระบบคอมพิวเตอร์และซอฟต์แวร์
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class=" d-flex align-items-center">
-                                        <i class="fa fa-check  recheckre2" aria-hidden="true"></i>
-                                        <p class="mb-0 repfont"
-                                            style="font-weight: 600;  padding-left: 10px;   font-size: 22px;">
-                                            ทักษะเทคโนโลยีดิจิทัลสมัยใหม่
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class=" d-flex align-items-center">
-                                        <i class="fa fa-check  recheckre2" aria-hidden="true"></i>
-                                        <p class="mb-0 repfont"
-                                            style="font-weight: 600;  padding-left: 10px;   font-size: 22px;">
-                                            ทักษะฐานข้อมูลและระบบสารสนเทศ
-                                        </p>
-                                    </div>
-                                </div>
-                                
-
-                            <a target="_blank" class="btn btn-primary rounded-pill py-2 px-4 mt-3"
-                                style="font-size: 1.5rem;" href="01_document/Brochure 2567_Edit2_F copy.pdf">
-                                ดูรายละเอียด
-                                <i class="fa fa-regular fa-file-pdf" style="margin-left: 5px;"></i>
-                            </a>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+    <!-- Left & Right Split Headline -->
+    <div class="wording-headline pa f f-space title-s">
+        <div class="l">
+            <span class="w1">หลักสูตร</span>
+            <span class="w2">ปวช.</span>
+        </div>
+        <div class="r right">
+            <span class="w3">เทคโนโลยี</span>
+            <span class="w4">สารสนเทศ</span>
         </div>
     </div>
-</div>
-</div>
 
+    <!-- Subtitle Tagline -->
+    <p class="join pa body-s">มุ่งเน้นทักษะปฏิบัติจริง 80% <br>สร้างสรรค์ผลงานดิจิทัลระดับมืออาชีพ CVC IT</p>
 
+    <!-- Center Card Stack Photo Gallery Container -->
+    <div class="hero-deck-container">
+        <div class="hero-deck-content">
+            <img class="media" draggable="false" src="03_photo/3.4_room/P1.jpg" alt="ห้องปฏิบัติการคอมพิวเตอร์ 1" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/P2.jpg" alt="ห้องปฏิบัติการคอมพิวเตอร์ 2" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/3.0.jpg" alt="เครื่องมืออุปกรณ์ไอที" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/5.0.jpg" alt="ห้องคอมพิวเตอร์กราฟิก" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/4.jpg" alt="ผลงานและกิจกรรมไอที" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/P1.jpg" alt="ห้องปฏิบัติการคอมพิวเตอร์ 1" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/P2.jpg" alt="ห้องปฏิบัติการคอมพิวเตอร์ 2" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/3.0.jpg" alt="เครื่องมืออุปกรณ์ไอที" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/5.0.jpg" alt="ห้องคอมพิวเตอร์กราฟิก" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/4.jpg" alt="ผลงานและกิจกรรมไอที" />
+        </div>
+    </div>
+</section>
 
+<!-- IT DEPARTMENT GSAP OBSERVER DECK ENGINE -->
+<script>
+window.initMwgHeroSection = function(forceReinit = false) {
+    if (typeof gsap === 'undefined') return;
+    if (typeof Observer !== 'undefined') gsap.registerPlugin(Observer);
 
+    if (window.mwgHeroObserver && typeof window.mwgHeroObserver.kill === 'function') {
+        window.mwgHeroObserver.kill();
+        window.mwgHeroObserver = null;
+    }
+
+    const section = document.querySelector(".h-hero");
+    if (!section) return;
+    if (section.dataset.initialized === "true" && !forceReinit) return;
+    section.dataset.initialized = "true";
+
+    const content = section.querySelector(".hero-deck-content");
+    const mediaList = [...section.querySelectorAll(".media")];
+    const totalMedia = mediaList.length;
+    if (!totalMedia || !content) return;
+
+    let isMobile = window.innerWidth <= 900;
+    if (isMobile) {
+        const container = section.querySelector(".hero-deck-container");
+        if (container) container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2;
+        return;
+    }
+
+    let currentY = 0;
+    let activeIndex = Math.floor(totalMedia / 2);
+    let isPressed = false;
+    let isDragging = false;
+    let offsets = [];
+
+    const updateOffsets = () => {
+        const containerWidth = section.querySelector(".hero-deck-container") ? section.querySelector(".hero-deck-container").clientWidth : 300;
+        const fallbackH = containerWidth * (9 / 16);
+        let accumulatedTop = 0;
+        offsets = mediaList.map(card => {
+            const cardH = card.offsetHeight || fallbackH;
+            const topPos = card.offsetTop || accumulatedTop;
+            accumulatedTop += cardH + 6;
+            return topPos + cardH / 2;
+        });
+    };
+
+    const findClosestIndex = () => {
+        const total = mediaList.length;
+        if (!total || offsets.length !== total) updateOffsets();
+        const halfVh = window.innerHeight / 2;
+        const contentTop = content.getBoundingClientRect().top;
+        let closest = 0;
+        let minDiff = Infinity;
+        for (let i = 0; i < total; i++) {
+            const centerPos = contentTop + offsets[i];
+            const diff = Math.abs(centerPos - halfVh);
+            if (diff < minDiff) {
+                minDiff = diff;
+                closest = i;
+            }
+        }
+        return closest;
+    };
+
+    const updateDeckLayout = (targetIndex, { animate = true, duration = 0.5, ease = "power3.out" } = {}) => {
+        const activeCard = mediaList[targetIndex];
+        if (!activeCard) return;
+        activeIndex = targetIndex;
+
+        const vh = window.innerHeight;
+        const halfVh = vh / 2;
+        const targetY = -activeCard.offsetTop + halfVh - activeCard.offsetHeight / 2;
+        const activeCenter = activeCard.offsetTop + activeCard.offsetHeight / 2;
+
+        currentY = targetY;
+
+        if (animate) {
+            gsap.to(content, {
+                y: targetY,
+                ease: ease,
+                duration: duration,
+                onComplete: () => {
+                    if (!isPressed) {
+                        startAutoTimer();
+                    }
+                }
+            });
+        } else {
+            gsap.set(content, { y: targetY });
+        }
+
+        mediaList.forEach((card, idx) => {
+            let cardState;
+
+            // Compute active 1.4x card bounds
+            const activeHeightScaled = activeCard.offsetHeight * 1.4;
+            const activeTopScaled = halfVh - activeHeightScaled / 2;
+            const activeBottomScaled = halfVh + activeHeightScaled / 2;
+            const gap = 24; // 24px gap between stacked cards
+
+            if (idx === targetIndex) {
+                cardState = { y: 0, scale: 1.4, autoAlpha: 1, zIndex: 10 };
+            } else if (idx === targetIndex - 1) {
+                const cardCenter = card.offsetTop + card.offsetHeight / 2;
+                const naturalCenter = halfVh + (cardCenter - activeCenter);
+                const desiredCenter = activeTopScaled - gap - card.offsetHeight / 2;
+                cardState = {
+                    y: desiredCenter - naturalCenter,
+                    scale: 0.95,
+                    autoAlpha: 1,
+                    zIndex: 5
+                };
+            } else if (idx === targetIndex + 1) {
+                const cardCenter = card.offsetTop + card.offsetHeight / 2;
+                const naturalCenter = halfVh + (cardCenter - activeCenter);
+                const desiredCenter = activeBottomScaled + gap + card.offsetHeight / 2;
+                cardState = {
+                    y: desiredCenter - naturalCenter,
+                    scale: 0.95,
+                    autoAlpha: 1,
+                    zIndex: 5
+                };
+            } else {
+                const cardCenter = card.offsetTop + card.offsetHeight / 2;
+                const naturalCenter = halfVh + (cardCenter - activeCenter);
+                const direction = idx < targetIndex ? -1 : 1;
+                const desiredCenter = direction === -1 
+                    ? activeTopScaled - gap * 2 - card.offsetHeight * 1.5
+                    : activeBottomScaled + gap * 2 + card.offsetHeight * 1.5;
+                cardState = {
+                    y: desiredCenter - naturalCenter,
+                    scale: 0.85,
+                    autoAlpha: isPressed ? 0.7 : 0,
+                    zIndex: 1
+                };
+            }
+
+            if (animate) {
+                gsap.to(card, { ...cardState, ease: ease, duration: duration });
+            } else {
+                gsap.set(card, cardState);
+            }
+        });
+    };
+
+    // Update real-time 3D Card Stack scales dynamically during dragging
+    let lastDragClosest = -1;
+    const updateRealtimeDragStack = () => {
+        const closest = findClosestIndex();
+        if (closest !== lastDragClosest) {
+            lastDragClosest = closest;
+            updateDeckLayout(closest, { animate: true, duration: 0.25, ease: "power2.out" });
+        }
+    };
+
+    // Immediate initial layout calculation
+    if (!isMobile) {
+        updateOffsets();
+        updateDeckLayout(activeIndex, { animate: false });
+    }
+
+    // Auto-advance Timer (2.5s)
+    let autoTimer = null;
+    const startAutoTimer = () => {
+        stopAutoTimer();
+        autoTimer = gsap.delayedCall(2.5, () => {
+            autoTimer = null;
+            if (isPressed) return;
+            const nextIndex = (activeIndex + 1) % mediaList.length;
+            updateDeckLayout(nextIndex, { duration: 0.8 });
+        });
+    };
+
+    const stopAutoTimer = () => {
+        if (autoTimer) {
+            autoTimer.kill();
+            autoTimer = null;
+        }
+    };
+
+    const runLayoutInitialization = () => {
+        updateOffsets();
+        updateDeckLayout(activeIndex, { animate: false });
+
+        // Headline Reveal Stagger
+        const leftBox = section.querySelector(".l");
+        const rightBox = section.querySelector(".r");
+        if (leftBox && rightBox) {
+            const gapWidth = rightBox.getBoundingClientRect().left - leftBox.getBoundingClientRect().right;
+            gsap.fromTo(leftBox.querySelectorAll("span"), 
+                { x: gapWidth / 2 }, 
+                { x: 0, stagger: 0.07, ease: "expo.inOut", duration: 1, delay: 0.3 }
+            );
+            gsap.fromTo(rightBox.querySelectorAll("span"), 
+                { x: -gapWidth / 2 }, 
+                { x: 0, stagger: -0.07, ease: "expo.inOut", duration: 1, delay: 0.3 }
+            );
+        }
+
+        gsap.to(".h-hero .join", {
+            autoAlpha: 1,
+            duration: 0.8,
+            ease: "power4.inOut",
+            delay: 0.5
+        });
+
+        // GSAP Observer Smooth 3D Drag (No DOM Mutation Stutter)
+        if (typeof Observer !== 'undefined') {
+            if (window.mwgHeroObserver && typeof window.mwgHeroObserver.kill === 'function') {
+                window.mwgHeroObserver.kill();
+                window.mwgHeroObserver = null;
+            }
+
+            const releaseHandler = () => {
+                if (!isPressed) return;
+                isPressed = false;
+                const closest = findClosestIndex();
+                updateDeckLayout(closest, { animate: true, duration: 0.5, ease: "power3.out" });
+                section.classList.remove("grey");
+            };
+
+            window.mwgHeroObserver = Observer.create({
+                target: section,
+                type: "pointer,touch,wheel",
+                preventDefault: false,
+                onPress: () => {
+                    isPressed = true;
+                    stopAutoTimer();
+                    section.classList.add("grey");
+                },
+                onRelease: releaseHandler,
+                onReleaseBack: releaseHandler,
+                onDrag: () => { isDragging = true; },
+                onDragEnd: () => { isDragging = false; },
+                onChangeY: (evt) => {
+                    if (!isPressed) return;
+                    const maxDragHeight = content.clientHeight - window.innerHeight;
+                    currentY = gsap.utils.clamp(-maxDragHeight, 0, currentY + evt.deltaY);
+                    gsap.to(content, { y: currentY, duration: 0.15, ease: "power1.out", overwrite: "auto" });
+                    updateRealtimeDragStack();
+                }
+            });
+
+            // Safety listeners for mouseup, touchend, and pointerup
+            window.addEventListener("mouseup", releaseHandler);
+            window.addEventListener("touchend", releaseHandler);
+            window.addEventListener("pointerup", releaseHandler);
+        }
+
+        gsap.delayedCall(0.8, () => {
+            section.classList.remove("intro-playing");
+            startAutoTimer();
+        });
+    };
+
+    // Execute layout initialization and Observer setup immediately
+    runLayoutInitialization();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        isMobile = window.innerWidth <= 900;
+        if (!isMobile) {
+            updateOffsets();
+            updateDeckLayout(activeIndex, { animate: false });
+        }
+    });
+
+    // Remeasure when photo images load and prevent native image drag
+    mediaList.forEach(img => {
+        img.addEventListener('dragstart', e => e.preventDefault());
+        if (img.complete) {
+            updateOffsets();
+            updateDeckLayout(activeIndex, { animate: false });
+        } else {
+            img.addEventListener('load', () => {
+                updateOffsets();
+                updateDeckLayout(activeIndex, { animate: false });
+            });
+        }
+    });
+
+    // Force recalculation on window load and after minor delay
+    window.addEventListener('load', () => {
+        updateOffsets();
+        updateDeckLayout(activeIndex, { animate: false });
+    });
+    setTimeout(() => {
+        updateOffsets();
+        updateDeckLayout(activeIndex, { animate: false });
+    }, 400);
+};
+</script>

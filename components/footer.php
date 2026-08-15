@@ -51,25 +51,25 @@
                         </a>
                     </li>
                     <li>
-                        <a href="index_it.php?click=it_coo1" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
+                        <a href="index.php?click=it_coo1" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
                             <i class="fas fa-chevron-right text-[10px] text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-2"></i>
                             หลักสูตร ปวช.
                         </a>
                     </li>
                     <li>
-                        <a href="index_it.php?click=it_s1" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
+                        <a href="index.php?click=it_s1" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
                             <i class="fas fa-chevron-right text-[10px] text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-2"></i>
                             หลักสูตร ปวส.
                         </a>
                     </li>
                     <li>
-                        <a href="index_it.php?click=0_techer" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
+                        <a href="index.php?click=0_techer" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
                             <i class="fas fa-chevron-right text-[10px] text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-2"></i>
                             คณาจารย์ผู้สอน
                         </a>
                     </li>
                     <li>
-                        <a href="index_it.php?click=gallery" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
+                        <a href="index.php?click=gallery" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
                             <i class="fas fa-chevron-right text-[10px] text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-2"></i>
                             ภาพกิจกรรมต่างๆ
                         </a>

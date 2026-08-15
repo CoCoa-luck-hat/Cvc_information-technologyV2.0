@@ -1,210 +1,172 @@
-<style>
-    .custom-shape-divider-top-1734596398 {
-        position: absolute;
-        top: -5px;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-        line-height: 0;
-    }
-
-    .custom-shape-divider-top-1734596398 svg {
-        position: relative;
-        display: block;
-        width: calc(119% + 1.3px);
-        height: 146px;
-    }
-
-    .custom-shape-divider-top-1734596398 .shape-fill {
-        fill: #F2F5F9;
-    }
-
-
-
-
-    .hoI {
-        background: var(--bs-primary);
-        transition: 0.5s;
-        z-index: 9;
-    }
-
-    .hoI {
-        color: var(--bs-white);
-        transition: 0.5s;
-    }
-
-    .hoI:hover {
-        transform: rotateX(360deg);
-        color: var(--bs-white);
-    }
-
-    .hoI:hover {
-        bottom: 0;
-        color: var(--bs-white);
-        background: var(--bs-primary);
-    }
-
-    .service .service-item .service-img {
-        position: relative;
-        overflow: hidden;
-        border-top-left-radius: 40px;
-        border-top-right-radius: 40px;
-        border-bottom-left-radius: 40px !important;
-        border-bottom-right-radius: 40px !important;
-    }
-
-    .service .service-item .service-img::after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 0;
-        top: -5px;
-        left: 0;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        background: #0000000d;
-        transition: 0.5s;
-        z-index: 1;
-    }
-
-    .service-img.imgg {
-        position: relative;
-        /* ตั้งค่าให้ container เป็นตำแหน่ง relative */
-        z-index: 1;
-    }
-
-    .sticky-element {
-        position: sticky;
-        top: 150px;
-        /* ระยะห่างจากขอบด้านบนของหน้าจอ */
-    }
-
-    .custom-shape-divider-top-1734619303 {
-        position: absolute;
-        top: -5px;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-        line-height: 0;
-    }
-
-    .custom-shape-divider-top-1734619303 svg {
-        position: relative;
-        display: block;
-        width: calc(123% + 1.3px);
-        height: 103px;
-    }
-
-    .custom-shape-divider-top-1734619303 .shape-fill {
-        fill: #ffffff;
-    }
-</style>
-
-
-<div class="container-fluid service py-5 pt-0 rept0" style="position: relative;     background: #ffffff;">
-    <div class="custom-shape-divider-top-1734596398">
-        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
-            preserveAspectRatio="none">
-            <path
-                d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-                opacity=".25" class="shape-fill"></path>
-            <path
-                d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
-                opacity=".5" class="shape-fill"></path>
-            <path
-                d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
-                class="shape-fill"></path>
-        </svg>
-    </div>
-
-    <div class="container py-5 reposcon2 rept-0" style="margin-top: 0;position: relative; z-index: 9;">
-        <div class="text-center mx-auto pb-5 wow fadeInUp repb-0" data-wow-delay="0.2s" style="max-width: 800px;">
-            <h4 class="text-primary">
-                <div class=" p-3">
-                    <i class="hoI fa fa-graduation-cap fa-4x rescale" style="
-                    padding: 35px 30px;
-                    border-radius: 50%;
-                "></i>
-                </div>
-            </h4>
-            <p class="mb-0">
-            </p>
-        </div>
-
-        <!-- โครงสร้างหลักสูตร -->
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-12 col-lg-12 col-xl-12 wow fadeInUp p-2 d-flex justify-content-center"
-                data-wow-delay="0.4s">
-                <img src="02_design/โครงสร้างหลักสูตร_ปวช.png" alt="" class="rewidth100" style="width: 75%;">
+<!-- SECTION 3: PURE DIAGRAM SHOWCASE & OFF-SCREEN BOTTOM CARDS GSAP SEQUENCE -->
+<div id="sec3-sequence-outer" style="position: relative; z-index: 10; background-color: #f8f9fa !important;">
+    <div id="sec3-pinned-view" style="min-height: 100vh; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box; overflow: hidden; position: relative;">
+        <div style="max-width: 1240px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+            
+            <!-- Step 1: Section Header (Fades Out before Step 3) -->
+            <div style="text-align: center; margin-bottom: 20px; opacity: 0; transform: translateY(-30px); will-change: transform, opacity; position: relative; z-index: 2;" id="sec3-header">
+                <h2 style="font-size: 34px; font-weight: 800; color: #dc2626 !important; margin: 0; font-family: 'Prompt', sans-serif !important;">
+                    โครงสร้างหลักสูตร & <span style="color: #1f2937;">คุณสมบัติผู้สมัคร</span>
+                </h2>
             </div>
-        </div>
 
+            <!-- Vertical Stage Container -->
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; gap: 4px; position: relative;" id="sec3-vertical-wrapper">
+                
+                <!-- Step 2: Pure Standalone Diagram Showcase (No White Background Card) -->
+                <div id="sec3-diagram-card" style="background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; text-align: center; will-change: transform, opacity; max-width: 1050px; width: 100%; opacity: 0; transform: scale(0.85); margin: 0 auto;">
+                    <img src="02_design/โครงสร้างหลักสูตร_ปวช.png" alt="ผังโครงสร้างหลักสูตร ปวช." style="width: 100%; max-height: 80vh; height: auto; object-fit: contain; display: block; mix-blend-mode: multiply !important; margin: 0 auto;">
+                </div>
 
-
-        <div class="container-fluid  about pb-5 mt-5">
-            <div class="container pb-5">
-                <!-- แุถวที่ 1 -->
-                <div class="row g-5">
-
-                    <!-- คุณสมบัติผู้สมัคร -->
-                    <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="about-item-content p-2 ">
-                            <h1 style="color: #16243d;">คุณสมบัติผู้สมัคร</h1>
-                            <hr style="
-                    border-style: solid;
-                    border-width: 3px;
-                    border-color: #eb0000;
-                    opacity: 1;
-                ">
-                            <p class=" fs-4 refontp3" style="padding-left: 20px; color: #16243d;">
-                                <i class="fa fa-circle " style="font-size: 0.7rem !important;"></i>
-                                ผู้สมัครต้องมีวุฒิการศึกษาระดับ ม.3 หรือเทียบเท่า
- 
-                                <br> <i class="fa fa-circle " style="font-size: 0.7rem !important;"></i> ผลการเรียนเฉลี่ย 5 ภาค
-                                คะแนนเฉลี่ยไม่ต่ำกว่า 2.0 <br>
-                                &nbsp; (ทั้งนี้ขึ้นอยู่ในดุลพินิจของสถานศึกษา)
-                                <br> <i class="fa fa-circle " style="font-size: 0.7rem !important;"></i>
-                                ผู้สมัครมีความสนใจในด้านเทคโนโลยีสารสนเทศ <br>
-                                &nbsp; เช่น การใช้คอมพิวเตอร์ การเขียนโปรแกรม ฯลฯ
-                            </p>
+                <!-- Step 3: Bottom Side-by-Side 2 Cards Row (Initially 100% Off-Screen Below Viewport Fold) -->
+                <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; width: 100%; opacity: 0; transform: translateY(100vh); will-change: transform, opacity;" id="sec3-bottom-cards-row">
+                    
+                    <!-- Card 1: Qualifications -->
+                    <div style="flex: 1 1 450px; max-width: 580px; min-width: 300px; background-color: #ffffff !important; border-radius: 24px; padding: 24px; border: 1px solid rgba(220, 38, 38, 0.14); box-shadow: 0 15px 35px rgba(0,0,0,0.06); box-sizing: border-box;">
+                        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px;">
+                            <div style="width: 42px; height: 42px; border-radius: 14px; background: rgba(220, 38, 38, 0.1); color: #dc2626; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                                <i class="fa fa-user-check"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 19px; font-weight: 800; color: #1f2937 !important; margin: 0; font-family: 'Prompt', sans-serif !important;">
+                                    คุณสมบัติผู้สมัคร (ปวช.)
+                                </h3>
+                                <span style="font-size: 12px; color: #6b7280; font-family: 'Prompt', sans-serif !important;">เกณฑ์และข้อกำหนดการเข้าศึกษาต่อ</span>
+                            </div>
                         </div>
+                        
+                        <ul style="display: flex; flex-direction: column; gap: 10px; color: #374151 !important; font-size: 13.5px; font-family: 'Prompt', sans-serif !important; padding: 0; margin: 0; list-style: none;">
+                            <li style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 14px; flex-shrink: 0;"></i>
+                                <span><strong>ระดับการศึกษา:</strong> สำเร็จการศึกษาระดับ มัธยมศึกษาปีที่ 3 (ม.3) หรือเทียบเท่า</span>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 14px; flex-shrink: 0;"></i>
+                                <span><strong>ผลการเรียน:</strong> เกรดเฉลี่ยสะสม (GPAX) 5 ภาคเรียน ไม่ต่ำกว่า 2.00</span>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 14px; flex-shrink: 0;"></i>
+                                <span><strong>ความสนใจ:</strong> มีความสนใจ ทักษะพื้นฐาน หรือความมุ่งมั่นในสายงานไอทีและดิจิทัล</span>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 14px; flex-shrink: 0;"></i>
+                                <span><strong>การสอบคัดเลือก:</strong> ผ่านการคัดเลือกตามเกณฑ์ของวิทยาลัยอาชีวศึกษาเชียงราย</span>
+                            </li>
+                        </ul>
                     </div>
 
-
-                    <!-- col ที่ 2 ระยะเวลาการศึกษา -->
-                    <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
-                        <div class="bg-white rounded p-2">
-                            <h1 style="color: #16243d;">ระยะเวลาการศึกษา ระดับ ปวช.</h1>
-                            <hr style="
-                    border-style: solid;
-                    border-width: 3px;
-                    border-color: #eb0000;
-                    opacity: 1;
-                ">
-                            <p class=" fs-4 refontp3" style="padding-left: 20px;color: #16243d;">
-                                <i class="fa fa-circle " style="font-size: 0.7rem !important;"></i> ใช้เวลาเรียนรวม 3 ปีการศึกษา
-                                <br> <i class="fa fa-circle " style="font-size: 0.7rem !important;"></i> ใน 1 ปีการศึกษา แบ่งเป็น 2 ภาคเรียน โดยแต่ละภาคเรียนมีระยะเวลา 18 สัปดาห์
-                                <br> <i class="fa fa-circle " style="font-size: 0.7rem ;"></i> ระดับชั้น ปวช.3 (ปกติ) ฝึกงานเป็นระยะเวลา 1 ภาคเรียน
-                                <br> <i class="fa fa-circle " style="font-size: 0.7rem ;"></i> ระดับชั้น ปวช. (ทวิภาคี) เป็นการเรียนควบคู่กับการทำงาน ฝึกอาชีพในสถานประกอบการ ต่อเนื่องไม่น้อยกว่า 1 ปี (ไม่ใช่แค่ช่วง ปวช.3 แต่กระจายตลอดหลักสูตร)
-                            </p>
-                            <a target="_blank" class="btn btn-primary rounded-pill  py-2 px-4" style="font-size: 1.5rem;"
-                                href="https://admission.vec.go.th/">
-                                <i class="fa fa-paper-plane" style="margin-left: 5px;" aria-hidden="true"></i>
-                                สนใจสมัครเรียน
-
-                            </a>
+                    <!-- Card 2: Duration & Learning Systems -->
+                    <div style="flex: 1 1 450px; max-width: 580px; min-width: 300px; background-color: #ffffff !important; border-radius: 24px; padding: 24px; border: 1px solid rgba(220, 38, 38, 0.14); box-shadow: 0 15px 35px rgba(0,0,0,0.06); box-sizing: border-box;">
+                        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px;">
+                            <div style="width: 42px; height: 42px; border-radius: 14px; background: rgba(220, 38, 38, 0.1); color: #dc2626; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                                <i class="fa fa-clock"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 19px; font-weight: 800; color: #1f2937 !important; margin: 0; font-family: 'Prompt', sans-serif !important;">
+                                    ระยะเวลา & ระบบการเรียน
+                                </h3>
+                                <span style="font-size: 12px; color: #6b7280; font-family: 'Prompt', sans-serif !important;">รูปแบบและโครงสร้างการเรียนการสอน</span>
+                            </div>
                         </div>
+
+                        <ul style="display: flex; flex-direction: column; gap: 10px; color: #374151 !important; font-size: 13.5px; font-family: 'Prompt', sans-serif !important; padding: 0; margin: 0; list-style: none;">
+                            <li style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa fa-graduation-cap" style="color: #dc2626; margin-top: 3px; font-size: 14px; flex-shrink: 0;"></i>
+                                <span><strong>ระยะเวลาเรียน:</strong> รวม 3 ปีการศึกษา (6 ภาคเรียน) เน้นปฏิบัติจริง 80%</span>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa fa-laptop-code" style="color: #dc2626; margin-top: 3px; font-size: 14px; flex-shrink: 0;"></i>
+                                <span><strong>ระบบปกติ:</strong> เรียนทฤษฎีและปฏิบัติ + ฝึกงานในสถานประกอบการ 1 ภาคเรียน (ปวช.3)</span>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa fa-building" style="color: #dc2626; margin-top: 3px; font-size: 15px; flex-shrink: 0;"></i>
+                                <span><strong>ระบบทวิภาคี:</strong> เรียนควบคู่กับการฝึกอาชีพจริงในบริษัทสถานประกอบการพาร์ตเนอร์ชั้นนำ</span>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa fa-user-shield" style="color: #dc2626; margin-top: 3px; font-size: 14px; flex-shrink: 0;"></i>
+                                <span><strong>การดูแลนักศึกษา:</strong> มีอาจารย์ที่ปรึกษา ดูแลการฝึกงานอย่างใกล้ชิดตลอดหลักสูตร</span>
+                            </li>
+                        </ul>
                     </div>
 
                 </div>
+
             </div>
+
         </div>
     </div>
-
-    <svg xmlns="http://www.w3.org/2000/svg" style="position: absolute; bottom:0; left:0;" viewBox="0 0 1440 320">
-        <path fill="#f2f5f9 " fill-opacity="1"
-            d="M0,224L40,218.7C80,213,160,203,240,176C320,149,400,107,480,128C560,149,640,235,720,250.7C800,267,880,213,960,197.3C1040,181,1120,203,1200,202.7C1280,203,1360,181,1400,170.7L1440,160L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
-        </path>
-    </svg>
 </div>
-<!-- Service End -->
+
+<!-- GSAP ScrollTrigger Script for Section 3 Sequence -->
+<script>
+(function() {
+    window.initSec3Sequence = function initSec3Sequence() {
+        if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
+            setTimeout(initSec3Sequence, 100);
+            return;
+        }
+
+        let mm = gsap.matchMedia();
+
+        mm.add("(min-width: 1024px)", () => {
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#sec3-sequence-outer",
+                    pin: true,
+                    start: "top top",
+                    end: "+=100%",
+                    scrub: 0.4,
+                    anticipatePin: 1
+                }
+            });
+
+            // Phase 1: Header Reveal & Pure Standalone Huge Diagram Image Reveal (0% -> 15% scroll)
+            tl.to("#sec3-header", {
+                y: 0,
+                opacity: 1,
+                duration: 0.4,
+                ease: "power1.out"
+            }, 0);
+
+            tl.to("#sec3-diagram-card", {
+                opacity: 1,
+                scale: 1,
+                duration: 0.8,
+                ease: "power1.out"
+            }, 0.1);
+
+            // Phase 2: Short Read Hold Phase (15% -> 25% scroll) - Quick hold before cards ascend
+            tl.to({}, { duration: 0.5 }, 0.9);
+
+            // Phase 3: Header Fade-Out & Pure Diagram Image Shrinks & Shifts Up (25% -> 50% scroll)
+            tl.to("#sec3-header", {
+                opacity: 0,
+                y: -30,
+                duration: 0.6,
+                ease: "power1.in"
+            }, 1.4);
+
+            tl.to("#sec3-diagram-card", {
+                scale: 0.84,
+                y: -10,
+                duration: 0.8,
+                ease: "power1.inOut"
+            }, 1.4);
+
+            // Phase 4: Fast H-CARDS ASCEND (50% -> 100% scroll) - Bottom 2 Cards Row ascends quickly close to diagram
+            tl.to("#sec3-bottom-cards-row", {
+                opacity: 1,
+                translateY: "-38px",
+                duration: 1.4,
+                ease: "power1.out"
+            }, 1.8);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSec3Sequence);
+    } else {
+        initSec3Sequence();
+    }
+})();
+</script>

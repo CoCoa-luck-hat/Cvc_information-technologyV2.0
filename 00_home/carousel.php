@@ -6,7 +6,7 @@
         <!-- Autoplay Video Background -->
         <div class="home-hero-container">
             <video class="home-hero-video" autoplay muted playsinline loop>
-                <source src="Hero.mp4" type="video/mp4">
+                <source src="02_design/Hero.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <div class="home-hero-overlay"></div>
