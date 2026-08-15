@@ -1117,11 +1117,24 @@ function init3DCardStacking() {
         }
 
         // 2. 3D Card Deck Stacking (Dynamically Centered Vertically on Desktop & Mobile)
+<<<<<<< HEAD
         const getTopOffset = (cardEl) => {
             const vh = window.innerHeight;
             const cardH = cardEl && cardEl.offsetHeight ? cardEl.offsetHeight : 450;
             const minOffset = window.innerWidth < 768 ? 65 : 110;
             return Math.max(minOffset, Math.round((vh - cardH) / 2));
+=======
+        const isDesktop = window.innerWidth >= 768;
+        const animDistance = isDesktop ? 450 : 320;
+
+        // Calculate dynamic top offset per card to center it vertically on screen
+        const getTopOffset = (cardEl) => {
+            const vh = window.innerHeight;
+            const cardH = cardEl ? cardEl.offsetHeight : (isDesktop ? 450 : 520);
+            const calculatedCenter = Math.round((vh - cardH) / 2);
+            const minTop = isDesktop ? 95 : 85;
+            return Math.max(minTop, calculatedCenter);
+>>>>>>> f3c8546122cb309d7e84397994624b7a262a299a
         };
 
         const animDistance = Math.min(480, Math.round(window.innerHeight * 0.5));
@@ -1129,9 +1142,16 @@ function init3DCardStacking() {
         // Set explicit initial states and per-card dynamic topOffset pinning
         cards.forEach((card, index) => {
             gsap.set(card, {
+<<<<<<< HEAD
                 transformOrigin: "center center",
                 opacity: index === 0 ? 1 : 0,
                 scale: index === 0 ? 1 : 0.96
+=======
+                transformOrigin: "center top",
+                opacity: 0,
+                y: index === 0 ? 0 : 70,
+                scale: index === 0 ? 0.88 : 0.96
+>>>>>>> f3c8546122cb309d7e84397994624b7a262a299a
             });
 
             // Pin each card at its dynamic topOffset until the end of majorsSection
@@ -1146,7 +1166,30 @@ function init3DCardStacking() {
             });
         });
 
+<<<<<<< HEAD
         // Entrance & Exit Transitions (Frame-Accurate 1:1 Natural Velocity Scrub)
+=======
+        // Entrance Transition for Card 1 (In-place scale-up 0.88 -> 1.0 & fade-in as title stage fades out)
+        const firstCard = cards[0];
+        if (firstCard) {
+            const firstTopOffset = getTopOffset(firstCard);
+            gsap.to(firstCard, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: firstCard,
+                    start: `top ${firstTopOffset + animDistance}px`,
+                    end: `top ${firstTopOffset}px`,
+                    scrub: true,
+                    invalidateOnRefresh: true
+                }
+            });
+        }
+
+        // Entrance & Exit Transitions (Frame-Accurate 1:1 Scrub)
+>>>>>>> f3c8546122cb309d7e84397994624b7a262a299a
         cards.forEach((card, index) => {
             const nextCard = cards[index + 1];
             if (nextCard) {
@@ -1180,6 +1223,7 @@ function init3DCardStacking() {
             }
         });
 
+<<<<<<< HEAD
         // Trigger ScrollTrigger.refresh() when images inside #majorsSection complete loading
         const majorsImages = document.querySelectorAll("#majorsSection img");
         majorsImages.forEach(img => {
@@ -1189,6 +1233,25 @@ function init3DCardStacking() {
                 img.addEventListener("load", () => ScrollTrigger.refresh());
             }
         });
+=======
+        // Exit Transition for the Last Card (Fades & Scales out smoothly before unpinning to prevent warp flicker)
+        const lastCard = cards[cards.length - 1];
+        if (lastCard) {
+            gsap.to(lastCard, {
+                scale: 0.88,
+                y: -30,
+                opacity: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#majorsSection",
+                    start: `bottom-=${animDistance}px bottom`,
+                    end: "bottom bottom",
+                    scrub: true,
+                    invalidateOnRefresh: true
+                }
+            });
+        }
+>>>>>>> f3c8546122cb309d7e84397994624b7a262a299a
     }
 }
 
