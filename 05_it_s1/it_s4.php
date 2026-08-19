@@ -1,168 +1,134 @@
+<!-- SECTION 4: PVS IT TECH STACK SINGLE ROW MARQUEE SHOWCASE -->
 <style>
-    img {
-        max-width: 100%;
-        vertical-align: top;
-    }
+@keyframes pvsTechMarqueeLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
 
-    .hoblack {
-        transition: 0.5s;
-    }
+.pvs-tech-marquee-container {
+    background-color: #ffffff !important;
+    padding: 50px 0 60px 0;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    border-bottom: 1px solid #e5e7eb;
+}
 
-    .hoitem {
-        position: relative;
-        overflow: hidden;
-        border-top-left-radius: 40px;
-        border-top-right-radius: 40px;
-        border-bottom-left-radius: 40px;
-        border-bottom-right-radius: 40px;
-    }
+.pvs-tech-marquee-row {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    width: 100%;
+    position: relative;
+}
 
-    .hoitem img {
-        transition: 0.5s;
-        z-index: 2;
-        position: relative;
-    }
+.pvs-tech-marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    gap: 60px;
+    align-items: center;
+    min-width: 100%;
+    will-change: transform;
+    animation: pvsTechMarqueeLeft 25s linear infinite;
+}
 
-    .hoitem:hover img {
-        transform: scale(1.1);
-    }
+.pvs-tech-marquee-row:hover .pvs-tech-marquee-track {
+    animation-play-state: paused !important;
+}
 
-    .hoitem::after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 0;
-        top: 0;
-        left: 0;
-        border-top-left-radius: 40px;
-        border-top-right-radius: 40px;
-        border-bottom-left-radius: 40px;
-        border-bottom-right-radius: 40px;
-        background: #0000000d;
-        transition: height 0.5s ease;
-        z-index: 1;
-    }
+.pvs-tech-icon-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 10px;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+}
 
-    .hoitem:hover::after {
-        height: 100%;
-    }
+.pvs-tech-icon-item:hover {
+    transform: scale(1.22) translateY(-4px);
+    filter: drop-shadow(0 8px 18px rgba(220, 38, 38, 0.35));
+}
 
-    .custom-grid .col {
-        flex: 0 0 calc(100% / 6);
-        /* แบ่งความกว้างเป็น 5 คอลัมน์ */
-        max-width: calc(100% / 6);
-    }
+.pvs-tech-icon-item img {
+    height: 56px;
+    max-width: 140px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    background: transparent !important;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+    transition: transform 0.3s ease;
+}
 
-    @media (max-width: 768px) {
-        .custom-grid .col {
-            flex: 0 0 50%;
-            /* สำหรับหน้าจอเล็ก ให้เป็น 2 คอลัมน์ */
-            max-width: 33.333333333333%;
-        }
+.pvs-tech-marquee-edge-left,
+.pvs-tech-marquee-edge-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 140px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.pvs-tech-marquee-edge-left {
+    left: 0;
+    background: linear-gradient(to right, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.pvs-tech-marquee-edge-right {
+    right: 0;
+    background: linear-gradient(to left, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* Responsive adjustments for Section 4 Tech Marquee (< 1024px) */
+@media (max-width: 1023px) {
+    .pvs-tech-marquee-edge-left,
+    .pvs-tech-marquee-edge-right {
+        width: 40px !important;
     }
+}
 </style>
-<div class="container-fluid feature  py-5 pt-5 px-lg-5" style="position: relative;">
-    <div class="container-fluid p-5  repnott remb0" style="margin-bottom: 50px;position: relative; z-index: 5;">
-        <div class="text-center mx-auto pb-4 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-            <h4 class="text-primary"></h4>
-            <h1 class="display-4 mb-4">โปรแกรมที่ใช้เรียนเบื้องต้น</h1>
-            <p class="mb-0">
-            </p>
-        </div>
 
-        <div class="row g-4 custom-grid">
-            <div class="col pb-0 p-5 wow  fadeInUp repnothave" data-wow-delay="0.2s">
-                <div class="hoitem p-3">
-                    <div class="iimg">
-                        <img src="03_photo/icon/postgreSQL.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col pb-0 p-5 wow fadeInUp repnothave" data-wow-delay="0.2s">
-                <div class="hoitem h-100 w-100"
-                    style="display: flex; justify-content: center; align-items: center;">
-                    <div class="iimg">
-                        <img src="03_photo/icon/XD.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col pb-0 p-5 wow fadeInUp repnothave" data-wow-delay="0.2s">
-                <div class="hoitem h-100 p-3" style="display: flex; justify-content: center; align-items: center;">
-                    <div class="iimg">
-                        <img src="03_photo/icon/ae.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col pb-0 p-5 wow fadeInUp repnothave" data-wow-delay="0.2s">
-                <div class="hoitem h-100 p-3" style="display: flex; justify-content: center; align-items: center;">
-                    <div class="iimg">
-                        <img src="03_photo/icon/node_js.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col pb-0 p-5 wow fadeInUp repnothave" data-wow-delay="0.2s">
-                <div class="hoitem h-100 p-3" style="display: flex; justify-content: center; align-items: center;">
-                    <div class="iimg">
-                        <img src="03_photo/icon/javascript.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col pb-0 p-5 wow fadeInUp repnothave" data-wow-delay="0.2s">
-                <div class="hoitem h-100 p-3" style="display: flex; justify-content: center; align-items: center;">
-                    <div class="iimg">
-                        <img src="03_photo/icon/Clip Studio.png" alt="">
-                    </div>
-                </div>
-            </div>
+<div class="pvs-tech-marquee-container">
+    <!-- Edge Fading Overlays -->
+    <div class="pvs-tech-marquee-edge-left"></div>
+    <div class="pvs-tech-marquee-edge-right"></div>
 
+    <!-- SINGLE ROW MARQUEE: Running Left -->
+    <div class="pvs-tech-marquee-row">
+        <div class="pvs-tech-marquee-track">
+            <!-- Loop Set 1 -->
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/vs.png" alt="VS Code"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/Docker.png" alt="Docker"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/python.png" alt="Python"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/php.png" alt="PHP Web"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/linux.png" alt="Linux OS"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/vmware.png" alt="VMware"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/ando.png" alt="Android Dev"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/bootstrap5.png" alt="Bootstrap 5"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/Power BI.png" alt="Power BI"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/GitHub.png" alt="GitHub"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/figma.png" alt="Figma"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/ภาษาC.png" alt="C / C++"></div>
 
-            <!--  -->
-            <div class="col   reposimI wow fadeInUp repnothave" data-wow-delay="0.2s">
-                <div class="hoitem p-3">
-                    <div class="iimg">
-                        <img src="03_photo/icon/disco.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col p-5 pt-0 wow fadeInUp repnothave" data-wow-delay="0.2s">
-                <div class="hoitem h-100 w-100"
-                    style="display: flex; justify-content: center; align-items: center;">
-                    <div class="iimg">
-                        <img src="03_photo/icon/angular.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col p-5 pt-0 wow fadeInUp repnothave" data-wow-delay="0.2s">
-                <div class="hoitem h-100 p-3" style="display: flex; justify-content: center; align-items: center;">
-                    <div class="iimg">
-                        <img src="03_photo/icon/flutter.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col p-5 pt-0 wow fadeInUp repnothave" data-wow-delay="0.2s">
-                <div class="hoitem h-100 p-3" style="display: flex; justify-content: center; align-items: center;">
-                    <div class="iimg">
-                        <img src="03_photo/icon/react.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col p-5 pt-0 wow fadeInUp repnothave" data-wow-delay="0.2s">
-                <div class="hoitem h-100 p-3" style="display: flex; justify-content: center; align-items: center;">
-                    <div class="iimg">
-                        <img src="03_photo/icon/Unity_Technologies_logo.svg.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col p-5 pt-0 wow fadeInUp repnothave" data-wow-delay="0.2s">
-                <div class="hoitem h-100 p-3" style="display: flex; justify-content: center; align-items: center;">
-                    <div class="iimg">
-                        <img src="03_photo/icon/vuejs-online-editor-compiler.original.png" alt="">
-                    </div>
-                </div>
-            </div>
+            <!-- Loop Set 2 (Duplicate for Seamless Endless Scroll) -->
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/vs.png" alt="VS Code"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/Docker.png" alt="Docker"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/python.png" alt="Python"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/php.png" alt="PHP Web"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/linux.png" alt="Linux OS"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/vmware.png" alt="VMware"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/ando.png" alt="Android Dev"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/bootstrap5.png" alt="Bootstrap 5"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/Power BI.png" alt="Power BI"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/GitHub.png" alt="GitHub"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/figma.png" alt="Figma"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/ภาษาC.png" alt="C / C++"></div>
         </div>
     </div>
-
-
-
 </div>

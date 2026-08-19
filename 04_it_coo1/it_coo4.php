@@ -84,6 +84,14 @@
     right: 0;
     background: linear-gradient(to left, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
 }
+
+/* Responsive adjustments for Section 4 Tech Marquee (< 1024px) */
+@media (max-width: 1023px) {
+    .tech-marquee-edge-left,
+    .tech-marquee-edge-right {
+        width: 40px !important;
+    }
+}
 </style>
 
 <div class="tech-marquee-container">

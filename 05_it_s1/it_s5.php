@@ -1,4 +1,4 @@
-<!-- SECTION 5: EXACT 1:1 MADEWITHGSAP REPLICA -->
+<!-- SECTION 5: EXACT 1:1 MADEWITHGSAP REPLICA FOR PVS IT -->
 <style>
 /* Responsive layout rules for Section 5 CTA & Sticky Note Badge */
 .s-pricing .inner-card-wrapper {
@@ -110,7 +110,7 @@
                     <div class="pin-height" style="height: 280vh; position: relative;">
                         <div class="container" style="height: 100vh; display: flex; align-items: center; overflow: hidden; width: 100vw !important; max-width: 100vw !important; margin: 0 !important; padding: 0 !important;">
                             <p class="text mwg-monster-text" style="font-family: 'Prompt', sans-serif !important; font-size: clamp(36px, 6vw, 84px); font-weight: 900; white-space: nowrap; color: #000000; margin: 0; line-height: 1; will-change: transform; opacity: 1; transform: translateX(100vw);">
-                                พร้อมหรือยัง? ปวช. IT CVC
+                                พร้อมยกระดับสู่มือโปร? ปวส. IT CVC
                             </p>
                         </div>
                     </div>
@@ -120,8 +120,8 @@
             <!-- Top Pricing Intro (Unlock the full / admission quota) -->
             <div class="h-top-pricing" style="text-align: center; padding: 60px 20px 280px 20px; margin-top: 20px; position: relative; z-index: 2;">
                 <h3 class="title-l pr" style="font-family: 'Prompt', sans-serif !important; margin: 0; line-height: 1.2;">
-                    <span style="font-size: clamp(26px, 5.5vw, 76px); font-weight: 900; color: #000000; display: block; letter-spacing: -0.5px;">ปลดล็อกโอกาสทางการศึกษา</span>
-                    <span class="text-g" style="font-size: clamp(24px, 5vw, 68px); font-weight: 800; color: #dc2626; opacity: 0.95; display: block; margin-top: 6px; letter-spacing: -0.5px;">คว้าโควตาเข้าเรียน ปวช. IT CVC</span>
+                    <span style="font-size: clamp(26px, 5.5vw, 76px); font-weight: 900; color: #000000; display: block; letter-spacing: -0.5px;">ปลดล็อกโอกาสสู่เส้นทางมืออาชีพ</span>
+                    <span class="text-g" style="font-size: clamp(24px, 5vw, 68px); font-weight: 800; color: #dc2626; opacity: 0.95; display: block; margin-top: 6px; letter-spacing: -0.5px;">คว้าโควตาเข้าเรียน ปวส. IT CVC</span>
                 </h3>
             </div>
 
@@ -155,17 +155,17 @@
                     <!-- Main Hero Title & Description -->
                     <div class="pr milieu" style="text-align: center;">
                         <h2 style="font-size: 30px; font-weight: 900; color: #111827 !important; font-family: 'Prompt', sans-serif !important; margin: 0 0 10px 0; line-height: 1.2;">
-                            ก้าวสู่อนาคตสายไอที
+                            ก้าวสู่ผู้เชี่ยวชาญสายไอที
                         </h2>
                         <p style="font-size: 14.5px; color: #4b5563 !important; font-family: 'Prompt', sans-serif !important; margin: 0 0 28px 0; line-height: 1.6;">
-                            ยื่นสมัครเรียนวันนี้ เพื่อรับสิทธิ์โควตาเรียนฟรี 100% พร้อมสวัสดิการและอุปกรณ์ครบครันตลอด 3 ปี
+                            ยื่นสมัครเรียนวันนี้ เพื่อรับสิทธิ์โควตาระดับ ปวส. กองทุน กยศ. 100% และโครงการทวิภาคีมีรายได้ตลอด 2 ปี
                         </p>
                     </div>
 
                     <!-- High-Impact Crimson Red CTA Button "สนใจสมัครเรียน" -->
                     <div style="text-align: center; margin-top: 10px;">
                         <a href="https://admission.vec.go.th/" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; background: linear-gradient(135deg, #dc2626 0%, #b71616 100%) !important; color: #ffffff !important; padding: 16px 26px; border-radius: 999px; font-size: 17px; font-weight: 900; font-family: 'Prompt', sans-serif !important; text-decoration: none !important; letter-spacing: 0.5px; box-shadow: 0 10px 30px rgba(220, 38, 38, 0.45); transition: transform 0.25s ease, box-shadow 0.25s ease;" onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 14px 35px rgba(220, 38, 38, 0.6)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 30px rgba(220, 38, 38, 0.45)';">
-                            <span>สนใจสมัครเรียน</span>
+                            <span>สนใจสมัครเรียน ปวส.</span>
                             <i class="fa fa-arrow-right" style="font-size: 16px;"></i>
                         </a>
                     </div>
@@ -174,20 +174,20 @@
                 <!-- WHITE-RED TILTED STICKY NOTE CARD (.whatsin) -->
                 <div class="whatsin pa label f f-center whatsin-badge">
                     <p style="font-family: 'Prompt', sans-serif !important; font-weight: 900; font-size: 15px; margin: 0 0 14px 0; text-transform: uppercase; letter-spacing: 0.5px; color: #dc2626; text-align: center;">
-                        <i class="fa fa-gift" style="margin-right: 6px;"></i>สิทธิ์ & สวัสดิการ ปวช.1
+                        <i class="fa fa-gift" style="margin-right: 6px;"></i>สิทธิ์ & สวัสดิการ ปวส.
                     </p>
                     <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; padding: 0; margin: 0; font-size: 13px; font-weight: 700; font-family: 'Prompt', sans-serif !important; color: #374151;">
                         <li style="display: flex; align-items: flex-start; gap: 8px;">
                             <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
-                            <span>100% สิทธิ์ทุนรัฐบาลฟรี</span>
+                            <span>100% สิทธิ์กู้ยืม กยศ.</span>
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 8px;">
                             <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
-                            <span>ชุดนักเรียน ปวช.1 ฟรี</span>
+                            <span>ทวิภาคีมีรายได้จริง</span>
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 8px;">
                             <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
-                            <span>หนังสือ & อุปกรณ์เรียนฟรี</span>
+                            <span>Lab & Server สเปกสูง</span>
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 8px;">
                             <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
@@ -195,7 +195,7 @@
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 8px;">
                             <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
-                            <span>โควตาต่อ ปวส./ป.ตรี 100%</span>
+                            <span>โควตาต่อ ป.ตรี ต่อเนื่อง 100%</span>
                         </li>
                     </ul>
                 </div>
@@ -207,32 +207,32 @@
         <!-- Career Pathways Grid (Below CTA Card) -->
         <div style="max-width: 1100px; margin: 70px auto 0; position: relative; z-index: 20; text-align: center;">
             <h3 style="font-size: 24px; font-weight: 800; color: #ffffff; margin-bottom: 8px; font-family: 'Prompt', sans-serif !important;">
-                เส้นทางอาชีพสำหรับผู้สำเร็จการศึกษา ปวช. เทคโนโลยีสารสนเทศ
+                เส้นทางอาชีพสำหรับผู้สำเร็จการศึกษา ปวส. เทคโนโลยีสารสนเทศ
             </h3>
             <p style="font-size: 14px; color: #9ca3af; margin: 0 auto 24px; font-family: 'Prompt', sans-serif !important;">
-                พร้อมก้าวสู่อาชีพสายเทคโนโลยียุคใหม่ หรือศึกษาต่อระดับ ปวส. และปริญญาตรี 100%
+                พร้อมต่อยอดสู่ระดับปริญญาตรี (ต่อเนื่อง 2 ปี) หรือเริ่มงานในตำแหน่งไอทีระดับสูงได้ทันที
             </p>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;">
                 <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px 14px;">
                     <i class="fas fa-code text-red-500 text-xl mb-2"></i>
-                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0; font-family: 'Prompt', sans-serif !important;">Junior Web Developer</h4>
+                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0; font-family: 'Prompt', sans-serif !important;">Full-Stack Web Developer</h4>
                 </div>
                 <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px 14px;">
-                    <i class="fas fa-laptop-code text-red-500 text-xl mb-2"></i>
-                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0; font-family: 'Prompt', sans-serif !important;">Junior Programmer</h4>
+                    <i class="fas fa-cloud text-red-500 text-xl mb-2"></i>
+                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0; font-family: 'Prompt', sans-serif !important;">Cloud & DevOps Engineer</h4>
                 </div>
                 <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px 14px;">
-                    <i class="fas fa-tools text-red-500 text-xl mb-2"></i>
-                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0; font-family: 'Prompt', sans-serif !important;">IT Support & Hardware</h4>
+                    <i class="fas fa-database text-red-500 text-xl mb-2"></i>
+                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0; font-family: 'Prompt', sans-serif !important;">Database Administrator</h4>
                 </div>
                 <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px 14px;">
                     <i class="fas fa-network-wired text-red-500 text-xl mb-2"></i>
-                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0; font-family: 'Prompt', sans-serif !important;">Network Technician</h4>
+                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0; font-family: 'Prompt', sans-serif !important;">Network & Security Engineer</h4>
                 </div>
                 <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px 14px;">
-                    <i class="fas fa-paint-brush text-red-500 text-xl mb-2"></i>
-                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0; font-family: 'Prompt', sans-serif !important;">Digital Media & Graphic</h4>
+                    <i class="fas fa-tasks text-red-500 text-xl mb-2"></i>
+                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0; font-family: 'Prompt', sans-serif !important;">IT Support & Project Lead</h4>
                 </div>
             </div>
         </div>

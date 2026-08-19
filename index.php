@@ -77,13 +77,27 @@ $route = trim($_GET['route'] ?? $_GET['click'] ?? $_GET['page'] ?? '', '/');
                     include('04_it_coo1/it_coo5.php');
                     break;
 
-                // 2. หลักสูตร ปวส.
+                // 2. หลักสูตร ปวส. สาขาเทคโนโลยีสารสนเทศ
                 case 'it_s1':
+                case 'pvs_it':
                 case 'pvs':
                     include('05_it_s1/it_s1.php');
                     include('05_it_s1/it_s2.php');
                     include('05_it_s1/it_s3.php');
                     include('05_it_s1/it_s4.php');
+                    include('05_it_s1/it_s5.php');
+                    break;
+
+                // 2.1 หลักสูตร ปวส. สาขาคอมพิวเตอร์เกมและแอนิเมชัน
+                case 'game_s1':
+                case 'pvs_game':
+                case 'game':
+                case 'games':
+                    include('05_game_s1/game_s1.php');
+                    include('05_game_s1/game_s2.php');
+                    include('05_game_s1/game_s3.php');
+                    include('05_game_s1/game_s4.php');
+                    include('05_game_s1/game_s5.php');
                     break;
 
                 // 3. คณะครูผู้สอน

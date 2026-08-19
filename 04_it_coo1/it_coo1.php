@@ -190,52 +190,166 @@ section.h-hero .sr-only {
     z-index: 5;
 }
 
+.join-mobile {
+    display: none;
+}
+.join-desktop {
+    display: inline-block;
+}
+
 /* Responsive Rules (< 900px) */
 @media (max-width: 900px) {
-    .h-hero > .wording-headline {
-        position: relative;
-        top: initial;
-        transform: initial;
-        font-size: 32px;
+    .h-hero {
+        min-height: 100svh;
+        height: auto !important;
+        padding: 105px 16px 36px;
+        display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 80px;
-        padding: 0 15px;
+        justify-content: center;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .h-hero > .wording-headline {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        transform: none;
+        font-size: clamp(26px, 6.5vw, 38px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0 10px;
+        padding: 0;
+        width: 100%;
+        line-height: 1.25;
+        gap: 2px;
     }
     
-    .h-hero > .wording-headline .l, .h-hero > .wording-headline .r {
+    .h-hero > .wording-headline .l, 
+    .h-hero > .wording-headline .r {
         width: 100%;
         justify-content: center;
+        gap: 6px;
+    }
+
+    .join-desktop {
+        display: none !important;
+    }
+    .join-mobile {
+        display: inline-flex !important;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    /* Modern Compact Glassmorphism Pill Badge on Mobile */
+    .h-hero .join {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: rgba(220, 38, 38, 0.08);
+        border: 1px solid rgba(220, 38, 38, 0.22);
+        border-radius: 9999px;
+        padding: 5px 14px;
+        color: #b91c1c;
+        font-size: 12.5px;
+        font-weight: 600;
+        line-height: 1;
+        margin: 0 auto 20px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.05);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        max-width: fit-content;
     }
 
     .h-hero .hero-deck-container {
-        width: calc(100% + 30px);
+        width: 100vw;
+        max-width: 100vw;
         height: auto;
         overflow-x: auto;
-        margin: 25px 0 0 -15px;
+        overflow-y: hidden;
+        margin: 0 -16px;
+        padding: 8px 0 16px;
         scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        cursor: grab;
+        user-select: none;
+    }
+
+    .h-hero .hero-deck-container:active {
+        cursor: grabbing;
+    }
+
+    .h-hero .hero-deck-container::-webkit-scrollbar {
+        display: none;
     }
 
     .h-hero .hero-deck-content {
         position: relative;
         flex-direction: row;
         width: max-content;
-        gap: 15px;
-        padding: 0 25px;
+        gap: 16px;
+        padding: 0 max(20px, calc(50vw - 160px));
         margin: 0;
         left: auto;
         right: auto;
         transform: none !important;
+        pointer-events: auto;
     }
 
     .h-hero .media {
-        width: calc(100vw - 60px);
-        max-width: 450px;
+        width: 78vw;
+        max-width: 320px;
+        min-height: auto;
+        aspect-ratio: 16 / 9;
         scroll-snap-align: center;
+        border-radius: 16px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
         transform: none !important;
+        cursor: pointer;
+        pointer-events: auto;
+        user-select: none;
     }
 
-    .h-hero .join {
+    /* Mobile Carousel Pagination Dots */
+    .h-hero-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        margin-top: 14px;
+    }
+
+    .h-hero-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 9999px;
+        background: rgba(0, 0, 0, 0.18);
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        cursor: pointer;
+    }
+
+    .h-hero-dot.active {
+        width: 22px;
+        background: #dc2626;
+    }
+}
+
+@media (min-width: 901px) {
+    .h-hero-dots {
         display: none;
     }
 }
@@ -258,7 +372,10 @@ section.h-hero .sr-only {
     </div>
 
     <!-- Subtitle Tagline -->
-    <p class="join pa body-s">มุ่งเน้นทักษะปฏิบัติจริง 80% <br>สร้างสรรค์ผลงานดิจิทัลระดับมืออาชีพ CVC IT</p>
+    <div class="join pa body-s">
+        <span class="join-desktop">มุ่งเน้นทักษะปฏิบัติจริง 80% <br>สร้างสรรค์ผลงานดิจิทัลระดับมืออาชีพ CVC IT</span>
+        <span class="join-mobile">ปฏิบัติจริง 80% • CVC IT</span>
+    </div>
 
     <!-- Center Card Stack Photo Gallery Container -->
     <div class="hero-deck-container">
@@ -274,6 +391,13 @@ section.h-hero .sr-only {
             <img class="media" draggable="false" src="03_photo/3.4_room/5.0.jpg" alt="ห้องคอมพิวเตอร์กราฟิก" />
             <img class="media" draggable="false" src="03_photo/3.4_room/4.jpg" alt="ผลงานและกิจกรรมไอที" />
         </div>
+    </div>
+
+    <!-- Mobile Slider Dots Indicator -->
+    <div class="h-hero-dots">
+        <?php for($d = 0; $d < 10; $d++): ?>
+            <span class="h-hero-dot <?= $d === 0 ? 'active' : '' ?>"></span>
+        <?php endfor; ?>
     </div>
 </section>
 
@@ -301,7 +425,91 @@ window.initMwgHeroSection = function(forceReinit = false) {
     let isMobile = window.innerWidth <= 900;
     if (isMobile) {
         const container = section.querySelector(".hero-deck-container");
-        if (container) container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2;
+        const dots = section.querySelectorAll(".h-hero-dot");
+        if (container) {
+            let isDown = false;
+            let startX = 0;
+            let scrollLeft = 0;
+
+            const handleStart = (clientX) => {
+                isDown = true;
+                startX = clientX;
+                scrollLeft = container.scrollLeft;
+                container.style.scrollBehavior = 'auto';
+                container.style.scrollSnapType = 'none';
+            };
+
+            const handleMove = (clientX, e) => {
+                if (!isDown) return;
+                const walk = clientX - startX;
+                if (Math.abs(walk) > 3) {
+                    if (e && e.cancelable) e.preventDefault();
+                    container.scrollLeft = scrollLeft - walk;
+                }
+            };
+
+            const handleEnd = () => {
+                if (!isDown) return;
+                isDown = false;
+                container.style.scrollBehavior = 'smooth';
+                container.style.scrollSnapType = 'x mandatory';
+                const cardWidth = mediaList[0] ? mediaList[0].offsetWidth + 16 : 300;
+                const targetIdx = Math.max(0, Math.min(mediaList.length - 1, Math.round(container.scrollLeft / cardWidth)));
+                container.scrollTo({ left: targetIdx * cardWidth, behavior: 'smooth' });
+            };
+
+            // Touch events for mobile phones
+            container.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) handleStart(e.touches[0].clientX);
+            }, { passive: true });
+
+            container.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1) handleMove(e.touches[0].clientX, e);
+            }, { passive: false });
+
+            container.addEventListener('touchend', handleEnd, { passive: true });
+            container.addEventListener('touchcancel', handleEnd, { passive: true });
+
+            // Mouse events for DevTools simulation & desktop trackpad
+            container.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                handleStart(e.clientX);
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (isDown) handleMove(e.clientX, e);
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (isDown) handleEnd();
+            });
+
+            // Prevent native image ghost drag
+            mediaList.forEach(img => {
+                img.addEventListener('dragstart', (e) => e.preventDefault());
+            });
+
+            // Update dots on scroll
+            let scrollTimeout;
+            container.addEventListener("scroll", () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    const cardWidth = mediaList[0] ? mediaList[0].offsetWidth + 16 : 300;
+                    const currentIdx = Math.round(container.scrollLeft / cardWidth);
+                    dots.forEach((dot, idx) => {
+                        dot.classList.toggle("active", idx === Math.min(dots.length - 1, Math.max(0, currentIdx)));
+                    });
+                }, 25);
+            }, { passive: true });
+
+            // Dot navigation
+            dots.forEach((dot, idx) => {
+                dot.addEventListener("click", () => {
+                    const cardWidth = mediaList[0] ? mediaList[0].offsetWidth + 16 : 300;
+                    container.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+                });
+            });
+        }
         return;
     }
 

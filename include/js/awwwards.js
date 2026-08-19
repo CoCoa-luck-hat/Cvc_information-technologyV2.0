@@ -186,12 +186,12 @@ function triggerCinematicBlindsIn() {
         }
 
         tl.set(strips, { transformOrigin: "bottom" })
-          .to(strips, {
-            scaleY: 0,
-            duration: 0.45,
-            stagger: 0.04,
-            ease: "power4.inOut"
-        }, centerBox ? "-=0.1" : 0);
+            .to(strips, {
+                scaleY: 0,
+                duration: 0.45,
+                stagger: 0.04,
+                ease: "power4.inOut"
+            }, centerBox ? "-=0.1" : 0);
     } else {
         resetCinematicBlinds();
     }
@@ -1117,24 +1117,11 @@ function init3DCardStacking() {
         }
 
         // 2. 3D Card Deck Stacking (Dynamically Centered Vertically on Desktop & Mobile)
-<<<<<<< HEAD
         const getTopOffset = (cardEl) => {
             const vh = window.innerHeight;
             const cardH = cardEl && cardEl.offsetHeight ? cardEl.offsetHeight : 450;
             const minOffset = window.innerWidth < 768 ? 65 : 110;
             return Math.max(minOffset, Math.round((vh - cardH) / 2));
-=======
-        const isDesktop = window.innerWidth >= 768;
-        const animDistance = isDesktop ? 450 : 320;
-
-        // Calculate dynamic top offset per card to center it vertically on screen
-        const getTopOffset = (cardEl) => {
-            const vh = window.innerHeight;
-            const cardH = cardEl ? cardEl.offsetHeight : (isDesktop ? 450 : 520);
-            const calculatedCenter = Math.round((vh - cardH) / 2);
-            const minTop = isDesktop ? 95 : 85;
-            return Math.max(minTop, calculatedCenter);
->>>>>>> f3c8546122cb309d7e84397994624b7a262a299a
         };
 
         const animDistance = Math.min(480, Math.round(window.innerHeight * 0.5));
@@ -1142,16 +1129,9 @@ function init3DCardStacking() {
         // Set explicit initial states and per-card dynamic topOffset pinning
         cards.forEach((card, index) => {
             gsap.set(card, {
-<<<<<<< HEAD
                 transformOrigin: "center center",
                 opacity: index === 0 ? 1 : 0,
                 scale: index === 0 ? 1 : 0.96
-=======
-                transformOrigin: "center top",
-                opacity: 0,
-                y: index === 0 ? 0 : 70,
-                scale: index === 0 ? 0.88 : 0.96
->>>>>>> f3c8546122cb309d7e84397994624b7a262a299a
             });
 
             // Pin each card at its dynamic topOffset until the end of majorsSection
@@ -1166,30 +1146,7 @@ function init3DCardStacking() {
             });
         });
 
-<<<<<<< HEAD
         // Entrance & Exit Transitions (Frame-Accurate 1:1 Natural Velocity Scrub)
-=======
-        // Entrance Transition for Card 1 (In-place scale-up 0.88 -> 1.0 & fade-in as title stage fades out)
-        const firstCard = cards[0];
-        if (firstCard) {
-            const firstTopOffset = getTopOffset(firstCard);
-            gsap.to(firstCard, {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: firstCard,
-                    start: `top ${firstTopOffset + animDistance}px`,
-                    end: `top ${firstTopOffset}px`,
-                    scrub: true,
-                    invalidateOnRefresh: true
-                }
-            });
-        }
-
-        // Entrance & Exit Transitions (Frame-Accurate 1:1 Scrub)
->>>>>>> f3c8546122cb309d7e84397994624b7a262a299a
         cards.forEach((card, index) => {
             const nextCard = cards[index + 1];
             if (nextCard) {
@@ -1223,7 +1180,6 @@ function init3DCardStacking() {
             }
         });
 
-<<<<<<< HEAD
         // Trigger ScrollTrigger.refresh() when images inside #majorsSection complete loading
         const majorsImages = document.querySelectorAll("#majorsSection img");
         majorsImages.forEach(img => {
@@ -1233,25 +1189,6 @@ function init3DCardStacking() {
                 img.addEventListener("load", () => ScrollTrigger.refresh());
             }
         });
-=======
-        // Exit Transition for the Last Card (Fades & Scales out smoothly before unpinning to prevent warp flicker)
-        const lastCard = cards[cards.length - 1];
-        if (lastCard) {
-            gsap.to(lastCard, {
-                scale: 0.88,
-                y: -30,
-                opacity: 0,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#majorsSection",
-                    start: `bottom-=${animDistance}px bottom`,
-                    end: "bottom bottom",
-                    scrub: true,
-                    invalidateOnRefresh: true
-                }
-            });
-        }
->>>>>>> f3c8546122cb309d7e84397994624b7a262a299a
     }
 }
 
@@ -1934,7 +1871,8 @@ function initPvcHTextsAndCards() {
     const activeTitle = isMobile ? mainSection.querySelector('.title-mob') : mainSection.querySelector('.title-l');
     const allChars = splitWordsToChars(activeTitle);
 
-    // Initial state: Title text is intact and fully visible
+    // Initial state: Wrapper starts hidden for scroll entrance, all characters at resting pos
+    if (textsWrapper) gsap.set(textsWrapper, { opacity: 0 });
     gsap.set(allChars, { visibility: "visible", opacity: 1, x: 0, y: 0, rotation: 0, scale: 1 });
     gsap.set(cardsWrapper, { y: window.innerHeight, autoAlpha: 1 });
 
@@ -1973,7 +1911,7 @@ function initPvcHTextsAndCards() {
         });
     }
 
-    // Reassemble text cleanly when scrolling back up
+    // Smooth Shockwave Vacuum Reassemble when scrolling back up
     function assembleText() {
         allChars.forEach((ch) => {
             gsap.to(ch, {
@@ -1982,8 +1920,8 @@ function initPvcHTextsAndCards() {
                 rotation: 0,
                 scale: 1,
                 opacity: 1,
-                duration: 0.8,
-                ease: "power2.out",
+                duration: 0.7,
+                ease: "power3.out",
                 overwrite: "auto"
             });
         });
@@ -1991,25 +1929,25 @@ function initPvcHTextsAndCards() {
 
     const numCards = circles.length;
 
-    // Pre-computed Dynamic Re-centering Fan Coordinate Tables for 1, 2, 3, and 4 cards (Radius = 1100px)
+    // Pre-computed Dynamic Re-centering Fan Coordinate Tables for 1, 2, 3, and 4 cards (Optimized for 340px card width)
     const fanStates = {
         1: [
             { x: 0, y: 0, rot: 0 }
         ],
         2: [
-            { x: -86.3, y: 3.4, rot: -4.5 },
-            { x: 86.3, y: 3.4, rot: 4.5 }
+            { x: -96.3, y: 4.0, rot: -4.8 },
+            { x: 96.3, y: 4.0, rot: 4.8 }
         ],
         3: [
-            { x: -134.1, y: 8.2, rot: -7.0 },
+            { x: -152.0, y: 10.0, rot: -7.5 },
             { x: 0, y: 0, rot: 0 },
-            { x: 134.1, y: 8.2, rot: 7.0 }
+            { x: 152.0, y: 10.0, rot: 7.5 }
         ],
         4: [
-            { x: -181.7, y: 15.1, rot: -9.5 },
-            { x: -61.4, y: 1.7, rot: -3.2 },
-            { x: 61.4, y: 1.7, rot: 3.2 },
-            { x: 181.7, y: 15.1, rot: 9.5 }
+            { x: -210.0, y: 19.0, rot: -10.5 },
+            { x: -70.0, y: 2.1, rot: -3.5 },
+            { x: 70.0, y: 2.1, rot: 3.5 },
+            { x: 210.0, y: 19.0, rot: 10.5 }
         ]
     };
 
@@ -2019,6 +1957,7 @@ function initPvcHTextsAndCards() {
     const STAGE2_SPREAD_DURATION = 0.10; // 0.74 -> 0.84 is un-fanning, 0.84 -> 1.00 is generous 4-col reading hold (~96vh)
 
     let lastActiveCount = 0; // 0 = none, 1 = 1 card, 2 = 2 cards, 3 = 3 cards, 4 = 4 cards
+    let wasInStage2 = false; // Flag to detect transition between Stage 2 and Stage 1
 
     // Initial state: Card 0 centered, all others hidden
     circles.forEach((c, idx) => {
@@ -2050,7 +1989,7 @@ function initPvcHTextsAndCards() {
                 const target = stateConfig[idx];
 
                 if (isForward && idx === activeK - 1 && activeK > 1) {
-                    // New card drops in from top with elastic bounce
+                    // New card drops in from top with elastic bounce (Only on forward scroll)
                     gsap.fromTo(
                         media,
                         { x: target.x, y: target.y - 140, rotation: target.rot, scale: 0.85, opacity: 0, xPercent: -50, yPercent: -50 },
@@ -2063,12 +2002,12 @@ function initPvcHTextsAndCards() {
                             xPercent: -50,
                             yPercent: -50,
                             ease: 'elastic.out(1, 0.6)',
-                            duration: 1.2,
+                            duration: 1.0,
                             overwrite: 'auto'
                         }
                     );
                 } else {
-                    // Existing cards smoothly adjust position & angle
+                    // Existing cards smoothly adjust position & angle (or when scrolling backwards)
                     gsap.to(media, {
                         x: target.x,
                         y: target.y,
@@ -2077,21 +2016,21 @@ function initPvcHTextsAndCards() {
                         opacity: 1,
                         xPercent: -50,
                         yPercent: -50,
-                        duration: 0.6,
+                        duration: isForward ? 0.5 : 0.2,
                         ease: 'power2.out',
                         overwrite: 'auto'
                     });
                 }
             } else {
-                // Card is exiting (scroll back up)
+                // Card is exiting (scroll back up) -> Instant Sync Fade (0.15s)
                 if (c.classList.contains('on')) {
                     gsap.to(media, {
-                        y: 40,
-                        scale: 0.65,
+                        y: 25,
+                        scale: 0.7,
                         opacity: 0,
                         xPercent: -50,
                         yPercent: -50,
-                        duration: 0.35,
+                        duration: 0.15,
                         ease: 'power2.out',
                         overwrite: 'auto',
                         onComplete: () => {
@@ -2117,6 +2056,12 @@ function initPvcHTextsAndCards() {
         onUpdate: (self) => {
             const prog = self.progress; // 0 → 1
             const currentIsMobile = window.innerWidth < 900;
+
+            // 0. Scroll-Linked Gradual Headline Fade In (0% → 6%) / Symmetrical Fade Out on scroll up via Wrapper
+            const textFadeProg = Math.min(1, Math.max(0, prog / 0.06));
+            if (textsWrapper) {
+                gsap.set(textsWrapper, { opacity: textFadeProg });
+            }
 
             // 1. Card 1 Ascends from bottom to center (0% → 10%)
             const ascendProg = Math.min(1, Math.max(0, prog / 0.10));
@@ -2169,15 +2114,22 @@ function initPvcHTextsAndCards() {
                 }
             } else {
                 // ── DESKTOP MODE (Dynamic Re-centering Fan + 4-Col Spread-Out) ──
-                const cardWidth = 290;
-                const gap = 24;
-                const spreadSpacing = Math.min(cardWidth + gap, (window.innerWidth - 80) / 4);
+                const cardWidth = 340;
+                const gap = 26;
+                const spreadSpacing = Math.min(cardWidth + gap, (window.innerWidth - 60) / 4);
                 const spreadOffsets = [
                     -1.5 * spreadSpacing,
                     -0.5 * spreadSpacing,
-                     0.5 * spreadSpacing,
-                     1.5 * spreadSpacing
+                    0.5 * spreadSpacing,
+                    1.5 * spreadSpacing
                 ];
+                const isScrollingForward = self.direction > 0;
+
+                // Handle transition from Stage 2 back to Stage 1 when scrolling up past 74%
+                if (prog < STAGE2_START && wasInStage2) {
+                    wasInStage2 = false;
+                    lastActiveCount = 0; // Force immediate recalculation of fan state
+                }
 
                 // Stage 1: Dynamic Re-centering Fan (0% → 74%)
                 if (prog < STAGE2_START && numCards > 0) {
@@ -2188,7 +2140,7 @@ function initPvcHTextsAndCards() {
                     else currentK = 1;
 
                     if (currentK !== lastActiveCount) {
-                        applyFanState(currentK, currentK > lastActiveCount);
+                        applyFanState(currentK, isScrollingForward && currentK > lastActiveCount);
                         lastActiveCount = currentK;
                     }
                     gsap.set(circlesContainer, { rotation: 0 });
@@ -2196,6 +2148,7 @@ function initPvcHTextsAndCards() {
 
                 // Stage 2: Spread-out 4-col row (74% → 100%, un-fans from 74% → 84%, holds from 84% → 100%)
                 if (prog >= STAGE2_START && numCards > 0) {
+                    wasInStage2 = true;
                     const s2 = Math.min(1, Math.max(0, (prog - STAGE2_START) / STAGE2_SPREAD_DURATION));
 
                     circles.forEach(c => c.classList.add('on'));
@@ -2340,29 +2293,30 @@ function initMwgHLatestAndPricing() {
     const innerCard = document.querySelector('#pvc-pricing-inner-card');
 
     if (curvePath && pricingCardSec) {
+        const isMobile = window.innerWidth < 1024;
         const curveTl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.h-top-pricing',
-                start: "top 80%",
+                start: isMobile ? "top 90%" : "top 80%",
                 endTrigger: pricingCardSec,
-                end: "top 30%",
+                end: isMobile ? "top 50%" : "top 30%",
                 scrub: 1,
                 invalidateOnRefresh: true
             }
         });
 
-        // Dynamic Bezier Morphing: Extended 120% width to hide corner seams 100% offscreen!
+        // Dynamic Bezier Morphing: Extended 160% full bleed width to eliminate straight seams!
         curveTl.fromTo(curvePath,
-            { attr: { d: "M0 240 C540 180, 1100 180, 1640 240 L1640 240 L0 240 Z" } },
-            { attr: { d: "M0 240 C540 20, 1100 20, 1640 240 L1640 240 L0 240 Z" }, ease: "power1.out" },
+            { attr: { d: isMobile ? "M0 280 C480 220, 1160 220, 1640 280 L1640 280 L0 280 Z" : "M0 280 C480 220, 1160 220, 1640 280 L1640 280 L0 280 Z" } },
+            { attr: { d: isMobile ? "M0 280 C480 0, 1160 0, 1640 280 L1640 280 L0 280 Z" : "M0 280 C480 15, 1160 15, 1640 280 L1640 280 L0 280 Z" }, ease: "power1.out" },
             0
         );
 
         // Smooth Card Elevation & Fade-In
         if (innerCard) {
             curveTl.fromTo(innerCard,
-                { y: 80, opacity: 0.4, scale: 0.96 },
-                { y: -110, opacity: 1, scale: 1, ease: "power1.out" },
+                { y: isMobile ? 35 : 80, opacity: isMobile ? 0.7 : 0.4, scale: 0.96 },
+                { y: isMobile ? -15 : -110, opacity: 1, scale: 1, ease: "power1.out" },
                 0
             );
         }

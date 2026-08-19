@@ -18,7 +18,7 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
         #navbarCollapse {
             display: flex !important;
         }
-        /* Smooth Dropdown Enter/Exit Animation & Clipping */
+        /* Smooth Dropdown Enter/Exit Animation */
         .nav-dropdown-menu {
             opacity: 0;
             visibility: hidden;
@@ -28,7 +28,6 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
                         transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                         visibility 0.25s;
             pointer-events: none;
-            overflow: hidden !important;
             border-radius: 16px !important;
         }
         .group:hover .nav-dropdown-menu {
@@ -36,6 +35,33 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
             visibility: visible;
             transform: translateY(0) scale(1);
             pointer-events: auto;
+        }
+        .nav-pvs-sub-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(8px);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+        .nav-pvs-sub-menu::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            bottom: -10px;
+            left: -20px;
+            width: 25px;
+            background: transparent;
+            pointer-events: auto;
+        }
+        .group\/pvs:hover .nav-pvs-sub-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+        .group\/pvs:hover .fa-chevron-right {
+            transform: translateX(3px);
+            color: #dc2626 !important;
         }
     }
     @media (max-width: 1023px) {
@@ -175,16 +201,28 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
                     <span class="link-draw-underline">หน้าแรก</span>
                 </a>
 
-                <!-- สาขาที่เปิดสอน (Dropdown) -->
+                <!-- สาขาที่เปิดสอน (Dropdown with Nested Submenu) -->
                 <div class="relative group" style="position: relative;">
                     <button style="white-space: nowrap; padding: 6px 14px; font-size: 15px; font-weight: 500; color: #374151; background: transparent; border: none; border-radius: 9999px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" data-magnetic>
                         <span class="link-draw-underline">สาขาที่เปิดสอน</span>
                         <i class="fa fa-chevron-down" style="font-size: 11px; color: #9ca3af;"></i>
                     </button>
                     <!-- Dropdown Menu -->
-                    <div class="nav-dropdown-menu lg:absolute left-0 top-full mt-2 z-50" style="min-width: 200px; background: #ffffff; border-radius: 16px; border: 1px solid #e5e7eb; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); padding: 6px 0; overflow: hidden;">
-                        <a href="index.php?click=it_coo1" class="nav-dropdown-item">ในระดับ (ปวช.)</a>
-                        <a href="index.php?click=it_s1" class="nav-dropdown-item">ในระดับ (ปวส.)</a>
+                    <div class="nav-dropdown-menu lg:absolute left-0 top-full mt-2 z-50" style="min-width: 230px; background: #ffffff; border-radius: 16px; border: 1px solid #e5e7eb; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); padding: 6px 0; overflow: visible !important;">
+                        <a href="index.php?click=it_coo1" class="nav-dropdown-item">ระดับ (ปวช.) เทคโนโลยีสารสนเทศ</a>
+                        
+                        <!-- Nested PVS Submenu -->
+                        <div class="relative group/pvs" style="position: relative;">
+                            <div class="nav-dropdown-item" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                                <span>ระดับ (ปวส.) 2 สาขาวิชา</span>
+                                <i class="fa fa-chevron-right" style="font-size: 11px; color: #9ca3af; transition: transform 0.2s;"></i>
+                            </div>
+                            <!-- Flyout Submenu -->
+                            <div class="nav-pvs-sub-menu" style="min-width: 250px; background: #ffffff; border-radius: 14px; border: 1px solid #e5e7eb; box-shadow: 0 20px 30px -5px rgba(0,0,0,0.12); padding: 6px 0; position: absolute; left: 100%; top: -6px; margin-left: 4px; z-index: 60;">
+                                <a href="index.php?click=it_s1" class="nav-dropdown-item">สาขาเทคโนโลยีสารสนเทศ</a>
+                                <a href="index.php?click=game_s1" class="nav-dropdown-item">สาขาคอมพิวเตอร์เกมและแอนิเมชัน</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -274,7 +312,11 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
             </button>
             <div id="acc-majors" class="mobile-sub-accordion">
                 <a href="index.php?click=it_coo1" class="mobile-sub-link">• ระดับประกาศนียบัตรวิชาชีพ (ปวช.)</a>
-                <a href="index.php?click=it_s1" class="mobile-sub-link">• ระดับประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)</a>
+                <div style="padding-left: 12px; margin-top: 6px; border-left: 2px solid rgba(220, 38, 38, 0.4);">
+                    <span style="font-size: 12px; color: #dc2626; font-weight: 700; display: block; margin-bottom: 4px;">• ระดับ ปวส. (2 สาขาวิชา):</span>
+                    <a href="index.php?click=it_s1" class="mobile-sub-link" style="padding-left: 8px;">- สาขาเทคโนโลยีสารสนเทศ</a>
+                    <a href="index.php?click=game_s1" class="mobile-sub-link" style="padding-left: 8px;">- สาขาคอมพิวเตอร์เกมและแอนิเมชัน</a>
+                </div>
             </div>
 
             <!-- แนะนำสาขาฯ (Accordion) -->
