@@ -796,35 +796,51 @@ function performPageSwap(url, pushToHistory = true) {
                     }
                 }
 
-                // Execute scripts and re-init animations AFTER scroll position is strictly guaranteed 0
-                requestAnimationFrame(() => {
-                    window.scrollTo(0, 0);
-                    if (typeof window.lenis !== "undefined" && window.lenis && typeof window.lenis.scrollTo === "function") {
-                        window.lenis.scrollTo(0, { immediate: true });
-                    }
+                // Pre-decode critical images in the new container before opening blinds
+                const newImages = Array.from(currentContainer.querySelectorAll("img"));
+                const imagePromises = newImages.slice(0, 10).map(img => {
+                    if (img.complete && img.naturalWidth !== 0) return Promise.resolve();
+                    if (typeof img.decode === 'function') return img.decode().catch(() => {});
+                    return new Promise(resolve => {
+                        img.addEventListener('load', resolve, { once: true });
+                        img.addEventListener('error', resolve, { once: true });
+                    });
+                });
 
-                    // Re-initialize page scripts
-                    reinitPageScripts();
+                // Wait for images to be decoded (with safety max 650ms timeout) then reveal cleanly
+                Promise.race([
+                    Promise.all(imagePromises),
+                    new Promise(resolve => setTimeout(resolve, 650))
+                ]).then(() => {
+                    requestAnimationFrame(() => {
+                        window.scrollTo(0, 0);
+                        if (typeof window.lenis !== "undefined" && window.lenis && typeof window.lenis.scrollTo === "function") {
+                            window.lenis.scrollTo(0, { immediate: true });
+                        }
 
-                    // Animate dynamic entry camera zoom & fade-in (Opacity & subtle scale only)
-                    gsap.fromTo(currentContainer,
-                        { opacity: 0, scale: 0.98 },
-                        {
-                            opacity: 1,
-                            scale: 1,
-                            duration: 0.4,
-                            ease: "power3.out",
-                            onComplete: () => {
-                                gsap.set(currentContainer, { clearProps: "all" });
-                                if (typeof ScrollTrigger !== "undefined") {
-                                    ScrollTrigger.refresh(true);
+                        // Re-initialize page scripts
+                        reinitPageScripts();
+
+                        // Animate dynamic entry camera zoom & fade-in (Opacity & subtle scale only)
+                        gsap.fromTo(currentContainer,
+                            { opacity: 0, scale: 0.98 },
+                            {
+                                opacity: 1,
+                                scale: 1,
+                                duration: 0.35,
+                                ease: "power3.out",
+                                onComplete: () => {
+                                    gsap.set(currentContainer, { clearProps: "all" });
+                                    if (typeof ScrollTrigger !== "undefined") {
+                                        ScrollTrigger.refresh(true);
+                                    }
                                 }
                             }
-                        }
-                    );
+                        );
 
-                    // Trigger Cinematic Dark Blinds In transition (Reveal page)
-                    triggerCinematicBlindsIn();
+                        // Trigger Cinematic Dark Blinds In transition (Reveal page)
+                        triggerCinematicBlindsIn();
+                    });
                 });
             } else {
                 // Fallback redirect if page structure doesn't match (#swup-container missing)

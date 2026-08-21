@@ -17,7 +17,7 @@
             <!-- Card 1 -->
             <div class="panorama-card">
                 <div class="panorama-img-wrapper">
-                    <img src="02_design/blog-6.jpg" alt="สายอาชีพ จบแล้วมีงานทำรองรับ">
+                    <img src="02_design/blog-6.jpg" alt="สายอาชีพ จบแล้วมีงานทำรองรับ" loading="lazy" decoding="async">
                 </div>
                 <div class="hidden md:flex justify-between items-center px-2 mt-4">
                     <h4 class="text-xl md:text-2xl font-bold text-gray-900 leading-tight">High-Demand Careers</h4>
@@ -28,7 +28,7 @@
             <!-- Card 2 -->
             <div class="panorama-card">
                 <div class="panorama-img-wrapper">
-                    <img src="02_design/blog-7.jpg" alt="ครู/อาจารย์เข้าถึงง่าย พร้อมให้คำปรึกษา">
+                    <img src="02_design/blog-7.jpg" alt="ครู/อาจารย์เข้าถึงง่าย พร้อมให้คำปรึกษา" loading="lazy" decoding="async">
                 </div>
                 <div class="hidden md:flex justify-between items-center px-2 mt-4">
                     <h4 class="text-xl md:text-2xl font-bold text-gray-900 leading-tight">Personal Mentorship</h4>
@@ -39,7 +39,7 @@
             <!-- Card 3 -->
             <div class="panorama-card">
                 <div class="panorama-img-wrapper">
-                    <img src="02_design/blog-8.jpg" alt="เรียนแบบลงมือทำจริง">
+                    <img src="02_design/blog-8.jpg" alt="เรียนแบบลงมือทำจริง" loading="lazy" decoding="async">
                 </div>
                 <div class="hidden md:flex justify-between items-center px-2 mt-4">
                     <h4 class="text-xl md:text-2xl font-bold text-gray-900 leading-tight">Practical Learning</h4>
@@ -50,7 +50,7 @@
             <!-- Card 4 -->
             <div class="panorama-card">
                 <div class="panorama-img-wrapper">
-                    <img src="02_design/blog-9.jpg" alt="สังคมเปิดกว้าง เป็นตัวเองได้เต็มที่">
+                    <img src="02_design/blog-9.jpg" alt="สังคมเปิดกว้าง เป็นตัวเองได้เต็มที่" loading="lazy" decoding="async">
                 </div>
                 <div class="hidden md:flex justify-between items-center px-2 mt-4">
                     <h4 class="text-xl md:text-2xl font-bold text-gray-900 leading-tight">Inclusive Culture</h4>
@@ -61,7 +61,7 @@
             <!-- Card 5 -->
             <div class="panorama-card">
                 <div class="panorama-img-wrapper">
-                    <img src="02_design/blog-10.jpg" alt="กิจกรรมแน่นมาก ไม่เหงาแน่นอน">
+                    <img src="02_design/blog-10.jpg" alt="กิจกรรมแน่นมาก ไม่เหงาแน่นอน" loading="lazy" decoding="async">
                 </div>
                 <div class="hidden md:flex justify-between items-center px-2 mt-4">
                     <h4 class="text-xl md:text-2xl font-bold text-gray-900 leading-tight">Vibrant Campus Life</h4>

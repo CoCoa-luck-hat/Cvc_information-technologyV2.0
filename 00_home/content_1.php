@@ -19,7 +19,7 @@
         <div class="majors-card bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl min-h-0 md:min-h-[420px] flex flex-col md:flex-row group mb-[180vh] md:mb-[240vh]" style="--card-index: 0; z-index: 10;">
             <!-- Image Side -->
             <div class="w-full md:w-1/2 h-40 sm:h-52 md:h-auto overflow-hidden relative">
-                <img src="02_design/blog-1.1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="">
+                <img src="02_design/blog-1.1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="เทคโนโลยีสารสนเทศ ปวช." loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-transparent to-white"></div>
                 <span class="absolute top-4 left-4 md:top-6 md:left-6 bg-primary text-white text-[10px] md:text-xs font-bold px-2.5 py-1 md:px-3 md:py-1.5 rounded-full uppercase tracking-wider">ปวช.</span>
             </div>
@@ -53,7 +53,7 @@
         <div class="majors-card bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl min-h-0 md:min-h-[420px] flex flex-col md:flex-row group mb-[180vh] md:mb-[240vh]" style="--card-index: 1; z-index: 20;">
             <!-- Image Side -->
             <div class="w-full md:w-1/2 h-40 sm:h-52 md:h-auto overflow-hidden relative">
-                <img src="02_design/blog-3.1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="">
+                <img src="02_design/blog-3.1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="เทคโนโลยีสารสนเทศ ปวส." loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-transparent to-white"></div>
                 <span class="absolute top-4 left-4 md:top-6 md:left-6 bg-primary text-white text-[10px] md:text-xs font-bold px-2.5 py-1 md:px-3 md:py-1.5 rounded-full uppercase tracking-wider">ปวส.</span>
             </div>
@@ -87,7 +87,7 @@
         <div class="majors-card bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl min-h-0 md:min-h-[420px] flex flex-col md:flex-row group mb-[180vh] md:mb-[240vh]" style="--card-index: 2; z-index: 30;">
             <!-- Image Side -->
             <div class="w-full md:w-1/2 h-40 sm:h-52 md:h-auto overflow-hidden relative">
-                <img src="02_design/blog-2.1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="">
+                <img src="02_design/blog-2.1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="คอมพิวเตอร์เกมและแอนิเมชัน ปวส." loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-transparent to-white"></div>
                 <span class="absolute top-4 left-4 md:top-6 md:left-6 bg-primary text-white text-[10px] md:text-xs font-bold px-2.5 py-1 md:px-3 md:py-1.5 rounded-full uppercase tracking-wider">ปวส.</span>
             </div>

@@ -3,9 +3,9 @@
     <!-- Sticky Viewport Wrapper -->
     <div class="sticky-viewport">
         
-        <!-- Autoplay Video Background -->
+        <!-- Autoplay Video Background (Optimized Preload) -->
         <div class="home-hero-container">
-            <video class="home-hero-video" autoplay muted playsinline loop>
+            <video class="home-hero-video" autoplay muted playsinline loop preload="metadata">
                 <source src="02_design/Hero.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
