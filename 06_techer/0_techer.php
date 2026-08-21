@@ -1,142 +1,179 @@
-     <!-- ส่วนหัว -->
-     <div class="container-fluid bg-breadcrumb p-0" style="position: relative;">
-         <img src="02_design/head-1.png" class="w-100 bannerrr" alt="">
-     </div>
-     <!-- Header End -->
+<?php
+/**
+ * SECTION: FACULTY & INSTRUCTORS SHOWCASE (คณะครูและบุคลากรทางการศึกษา)
+ * 06_techer/0_techer.php
+ * 
+ * 100vh Single Fullscreen Global Portfolio Showcase with In-Place Section Morphing
+ * - Verified accurate teacher data synchronized 1:1 with individual teacher PHP files
+ * - Showcase Mode: Pure Cutout Center Hero (86vh) + Giant Typography Backdrop + Flanks
+ * - In-Place Morph: Pure Editorial Typography & Timeline (NO CARDS / NO BOXES)
+ * - 01. EDUCATION (Real Logos) / 02. EXPERTISE / 03. CONTACT & CHANNELS
+ * - Flawless State Isolation (No Overlapping Elements) & Floating Pill "← ย้อนกลับ"
+ */
+?>
 
+<!-- Modular Stylesheet -->
+<link rel="stylesheet" href="include/css/modules/faculty.css?v=<?= time() ?>">
 
-     <!-- Team Start -->
-     <div class="container-fluid team py-5 rept1" style="position: relative;">
-         <div class="container py-5 rept1" style="margin-bottom: 155px;">
+<!-- MAIN FULLSCREEN STAGE -->
+<div id="faculty-fullscreen-stage">
+    
+    <!-- Atmospheric Background & Glows -->
+    <div class="fp-bg-grid"></div>
+    <div class="fp-ambient-glow" id="fp-ambient-glow"></div>
 
-             <div class="row g-3">
-                 <div class="col-md-6 col-lg-6 col-xl-4   wow fadeInUp" style="padding: 2rem;" data-wow-delay="0.2s">
-                     <div class="team-item">
-                         <div class="team-img">
-                             <img src="03_photo/3.3_teacher/crop_ครูธวัชชัย.png" class="img-fluid rounded-top w-100"
-                                 alt="">
-                             <div class="team-icon">
+    <!-- Giant Typography Backdrop -->
+    <div class="fp-giant-backdrop-wrap">
+        <div class="fp-giant-backdrop-text" id="fp-backdrop-name">THAWATCHAI</div>
+    </div>
 
-                                 <!-- ลิ้งคลิกไปหน้าประวัติส่วนตัวคนที่ 1 --> 
-                                 <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4"
-                                     href="index.php?click=1_thawatchai"><i class="fa fa-graduation-cap"></i></a>
-                             </div>
-                         </div>
-                         <div class="team-title p-4 pb-3">
-                             <h1 class="mb-2">ครูเหน่ง</h1>
-                             <p class="mb-2 refontsize1_2" style="font-size: 1.3rem;">นายธวัชชัย สาเกตุ</p>
-                             <p class="mb-0 refontsize0_9">
-                                 ตำแหน่ง: ครูชำนาญการพิเศษ (คศ.3)<br>
-                                 หัวหน้าแผนกวิชาเทคโนโลยีสารสนเทศ
-                             </p>
+    <!-- 1. TOP HEADER BRANDING BAR -->
+    <div class="fp-top-bar" id="fp-top-bar">
+        <div class="fp-top-title-wrap">
+            <h1 class="fp-top-heading">
+                คณะครู &amp; <span class="crimson">บุคลากรทางการศึกษา</span>
+            </h1>
+            <span class="fp-top-college-name">วิทยาลัยอาชีวศึกษาเชียงราย</span>
+        </div>
 
-                         </div>
-                     </div>
-                 </div>
-                 <div class="col-md-6 col-lg-6 col-xl-4   wow fadeInUp" style="padding: 2rem;" data-wow-delay="0.2s">
-                     <div class="team-item">
-                         <div class="team-img">
-                             <img src="03_photo/3.3_teacher/crop_ครูเพลาพิลาส.png" class="img-fluid rounded-top w-100"
-                                 alt="">
-                             <div class="team-icon">
+        <!-- Sleek Floating Back Button (Appears only in Bio Mode) -->
+        <button class="fp-btn-back-floating" id="fp-btn-back-showcase" type="button">
+            <i class="fas fa-arrow-left"></i>
+            <span>ย้อนกลับไปทำเนียบครู</span>
+        </button>
+    </div>
 
-                                 <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4" href="index.php?click=3_plaopilart"><i
-                                         class="fa fa-graduation-cap"></i></a>
-                             </div>
-                         </div>
-                         <div class="team-title p-4 pb-3">
-                             <h1 class="mb-2">ครูก้อย</h1>
-                             <p class="mb-2 refontsize1_2" style="font-size: 1.3rem;">นางสาวเพลาพิลาส พนมเทพ</p>
-                             <p class="mb-0 refontsize0_9">
-                                 ตำแหน่ง : ครูชำนาญการ (คศ.2)
-                                 <br> &nbsp;
-                             </p>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="col-md-6 col-lg-6 col-xl-4   wow fadeInUp" style="padding: 2rem;" data-wow-delay="0.2s">
-                     <div class="team-item">
-                         <div class="team-img">
-                             <img src="03_photo/3.3_teacher/crop_ครูปิยะมาส-2.png" class="img-fluid rounded-top w-100"
-                                 alt="">
-                             <div class="team-icon">
-                                 <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4"
-                                     href="index.php?click=2_piyamat"><i class="fa fa-graduation-cap"></i></a>
-                             </div>
-                         </div>
-                         <div class="team-title p-4 pb-3">
-                             <h1 class="mb-2">ครูส้ม</h1>
-                             <p class="mb-2 refontsize1_2" style="font-size: 1.3rem;">นางสาวปิยมาส แก้วอินตา</p>
-                             <p class="mb-0 refontsize0_9">
-                                 ตำแหน่ง : ครูชำนาญการพิเศษ (คศ.3)
-                                 <br> &nbsp;
-                             </p>
-                         </div>
-                     </div>
-                 </div>
-                   <div class="col-md-6 col-lg-6 col-xl-4   wow fadeInUp" style="padding: 2rem;" data-wow-delay="0.2s">
-                     <div class="team-item">
-                         <div class="team-img">
-                             <img src="03_photo/3.3_teacher/crop2_เจม.png" class="img-fluid rounded-top w-100" alt="">
-                             <div class="team-icon">
-                                 <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4"
-                                     href="index.php?click=7_jam"><i class="fa fa-graduation-cap"></i></a>
-                             </div>
-                         </div>
-                         <div class="team-title p-4 pb-3">
-                             <h1 class="mb-2">ครูเจม</h1>
-                             <p class="mb-2 refontsize1_2" style="font-size: 1.3rem;">นายสธรรดร   ยงยืน</p>
-                             <p class="mb-0 refontsize0_9">
-                                 ตำแหน่ง: ครูผู้ช่วย
-                             </p>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="col-md-6 col-lg-6 col-xl-4   wow fadeInUp" style="padding: 2rem;" data-wow-delay="0.2s">
-                     <div class="team-item">
-                         <div class="team-img">
-                             <img src="03_photo/3.3_teacher/crop2_ครูรสธร3.png" class="img-fluid rounded-top w-100" alt="">
-                             <div class="team-icon">
+    <!-- 2. MAIN CENTER STAGE & CINEMATIC SPLIT-FLANK -->
+    <div class="fp-main-stage-container" id="fp-stage-touch-area">
+        
+        <!-- LEFT FLANK: Name, Nickname, Role & Quote -->
+        <div class="fp-left-flank" id="fp-left-flank">
+            <div class="fp-nickname-badge">
+                <i class="fas fa-certificate"></i>
+                <span id="fp-nickname-text">ครูเหน่ง</span>
+            </div>
+            <h2 class="fp-fullname-heading" id="fp-fullname-text">นายธวัชชัย สาเกตุ</h2>
+            <div class="fp-role-text" id="fp-role-text">หัวหน้าแผนกวิชาฯ • ครูชำนาญการพิเศษ (คศ.3)</div>
+        </div>
 
-                                 <a class="btn btn-primary btn-sm-square rounded-pill mb-2 fs-4" target="_blank"
-                                     href="https://www.youtube.com/@t-rodsathon/videos"><i
-                                         class="fab fa-youtube "></i></a>
-                                 <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4"
-                                     href="index.php?click=4_rodsathon"><i class="fa fa-graduation-cap"></i></a>
-                             </div>
-                         </div>
-                         <div class="team-title p-4 pb-3">
-                             <h1 class="mb-2">ครูหลิน</h1>
-                             <p class="mb-2 refontsize1_2" style="font-size: 1.3rem;">นางสาวรสธร หลวงตา</p>
-                             <p class="mb-0 refontsize0_9">
-                                 ตำแหน่ง: ครูพิเศษสอน
-                             </p>
-                         </div>
-                     </div>
-                 </div>
-            
-                 <div class="col-md-6 col-lg-6 col-xl-4   wow fadeInUp" style="padding: 2rem;" data-wow-delay="0.2s">
-                     <div class="team-item">
-                         <div class="team-img">
-                             <img src="03_photo/3.3_teacher/crop_ครูธีภัทร.png" class="img-fluid rounded-top w-100"
-                                 alt="">
-                             <div class="team-icon">
-                                 <a class="btn btn-primary btn-sm-square rounded-pill mb-0 fs-4"
-                                     href="index.php?click=5_teerapat"><i class="fa fa-graduation-cap"></i></a>
-                             </div>
-                         </div>
-                         <div class="team-title p-4 pb-3">
-                             <h1 class="mb-2">ครูเยียร์</h1>
-                             <p class="mb-2 refontsize1_2" style="font-size: 1.3rem;">นายธีรภัทร ศรีเหรา</p>
-                             <p class="mb-0 refontsize0_9">
-                                 ตำแหน่ง: ครูพิเศษสอน
-                             </p>
-                         </div>
-                     </div>
-                 </div>
-               
-             </div>
-         </div>
+        <!-- CENTER HERO: Pure Cutout Standing Portrait -->
+        <div class="fp-center-portrait-stage" id="fp-portrait-box">
+            <img class="fp-pure-cutout-img" id="fp-main-portrait" src="03_photo/3.3_teacher/removebg_ครูธวัชชัย.png" alt="ครูธวัชชัย สาเกตุ" draggable="false">
+        </div>
 
-     </div>
-     <!-- Team End -->
+        <!-- RIGHT FLANK: Skills Chips & Primary CTA Action Button -->
+        <div class="fp-right-flank" id="fp-right-flank">
+            <div class="fp-skills-label">
+                <i class="fas fa-code-branch"></i> ความเชี่ยวชาญ
+            </div>
+            <div class="fp-skills-container" id="fp-skills-box">
+                <span class="fp-skill-chip">Programming</span>
+                <span class="fp-skill-chip">Game Programming</span>
+                <span class="fp-skill-chip">Web Programming</span>
+                <span class="fp-skill-chip">Network Computer</span>
+            </div>
+            <div class="fp-cta-action-row">
+                <button class="fp-btn-modal-open" id="fp-btn-morph-open" type="button">
+                    <span>ดูประวัติและผลงาน</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <a href="#" target="_blank" class="fp-btn-yt-link" id="fp-btn-yt" style="display: none;" aria-label="YouTube Channel">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 3. BOTTOM MINIMALIST THUMBNAIL RAIL -->
+    <div class="fp-bottom-rail-container" id="fp-bottom-rail">
+        <div class="fp-rail-wrapper">
+            <div class="fp-rail-fade-left" id="fp-rail-fade-left"></div>
+            <div class="fp-thumbnail-deck" id="fp-thumb-deck">
+                <button class="fp-thumb-item-btn active" data-idx="0" type="button">
+                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/crop_ครูธวัชชัย.png" alt="ครูเหน่ง">
+                    <span>ครูเหน่ง</span>
+                </button>
+                <button class="fp-thumb-item-btn" data-idx="1" type="button">
+                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/crop_ครูเพลาพิลาส.png" alt="ครูก้อย">
+                    <span>ครูก้อย</span>
+                </button>
+                <button class="fp-thumb-item-btn" data-idx="2" type="button">
+                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/crop_ครูปิยะมาส-2.png" alt="ครูส้ม">
+                    <span>ครูส้ม</span>
+                </button>
+                <button class="fp-thumb-item-btn" data-idx="3" type="button">
+                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/crop2_เจม.png" alt="ครูเจม">
+                    <span>ครูเจม</span>
+                </button>
+                <button class="fp-thumb-item-btn" data-idx="4" type="button">
+                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/crop_ครูรสธร.png" alt="ครูหลิน">
+                    <span>ครูหลิน</span>
+                </button>
+                <button class="fp-thumb-item-btn" data-idx="5" type="button">
+                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/crop2_ครูธีภัทร.png" alt="ครูเยียร์">
+                    <span>ครูเยียร์</span>
+                </button>
+            </div>
+            <div class="fp-rail-fade-right" id="fp-rail-fade-right">
+                <i class="fas fa-chevron-right fp-rail-swipe-chevron"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. PURE EDITORIAL TYPOGRAPHY BIO PANEL (NO CARDS / NO BOXES) -->
+    <div id="fp-bio-detail-panel" data-lenis-prevent>
+        
+        <!-- Profile Header -->
+        <div class="fp-editorial-header">
+            <div class="fp-editorial-meta-row">
+                <span class="fp-nickname-badge" id="fp-bio-nick-badge" style="margin-bottom: 0;">
+                    <i class="fas fa-certificate"></i>
+                    <span id="fp-bio-nick-text">ครูเหน่ง</span>
+                </span>
+            </div>
+            <h2 class="fp-editorial-fullname" id="fp-bio-fullname">นายธวัชชัย สาเกตุ</h2>
+            <div class="fp-editorial-role" id="fp-bio-role">หัวหน้าแผนกวิชาฯ • ครูชำนาญการพิเศษ (คศ.3)</div>
+        </div>
+
+        <!-- 01. Education Section -->
+        <div class="fp-editorial-sec-label">
+            <span class="fp-editorial-sec-num">01</span>
+            <span>วุฒิการศึกษา (Education Degrees)</span>
+        </div>
+        <div class="fp-editorial-edu-list" id="fp-bio-edu-box">
+            <!-- Populated via JavaScript -->
+        </div>
+
+        <!-- 02. Skills Section -->
+        <div class="fp-editorial-sec-label">
+            <span class="fp-editorial-sec-num">02</span>
+            <span>ความเชี่ยวชาญ (Specialized Skills)</span>
+        </div>
+        <div class="fp-editorial-skills-wrap" id="fp-bio-skills-box">
+            <!-- Populated via JavaScript -->
+        </div>
+
+        <!-- 03. Contact Section -->
+        <div class="fp-editorial-sec-label">
+            <span class="fp-editorial-sec-num">03</span>
+            <span>ข้อมูลการติดต่อ (Contact Info)</span>
+        </div>
+        <div class="fp-editorial-contact-list" id="fp-bio-contact-box">
+            <!-- Populated via JavaScript -->
+        </div>
+
+        <!-- 04. Media Channel Link -->
+        <div class="fp-editorial-media-row" id="fp-bio-media-wrap">
+            <a href="#" target="_blank" class="fp-btn-modal-open" id="fp-bio-yt-btn" style="display: none; background: #ef4444;">
+                <i class="fab fa-youtube"></i>
+                <span>เผยแพร่สื่อการสอนบน YouTube Channel</span>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modular JavaScript Engine -->
+<script src="include/js/modules/faculty.js?v=<?= time() ?>"></script>

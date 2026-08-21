@@ -208,7 +208,7 @@
                 </div>
 
                 <!-- Step 3: Bottom Side-by-Side 2 Cards Row -->
-                <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; width: 100%; opacity: 0; transform: translateY(100vh); will-change: transform, opacity;" id="sec3-bottom-cards-row">
+                <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; width: 100%; will-change: transform, opacity;" id="sec3-bottom-cards-row">
                     
                     <!-- Card 1: Qualifications -->
                     <div style="flex: 1 1 450px; max-width: 580px; min-width: 300px; background-color: #ffffff !important; border-radius: 24px; padding: 24px; border: 1px solid rgba(220, 38, 38, 0.14); box-shadow: 0 15px 35px rgba(0,0,0,0.06); box-sizing: border-box;">
@@ -239,7 +239,7 @@
                             </li>
                             <li style="display: flex; align-items: flex-start; gap: 10px;">
                                 <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 14px; flex-shrink: 0;"></i>
-                                <span><strong>การสอบคัดเลือก:</strong> ผ่านการคัดเลือกตามเกณฑ์ของวิทยาลัยอาชีวศึกษาชลบุรี</span>
+                                <span><strong>การสอบคัดเลือก:</strong> ผ่านการคัดเลือกตามเกณฑ์ของวิทยาลัยอาชีวศึกษาเชียงราย</span>
                             </li>
                         </ul>
                     </div>
@@ -303,12 +303,24 @@
             return;
         }
 
+        // Clean up any stale ScrollTriggers for Section 3
+        ScrollTrigger.getAll().forEach(st => {
+            if (st.vars.id && (st.vars.id.includes('sec3') || st.vars.id.includes('pvs-sec3') || st.vars.id.includes('pvc-sec3'))) {
+                st.kill(true);
+            }
+        });
+
         let mm = gsap.matchMedia();
 
         // 1. Desktop Sequence (Pinning & Layered Ascend)
         mm.add("(min-width: 1024px)", () => {
+            gsap.set("#sec3-header", { y: -30, opacity: 0 });
+            gsap.set("#sec3-diagram-card", { scale: 0.85, opacity: 0 });
+            gsap.set("#sec3-bottom-cards-row", { translateY: "100vh", opacity: 0 });
+
             let tl = gsap.timeline({
                 scrollTrigger: {
+                    id: "sec3-desktop-sequence",
                     trigger: "#sec3-sequence-outer",
                     pin: true,
                     start: "top top",
@@ -365,19 +377,24 @@
 
         // 2. Mobile Responsive Flow (< 1024px)
         mm.add("(max-width: 1023px)", () => {
-            // Scroll reveal for cards on mobile
-            gsap.from("#sec3-bottom-cards-row > div", {
-                scrollTrigger: {
-                    trigger: "#sec3-bottom-cards-row",
-                    start: "top 85%",
-                    toggleActions: "play none none none"
-                },
-                y: 25,
-                opacity: 0,
-                duration: 0.6,
-                stagger: 0.15,
-                ease: "power2.out"
-            });
+            gsap.set("#sec3-bottom-cards-row", { opacity: 1, translateY: 0 });
+            gsap.fromTo("#sec3-bottom-cards-row > div", 
+                { y: 20, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    stagger: 0.12,
+                    ease: "power2.out",
+                    clearProps: "transform,opacity",
+                    scrollTrigger: {
+                        id: "sec3-mobile-cards",
+                        trigger: "#sec3-bottom-cards-row",
+                        start: "top 92%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
         });
 
         // 3. Global Wave Morphing between Section 2 and Section 3
@@ -389,6 +406,7 @@
                     attr: { d: "M0,0 C360,40 680,0 1040,30 C1220,55 1340,10 1440,25 L1440,100 L0,100 Z" },
                     ease: "power1.out",
                     scrollTrigger: {
+                        id: "sec3-wave-morph",
                         trigger: "#sec3-sequence-outer",
                         start: "top 95%",
                         end: "top 25%",
@@ -421,6 +439,13 @@
                 if (e.target === lightboxModal) closeLightbox();
             });
         }
+
+        // Defensive refresh to guarantee proper calculations after SPA dynamic switches
+        setTimeout(() => {
+            if (typeof ScrollTrigger !== "undefined") {
+                ScrollTrigger.refresh();
+            }
+        }, 120);
     }
 
     if (document.readyState === 'loading') {

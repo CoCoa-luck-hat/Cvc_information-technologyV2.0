@@ -16,7 +16,7 @@
     <div class="relative block space-y-16">
         
         <!-- Card 1: ปวช. IT -->
-        <div class="majors-card bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl min-h-0 md:min-h-[420px] flex flex-col md:flex-row group mb-[160vh] md:mb-[200vh]" style="--card-index: 0; z-index: 10;">
+        <div class="majors-card bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl min-h-0 md:min-h-[420px] flex flex-col md:flex-row group mb-[180vh] md:mb-[240vh]" style="--card-index: 0; z-index: 10;">
             <!-- Image Side -->
             <div class="w-full md:w-1/2 h-40 sm:h-52 md:h-auto overflow-hidden relative">
                 <img src="02_design/blog-1.1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="">
@@ -50,7 +50,7 @@
         </div>
 
         <!-- Card 2: ปวส. IT -->
-        <div class="majors-card bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl min-h-0 md:min-h-[420px] flex flex-col md:flex-row group mb-[160vh] md:mb-[200vh]" style="--card-index: 1; z-index: 20;">
+        <div class="majors-card bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl min-h-0 md:min-h-[420px] flex flex-col md:flex-row group mb-[180vh] md:mb-[240vh]" style="--card-index: 1; z-index: 20;">
             <!-- Image Side -->
             <div class="w-full md:w-1/2 h-40 sm:h-52 md:h-auto overflow-hidden relative">
                 <img src="02_design/blog-3.1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="">
@@ -84,7 +84,7 @@
         </div>
 
         <!-- Card 3: ปวส. Game -->
-        <div class="majors-card bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl min-h-0 md:min-h-[420px] flex flex-col md:flex-row group mb-[160vh] md:mb-[200vh]" style="--card-index: 2; z-index: 30;">
+        <div class="majors-card bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl min-h-0 md:min-h-[420px] flex flex-col md:flex-row group mb-[180vh] md:mb-[240vh]" style="--card-index: 2; z-index: 30;">
             <!-- Image Side -->
             <div class="w-full md:w-1/2 h-40 sm:h-52 md:h-auto overflow-hidden relative">
                 <img src="02_design/blog-2.1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="">

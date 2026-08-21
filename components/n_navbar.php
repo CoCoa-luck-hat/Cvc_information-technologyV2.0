@@ -154,23 +154,74 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
     .mobile-sub-accordion {
         display: none;
         flex-direction: column;
-        padding: 8px 0 16px 16px;
-        gap: 12px;
+        padding: 10px 0 16px 14px;
+        gap: 6px;
+        border-left: 2px solid rgba(220, 38, 38, 0.4);
+        margin-left: 8px;
+        margin-top: 4px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
     .mobile-sub-accordion.active {
         display: flex;
     }
-    .mobile-sub-link {
-        font-size: 16px;
-        font-weight: 500;
-        color: #9ca3af;
-        text-decoration: none;
-        transition: color 0.2s ease;
-        padding: 4px 0;
+    .mobile-sub-category-header {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #f87171;
+        letter-spacing: 0.3px;
+        margin-top: 8px;
+        margin-bottom: 4px;
     }
-    .mobile-sub-link:hover {
-        color: #dc2626;
+    .mobile-sub-category-badge {
+        background: rgba(220, 38, 38, 0.2);
+        color: #fca5a5;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 11.5px;
+        font-weight: 800;
+        border: 1px solid rgba(220, 38, 38, 0.35);
+    }
+    .mobile-sub-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 15px;
+        font-weight: 500;
+        color: #cbd5e1;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        padding: 8px 12px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.02);
+    }
+    .mobile-sub-link:hover, .mobile-sub-link:active {
+        color: #ffffff;
+        background: rgba(220, 38, 38, 0.15);
+        transform: translateX(4px);
+    }
+    .mobile-sub-link-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .mobile-sub-bullet-pill {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #dc2626;
+        flex-shrink: 0;
+    }
+    .mobile-sub-link-icon {
+        font-size: 11px;
+        color: #64748b;
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
+    .mobile-sub-link:hover .mobile-sub-link-icon, .mobile-sub-link:active .mobile-sub-link-icon {
+        color: #ffffff;
+        transform: translateX(2px);
     }
 </style>
 
@@ -209,7 +260,7 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
                     </button>
                     <!-- Dropdown Menu -->
                     <div class="nav-dropdown-menu lg:absolute left-0 top-full mt-2 z-50" style="min-width: 230px; background: #ffffff; border-radius: 16px; border: 1px solid #e5e7eb; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); padding: 6px 0; overflow: visible !important;">
-                        <a href="index.php?click=it_coo1" class="nav-dropdown-item">ระดับ (ปวช.) เทคโนโลยีสารสนเทศ</a>
+                        <a href="index.php?click=it_coo1" class="nav-dropdown-item">ระดับ (ปวช.)</a>
                         
                         <!-- Nested PVS Submenu -->
                         <div class="relative group/pvs" style="position: relative;">
@@ -235,14 +286,14 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
                     <!-- Dropdown Menu -->
                     <div class="nav-dropdown-menu lg:absolute left-0 top-full mt-2 z-50" style="min-width: 220px; background: #ffffff; border-radius: 16px; border: 1px solid #e5e7eb; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); padding: 6px 0; overflow: hidden;">
                         <a href="index.php?click=0_techer" class="nav-dropdown-item">แนะนำครูผู้สอน</a>
-                        <a href="index.php?click=c_653" class="nav-dropdown-item">แนะนำอาคารเรียน/ห้องเรียน</a>
-                        <a href="index.php?click=gallery" class="nav-dropdown-item">ภาพกิจกรรมต่างๆ</a>
+                        <a href="index.php?click=c_all" class="nav-dropdown-item">แนะนำอาคารเรียน/ห้องเรียน</a>
+                        <a href="index.php?click=event" class="nav-dropdown-item">ภาพกิจกรรมต่างๆ</a>
                         <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" class="nav-dropdown-item">รางวัลของแผนกฯ</a>
                     </div>
                 </div>
 
                 <!-- ทำเนียบบัณฑิต -->
-                <a href="index.php?click=graduate" target="_blank" style="white-space: nowrap; padding: 6px 14px; font-size: 15px; font-weight: 500; color: #374151; text-decoration: none; border-radius: 9999px; transition: all 0.2s;" data-magnetic>
+                <a href="index.php?click=graduate" style="white-space: nowrap; padding: 6px 14px; font-size: 15px; font-weight: 500; color: #374151; text-decoration: none; border-radius: 9999px; transition: all 0.2s;" data-magnetic>
                     <span class="link-draw-underline">ทำเนียบบัณฑิต</span>
                 </a>
 
@@ -311,12 +362,36 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
                 <i class="fa fa-chevron-down acc-icon" style="font-size: 14px; opacity: 0.5; transition: transform 0.25s ease;"></i>
             </button>
             <div id="acc-majors" class="mobile-sub-accordion">
-                <a href="index.php?click=it_coo1" class="mobile-sub-link">• ระดับประกาศนียบัตรวิชาชีพ (ปวช.)</a>
-                <div style="padding-left: 12px; margin-top: 6px; border-left: 2px solid rgba(220, 38, 38, 0.4);">
-                    <span style="font-size: 12px; color: #dc2626; font-weight: 700; display: block; margin-bottom: 4px;">• ระดับ ปวส. (2 สาขาวิชา):</span>
-                    <a href="index.php?click=it_s1" class="mobile-sub-link" style="padding-left: 8px;">- สาขาเทคโนโลยีสารสนเทศ</a>
-                    <a href="index.php?click=game_s1" class="mobile-sub-link" style="padding-left: 8px;">- สาขาคอมพิวเตอร์เกมและแอนิเมชัน</a>
+                <div class="mobile-sub-category-header">
+                    <span class="mobile-sub-category-badge">ระดับ ปวช.</span>
+                    <span>หลักสูตรวิชาชีพ</span>
                 </div>
+                <a href="index.php?click=it_coo1" class="mobile-sub-link">
+                    <div class="mobile-sub-link-left">
+                        <span class="mobile-sub-bullet-pill"></span>
+                        <span>สาขาเทคโนโลยีสารสนเทศ</span>
+                    </div>
+                    <i class="fa fa-chevron-right mobile-sub-link-icon"></i>
+                </a>
+
+                <div class="mobile-sub-category-header" style="margin-top: 12px;">
+                    <span class="mobile-sub-category-badge">ระดับ ปวส.</span>
+                    <span>2 สาขาวิชาชีพชั้นสูง</span>
+                </div>
+                <a href="index.php?click=it_s1" class="mobile-sub-link">
+                    <div class="mobile-sub-link-left">
+                        <span class="mobile-sub-bullet-pill"></span>
+                        <span>สาขาเทคโนโลยีสารสนเทศ</span>
+                    </div>
+                    <i class="fa fa-chevron-right mobile-sub-link-icon"></i>
+                </a>
+                <a href="index.php?click=game_s1" class="mobile-sub-link">
+                    <div class="mobile-sub-link-left">
+                        <span class="mobile-sub-bullet-pill"></span>
+                        <span>สาขาคอมพิวเตอร์เกมและแอนิเมชัน</span>
+                    </div>
+                    <i class="fa fa-chevron-right mobile-sub-link-icon"></i>
+                </a>
             </div>
 
             <!-- แนะนำสาขาฯ (Accordion) -->
@@ -325,16 +400,40 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
                 <i class="fa fa-chevron-down acc-icon" style="font-size: 14px; opacity: 0.5; transition: transform 0.25s ease;"></i>
             </button>
             <div id="acc-about" class="mobile-sub-accordion">
-                <a href="index.php?click=0_techer" class="mobile-sub-link">• แนะนำครูผู้สอน</a>
-                <a href="index.php?click=c_653" class="mobile-sub-link">• แนะนำอาคารเรียน / ห้องเรียน</a>
-                <a href="index.php?click=gallery" class="mobile-sub-link">• ภาพกิจกรรมต่างๆ</a>
-                <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" class="mobile-sub-link">• รางวัลของแผนกฯ</a>
+                <a href="index.php?click=0_techer" class="mobile-sub-link">
+                    <div class="mobile-sub-link-left">
+                        <span class="mobile-sub-bullet-pill"></span>
+                        <span>แนะนำครูผู้สอน</span>
+                    </div>
+                    <i class="fa fa-chevron-right mobile-sub-link-icon"></i>
+                </a>
+                <a href="index.php?click=c_all" class="mobile-sub-link">
+                    <div class="mobile-sub-link-left">
+                        <span class="mobile-sub-bullet-pill"></span>
+                        <span>แนะนำอาคารเรียน / ห้องเรียน</span>
+                    </div>
+                    <i class="fa fa-chevron-right mobile-sub-link-icon"></i>
+                </a>
+                <a href="index.php?click=event" class="mobile-sub-link">
+                    <div class="mobile-sub-link-left">
+                        <span class="mobile-sub-bullet-pill"></span>
+                        <span>ภาพกิจกรรมต่างๆ</span>
+                    </div>
+                    <i class="fa fa-chevron-right mobile-sub-link-icon"></i>
+                </a>
+                <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" class="mobile-sub-link">
+                    <div class="mobile-sub-link-left">
+                        <span class="mobile-sub-bullet-pill"></span>
+                        <span>รางวัลของแผนกฯ</span>
+                    </div>
+                    <i class="fa fa-external-link-alt mobile-sub-link-icon" style="font-size: 10px;"></i>
+                </a>
             </div>
 
             <!-- ทำเนียบบัณฑิต -->
-            <a href="index.php?click=graduate" target="_blank" class="mobile-nav-link">
+            <a href="index.php?click=graduate" class="mobile-nav-link">
                 <span>ทำเนียบบัณฑิต</span>
-                <i class="fa fa-external-link-alt" style="font-size: 14px; opacity: 0.5;"></i>
+                <i class="fa fa-arrow-right" style="font-size: 14px; opacity: 0.5;"></i>
             </a>
 
             <!-- สมัครเรียน (Accordion) -->
@@ -343,8 +442,20 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
                 <i class="fa fa-chevron-down acc-icon" style="font-size: 14px; opacity: 0.5; transition: transform 0.25s ease;"></i>
             </button>
             <div id="acc-apply" class="mobile-sub-accordion">
-                <a href="https://admission.vec.go.th/app/applicant/initContact" target="_blank" class="mobile-sub-link">• วิธีการสมัครเรียนออนไลน์</a>
-                <a href="https://admission.vec.go.th/" target="_blank" class="mobile-sub-link">• ระบบสมัครเรียนออนไลน์ VEC</a>
+                <a href="https://admission.vec.go.th/app/applicant/initContact" target="_blank" class="mobile-sub-link">
+                    <div class="mobile-sub-link-left">
+                        <span class="mobile-sub-bullet-pill"></span>
+                        <span>วิธีการสมัครเรียนออนไลน์</span>
+                    </div>
+                    <i class="fa fa-external-link-alt mobile-sub-link-icon" style="font-size: 10px;"></i>
+                </a>
+                <a href="https://admission.vec.go.th/" target="_blank" class="mobile-sub-link">
+                    <div class="mobile-sub-link-left">
+                        <span class="mobile-sub-bullet-pill"></span>
+                        <span>ระบบสมัครเรียนออนไลน์ VEC</span>
+                    </div>
+                    <i class="fa fa-external-link-alt mobile-sub-link-icon" style="font-size: 10px;"></i>
+                </a>
             </div>
         </div>
     </div>
@@ -386,6 +497,15 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
     }
     if (mobileMenuClose) {
         mobileMenuClose.addEventListener('click', closeMobileMenu);
+    }
+
+    // Auto-close mobile navigation on any link click
+    if (mobileNavOverlay) {
+        mobileNavOverlay.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                closeMobileMenu();
+            });
+        });
     }
 
     function toggleMobileAccordion(accId, btnEl) {

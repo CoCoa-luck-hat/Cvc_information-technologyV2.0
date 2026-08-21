@@ -4,7 +4,6 @@
 
 # Screenshots & dev media in root
 /*.png
-Hero.mp4
 
 # Font Awesome source SVGs & unneeded dev files (saves ~2,000+ files)
 include/fontawesome/svgs/

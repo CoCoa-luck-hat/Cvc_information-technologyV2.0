@@ -248,42 +248,48 @@ section.pvs-hero .sr-only {
         position: relative;
         bottom: auto;
         left: auto;
-        margin: 0 auto 16px;
-        padding: 6px 16px;
-        font-size: 13.5px;
-        font-weight: 700;
-        color: #b91c1c;
-        background: rgba(255, 255, 255, 0.88);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(220, 38, 38, 0.2);
-        border-radius: 9999px;
-        box-shadow: 0 4px 14px rgba(220, 38, 38, 0.08);
-        text-align: center;
-        width: auto;
+        right: auto;
+        opacity: 1 !important;
+        visibility: visible !important;
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        gap: 6px;
+        background: rgba(220, 38, 38, 0.08);
+        border: 1px solid rgba(220, 38, 38, 0.22);
+        border-radius: 9999px;
+        padding: 5px 14px;
+        color: #b91c1c;
+        font-size: 12.5px;
+        font-weight: 600;
         line-height: 1;
-        letter-spacing: 0.02em;
+        margin: 0 auto 20px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.05);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        max-width: fit-content;
     }
 
-    /* Touch-Optimized Card Carousel Container on Mobile */
     .pvs-hero .hero-deck-container {
-        position: relative;
         width: 100vw;
         max-width: 100vw;
         height: auto;
-        margin: 0 -16px;
-        padding: 12px 16px 20px 16px;
         overflow-x: auto;
         overflow-y: hidden;
+        margin: 0 -16px;
+        padding: 8px 0 16px;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
         scrollbar-width: none;
-        box-sizing: border-box;
+        -ms-overflow-style: none;
         cursor: grab;
-        touch-action: pan-x pan-y pinch-zoom;
+        user-select: none;
+    }
+
+    .pvs-hero .hero-deck-container:active {
+        cursor: grabbing;
     }
 
     .pvs-hero .hero-deck-container::-webkit-scrollbar {
@@ -291,44 +297,49 @@ section.pvs-hero .sr-only {
     }
 
     .pvs-hero .hero-deck-content {
-        display: flex;
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
         flex-direction: row;
         width: max-content;
         height: auto;
-        gap: 14px;
-        padding: 0 8px;
-    }
-
-    .pvs-hero .media {
-        position: relative;
-        top: auto;
-        left: auto;
-        width: 76vw;
-        max-width: 300px;
-        aspect-ratio: 3 / 4;
-        height: auto;
-        border-radius: 20px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        scroll-snap-align: center;
-        flex-shrink: 0;
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
+        gap: 16px;
+        padding: 0 max(20px, calc(50vw - 160px));
+        margin: 0;
         pointer-events: auto;
     }
 
+    .pvs-hero .media {
+        width: 78vw;
+        max-width: 320px;
+        min-height: auto;
+        aspect-ratio: 16 / 9;
+        scroll-snap-align: center;
+        border-radius: 16px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        transform: none !important;
+        cursor: pointer;
+        pointer-events: auto;
+        user-select: none;
+        flex-shrink: 0;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* Mobile Carousel Pagination Dots */
     .pvs-hero-dots {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 6px;
         margin-top: 14px;
-        z-index: 5;
     }
 
     .pvs-hero-dot {
-        width: 6px;
-        height: 6px;
+        width: 7px;
+        height: 7px;
         border-radius: 9999px;
         background: rgba(0, 0, 0, 0.18);
         transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -350,13 +361,13 @@ section.pvs-hero .sr-only {
 
 <!-- MAIN HERO SECTION HTML MARKUP -->
 <section class="pvs-hero pr intro-playing" id="pvs-hero-section">
-    <h1 class="sr-only">หลักสูตร ปวส. เทคโนโลยีสารสนเทศ วิทยาลัยอาชีวศึกษาชลบุรี CVC IT</h1>
+    <h1 class="sr-only">หลักสูตร ปวส. เทคโนโลยีสารสนเทศ วิทยาลัยอาชีวศึกษาเชียงราย CVC IT</h1>
 
     <!-- Left & Right Split Headline -->
     <div class="wording-headline pa f f-space title-s">
         <div class="l">
             <span class="w1">หลักสูตร</span>
-            <span class="w2">ปวส.</span>
+            <span class="w2" style="color: red;">ปวส.</span>
         </div>
         <div class="r right">
             <span class="w3">เทคโนโลยี</span>
@@ -373,16 +384,12 @@ section.pvs-hero .sr-only {
     <!-- Center Card Stack Photo Gallery Container -->
     <div class="hero-deck-container">
         <div class="hero-deck-content">
-            <img class="media" draggable="false" src="03_photo/3.4_room/P1.jpg" alt="ห้องปฏิบัติการไอที 1" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/P2.jpg" alt="ห้องปฏิบัติการไอที 2" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/3.0.jpg" alt="เครื่องมืออุปกรณ์ไอที" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/5.0.jpg" alt="ห้องปฏิบัติการพัฒนาระบบ" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/4.jpg" alt="ผลงานและกิจกรรมไอที ปวส." />
-            <img class="media" draggable="false" src="03_photo/3.4_room/P1.jpg" alt="ห้องปฏิบัติการไอที 1" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/P2.jpg" alt="ห้องปฏิบัติการไอที 2" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/3.0.jpg" alt="เครื่องมืออุปกรณ์ไอที" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/5.0.jpg" alt="ห้องปฏิบัติการพัฒนาระบบ" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/4.jpg" alt="ผลงานและกิจกรรมไอที ปวส." />
+            <img class="media" draggable="false" src="03_photo/3.4_room/5.3.jpg" alt="ห้องปฏิบัติการไอที 1" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/7.jpg" alt="ห้องปฏิบัติการไอที 2" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/5.2.jpg" alt="เครื่องมืออุปกรณ์ไอที" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/5.4.jpg" alt="ผลงานและกิจกรรมไอที ปวส." />
+            <img class="media" draggable="false" src="02_design/it-1.png" alt="ห้องปฏิบัติการพัฒนาระบบ" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/5.1.jpg" alt="ห้องปฏิบัติการพัฒนาระบบ" />
         </div>
     </div>
 
@@ -752,4 +759,11 @@ window.initPvsItHeroSection = function(forceReinit = false) {
         updateDeckLayout(activeIndex, { animate: false });
     }, 400);
 };
+
+// Immediate bottom auto-initialization
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => initPvsItHeroSection(true));
+} else {
+    initPvsItHeroSection(true);
+}
 </script>

@@ -134,9 +134,9 @@ function triggerCinematicBlindsOut(callback) {
         tl.fromTo(strips,
             { scaleY: 0 },
             {
-                scaleY: 1,
-                duration: 0.4,
-                stagger: 0.04,
+                scaleY: 1.05,
+                duration: 0.38,
+                stagger: 0.035,
                 ease: "power4.inOut"
             }
         );
@@ -180,16 +180,16 @@ function triggerCinematicBlindsIn() {
             tl.to(centerBox, {
                 opacity: 0,
                 scale: 1.15,
-                duration: 0.25,
+                duration: 0.22,
                 ease: "power2.in"
             });
         }
 
-        tl.set(strips, { transformOrigin: "bottom" })
+        tl.set(strips, { transformOrigin: "bottom", scaleY: 1.05 })
             .to(strips, {
                 scaleY: 0,
-                duration: 0.45,
-                stagger: 0.04,
+                duration: 0.42,
+                stagger: 0.035,
                 ease: "power4.inOut"
             }, centerBox ? "-=0.1" : 0);
     } else {
@@ -748,6 +748,13 @@ function performPageSwap(url, pushToHistory = true) {
             const currentContainer = document.getElementById("swup-container");
 
             if (newContainer && currentContainer) {
+                // Defensively close mobile navigation overlay
+                const mobileNav = document.getElementById("mobileNavOverlay");
+                if (mobileNav) {
+                    mobileNav.classList.remove("mobile-menu-active");
+                    document.body.style.overflow = "";
+                }
+
                 // Update DOM content
                 currentContainer.innerHTML = newContainer.innerHTML;
 
@@ -1951,10 +1958,10 @@ function initPvcHTextsAndCards() {
         ]
     };
 
-    // Stage 1 Entrance Thresholds for Cards 0, 1, 2, 3 (Optimized for 600vh Track)
-    const CARD_THRESHOLDS = [0.10, 0.26, 0.42, 0.58];
-    const STAGE2_START = 0.74;
-    const STAGE2_SPREAD_DURATION = 0.10; // 0.74 -> 0.84 is un-fanning, 0.84 -> 1.00 is generous 4-col reading hold (~96vh)
+    // Stage 1 Entrance Thresholds for Cards 0, 1, 2, 3 (Optimized for Extended H-TEXTS Hold Phase)
+    const CARD_THRESHOLDS = [0.22, 0.38, 0.54, 0.68];
+    const STAGE2_START = 0.80;
+    const STAGE2_SPREAD_DURATION = 0.08; // 0.80 -> 0.88 is un-fanning, 0.88 -> 1.00 is generous 4-col reading hold (~72vh)
 
     let lastActiveCount = 0; // 0 = none, 1 = 1 card, 2 = 2 cards, 3 = 3 cards, 4 = 4 cards
     let wasInStage2 = false; // Flag to detect transition between Stage 2 and Stage 1
@@ -2057,29 +2064,29 @@ function initPvcHTextsAndCards() {
             const prog = self.progress; // 0 → 1
             const currentIsMobile = window.innerWidth < 900;
 
-            // 0. Scroll-Linked Gradual Headline Fade In (0% → 6%) / Symmetrical Fade Out on scroll up via Wrapper
-            const textFadeProg = Math.min(1, Math.max(0, prog / 0.06));
+            // 0. Scroll-Linked Gradual Headline Fade In (0% → 4%) / Holds clean in center throughout 4% → 14%
+            const textFadeProg = Math.min(1, Math.max(0, prog / 0.04));
             if (textsWrapper) {
                 gsap.set(textsWrapper, { opacity: textFadeProg });
             }
 
-            // 1. Card 1 Ascends from bottom to center (0% → 10%)
-            const ascendProg = Math.min(1, Math.max(0, prog / 0.10));
+            // 1. Card 1 Ascends from bottom to center (14% → 22%)
+            const ascendProg = Math.min(1, Math.max(0, (prog - 0.14) / 0.08));
             gsap.set(cardsWrapper, { y: (1 - ascendProg) * window.innerHeight });
 
-            // 2. Card Collision Impact Shockwave Text Explosion (Auto-play 1.3s, not tied to scroll speed)
-            if (prog >= 0.10 && !isExploded) {
+            // 2. Card Collision Impact Shockwave Text Explosion (Triggers at 22% after generous H-TEXTS reading hold)
+            if (prog >= 0.22 && !isExploded) {
                 isExploded = true;
                 explodeText();
-            } else if (prog < 0.08 && isExploded) {
+            } else if (prog < 0.18 && isExploded) {
                 isExploded = false;
                 assembleText();
             }
 
             if (currentIsMobile) {
                 // ── MOBILE ADAPTIVE MODE (Single Focus Card Transitions) ──
-                if (prog >= 0.10) {
-                    const mobileProg = Math.min(1, Math.max(0, (prog - 0.10) / 0.85)); // 0 → 1
+                if (prog >= 0.22) {
+                    const mobileProg = Math.min(1, Math.max(0, (prog - 0.22) / 0.75)); // 0 → 1
                     const slotSize = 1.0 / numCards;
                     const activeIdx = Math.min(numCards - 1, Math.floor(mobileProg / slotSize));
                     const localProg = Math.min(1, (mobileProg - activeIdx * slotSize) / slotSize);
@@ -2125,13 +2132,13 @@ function initPvcHTextsAndCards() {
                 ];
                 const isScrollingForward = self.direction > 0;
 
-                // Handle transition from Stage 2 back to Stage 1 when scrolling up past 74%
+                // Handle transition from Stage 2 back to Stage 1 when scrolling up past 80%
                 if (prog < STAGE2_START && wasInStage2) {
                     wasInStage2 = false;
                     lastActiveCount = 0; // Force immediate recalculation of fan state
                 }
 
-                // Stage 1: Dynamic Re-centering Fan (0% → 74%)
+                // Stage 1: Dynamic Re-centering Fan (22% → 80%)
                 if (prog < STAGE2_START && numCards > 0) {
                     let currentK = 1;
                     if (prog >= CARD_THRESHOLDS[3]) currentK = 4;
@@ -2146,7 +2153,7 @@ function initPvcHTextsAndCards() {
                     gsap.set(circlesContainer, { rotation: 0 });
                 }
 
-                // Stage 2: Spread-out 4-col row (74% → 100%, un-fans from 74% → 84%, holds from 84% → 100%)
+                // Stage 2: Spread-out 4-col row (80% → 100%, un-fans from 80% → 88%, holds from 88% → 100%)
                 if (prog >= STAGE2_START && numCards > 0) {
                     wasInStage2 = true;
                     const s2 = Math.min(1, Math.max(0, (prog - STAGE2_START) / STAGE2_SPREAD_DURATION));

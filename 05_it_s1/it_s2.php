@@ -170,8 +170,8 @@
 
 <div id="pvc-fees-section" class="pvc-gsap-section-exact">
 
-    <!-- Pin Spacing Scroll Track Container (600vh for luxury scroll experience) -->
-    <div class="pin-height" style="height: 600vh; position: relative;">
+    <!-- Pin Spacing Scroll Track Container (700vh for luxury scroll experience) -->
+    <div class="pin-height" style="height: 700vh; position: relative;">
         
         <!-- Pinned Viewport Container (100vh Sticky Viewport) -->
         <div class="pvc-stage-container">
@@ -182,9 +182,9 @@
             <div class="h-texts pvc-h-texts-wrapper">
                 <div class="title-l">
                     <div class="mwg-line">
-                        <span class="mwg-word">สิทธิประโยชน์</span>
+                        <span class="mwg-word">ค่าใช้จ่าย</span>
                         <span class="mwg-word">&amp;</span>
-                        <span class="mwg-word">ทุนการศึกษา</span>
+                        <span class="mwg-word">สิทธิ์ประโยชน์ที่ได้รับ</span>
                         <span class="mwg-word text-crimson">(ปวส.)</span>
                     </div>
                     <div class="mwg-line text-g">
@@ -196,9 +196,9 @@
                 </div>
                 <div class="title-mob">
                     <div class="mwg-line">
-                        <span class="mwg-word">สิทธิประโยชน์</span>
+                        <span class="mwg-word">ค่าใช้จ่าย</span>
                         <span class="mwg-word">&amp;</span>
-                        <span class="mwg-word">ทุนการศึกษา</span>
+                        <span class="mwg-word">สิทธิ์ประโยชน์</span>
                         <span class="mwg-word text-crimson">(ปวส.)</span>
                     </div>
                     <div class="mwg-line text-g">
@@ -212,122 +212,122 @@
             <div class="h-cards body-s pvc-h-cards-wrapper">
                 <div class="circles">
                     
-                    <!-- Circle Card 1: ทุน กยศ. 100% -->
+                    <!-- Circle Card 1: ค่าลงทะเบียนเรียน -->
                     <div class="circle on">
                         <div class="media pr m1 f f-space" style="background: #ffffff !important; border: 1px solid rgba(220, 38, 38, 0.18) !important; border-radius: 24px !important; padding: 30px 24px !important; box-shadow: 0 24px 50px rgba(0,0,0,0.5) !important;">
                             <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(220, 38, 38, 0.08); border: 1px solid rgba(220, 38, 38, 0.18); color: #dc2626; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 14px;">
-                                <i class="fa fa-graduation-cap"></i>
+                                <i class="fa fa-coins"></i>
                             </div>
-                            <h3 class="card-title-mwg" style="font-size: 21px !important; font-weight: 800 !important; color: #111827 !important; margin: 0 0 5px 0 !important; font-family: 'Prompt', sans-serif !important; letter-spacing: -0.3px;">ทุน กยศ. กู้ยืม 100%</h3>
-                            <p style="font-size: 13px !important; color: #6b7280 !important; font-family: 'Prompt', sans-serif !important; margin: 0 0 16px 0 !important; font-weight: 600 !important;">กองทุนเงินให้กู้ยืมเพื่อการศึกษา</p>
+                            <h3 class="card-title-mwg" style="font-size: 21px !important; font-weight: 800 !important; color: #111827 !important; margin: 0 0 5px 0 !important; font-family: 'Prompt', sans-serif !important; letter-spacing: -0.3px;">ค่าลงทะเบียนเรียน</h3>
+                            <p style="font-size: 13px !important; color: #6b7280 !important; font-family: 'Prompt', sans-serif !important; margin: 0 0 16px 0 !important; font-weight: 600 !important;">ค่าแรกเข้า / ฿9,500 - ฿10,000</p>
                             
                             <ul style="display: flex; flex-direction: column; gap: 9px; list-style: none; padding: 0; margin: 0 0 18px 0; font-size: 13.5px; font-weight: 600; color: #374151; font-family: 'Prompt', sans-serif !important;">
                                 <li style="display: flex; align-items: flex-start; gap: 8px;">
                                     <i class="fa fa-check-circle" style="color: #dc2626; font-size: 13px; margin-top: 3px; flex-shrink: 0;"></i>
-                                    <span>กู้ยืมค่าเล่าเรียนและค่าธรรมเนียม 100%</span>
+                                    <span>อัตราค่าเรียนเฉลี่ยรายภาคเรียน</span>
                                 </li>
                                 <li style="display: flex; align-items: flex-start; gap: 8px;">
                                     <i class="fa fa-check-circle" style="color: #dc2626; font-size: 13px; margin-top: 3px; flex-shrink: 0;"></i>
-                                    <span>รับค่าครองชีพรายเดือนตามเกณฑ์</span>
+                                    <span>รวมค่าธรรมเนียมและอุปกรณ์การเรียน</span>
                                 </li>
                                 <li style="display: flex; align-items: flex-start; gap: 8px;">
                                     <i class="fa fa-check-circle" style="color: #dc2626; font-size: 13px; margin-top: 3px; flex-shrink: 0;"></i>
-                                    <span>มีอาจารย์แนะแนวดูแลการยื่นกู้ทุกขั้นตอน</span>
+                                    <span>กู้ยืมกองทุน กยศ. ได้เต็มจำนวน 100%</span>
                                 </li>
                             </ul>
 
                             <div style="margin-top: auto; border-top: 1px solid #f3f4f6; padding-top: 12px;">
-                                <p style="font-size: clamp(26px, 2.3vw, 32px) !important; font-weight: 900 !important; color: #dc2626 !important; font-family: 'Prompt', sans-serif !important; margin: 0 !important; line-height: 1 !important; letter-spacing: -1px;">กู้ยืมได้ 100%</p>
+                                <p style="font-size: clamp(26px, 2.3vw, 32px) !important; font-weight: 900 !important; color: #dc2626 !important; font-family: 'Prompt', sans-serif !important; margin: 0 !important; line-height: 1 !important; letter-spacing: -1px;">฿4,750/เทอม</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Circle Card 2: โครงการทวิภาคี & มีรายได้ -->
+                    <!-- Circle Card 2: ค่าลงทะเบียนฝึกงาน -->
                     <div class="circle">
                         <div class="media pr m2 f f-space" style="background: #ffffff !important; border: 1px solid rgba(220, 38, 38, 0.18) !important; border-radius: 24px !important; padding: 30px 24px !important; box-shadow: 0 24px 50px rgba(0,0,0,0.5) !important;">
                             <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(220, 38, 38, 0.08); border: 1px solid rgba(220, 38, 38, 0.18); color: #dc2626; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 14px;">
                                 <i class="fa fa-briefcase"></i>
                             </div>
-                            <h3 class="card-title-mwg" style="font-size: 21px !important; font-weight: 800 !important; color: #111827 !important; margin: 0 0 5px 0 !important; font-family: 'Prompt', sans-serif !important; letter-spacing: -0.3px;">ทวิภาคี & มีรายได้</h3>
-                            <p style="font-size: 13px !important; color: #6b7280 !important; font-family: 'Prompt', sans-serif !important; margin: 0 0 16px 0 !important; font-weight: 600 !important;">ฝึกงานในสถานประกอบการจริง</p>
+                            <h3 class="card-title-mwg" style="font-size: 21px !important; font-weight: 800 !important; color: #111827 !important; margin: 0 0 5px 0 !important; font-family: 'Prompt', sans-serif !important; letter-spacing: -0.3px;">ค่าลงทะเบียนฝึกงาน</h3>
+                            <p style="font-size: 13px !important; color: #6b7280 !important; font-family: 'Prompt', sans-serif !important; margin: 0 0 16px 0 !important; font-weight: 600 !important;">จำนวน 1 ภาคเรียน</p>
                             
                             <ul style="display: flex; flex-direction: column; gap: 9px; list-style: none; padding: 0; margin: 0 0 18px 0; font-size: 13.5px; font-weight: 600; color: #374151; font-family: 'Prompt', sans-serif !important;">
                                 <li style="display: flex; align-items: flex-start; gap: 8px;">
                                     <i class="fa fa-check-circle" style="color: #dc2626; font-size: 13px; margin-top: 3px; flex-shrink: 0;"></i>
-                                    <span>ฝึกงานกับบริษัทไอที & ซอฟต์แวร์ชั้นนำ</span>
+                                    <span>ฝึกประสบการณ์วิชาชีพในสถานประกอบการ</span>
                                 </li>
                                 <li style="display: flex; align-items: flex-start; gap: 8px;">
                                     <i class="fa fa-check-circle" style="color: #dc2626; font-size: 13px; margin-top: 3px; flex-shrink: 0;"></i>
-                                    <span>รับเบี้ยเลี้ยงและค่าตอบแทนระหว่างฝึกงาน</span>
+                                    <span>อัตราค่าลงทะเบียนเฉพาะเทอมฝึกงาน</span>
                                 </li>
                                 <li style="display: flex; align-items: flex-start; gap: 8px;">
                                     <i class="fa fa-check-circle" style="color: #dc2626; font-size: 13px; margin-top: 3px; flex-shrink: 0;"></i>
-                                    <span>โอกาสได้รับการบรรจุเป็นพนักงานประจำ</span>
+                                    <span>มีอาจารย์นิเทศก์ดูแลและมีโอกาสรับเบี้ยเลี้ยง</span>
                                 </li>
                             </ul>
 
                             <div style="margin-top: auto; border-top: 1px solid #f3f4f6; padding-top: 12px;">
-                                <p style="font-size: clamp(26px, 2.3vw, 32px) !important; font-weight: 900 !important; color: #dc2626 !important; font-family: 'Prompt', sans-serif !important; margin: 0 !important; line-height: 1 !important; letter-spacing: -1px;">มีรายได้จริง</p>
+                                <p style="font-size: clamp(26px, 2.3vw, 32px) !important; font-weight: 900 !important; color: #dc2626 !important; font-family: 'Prompt', sans-serif !important; margin: 0 !important; line-height: 1 !important; letter-spacing: -1px;">฿2,600/เทอม</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Circle Card 3: สื่อการเรียนรู้และ Lab สเปกสูง -->
+                    <!-- Circle Card 3: ผ่อนจ่ายค่าเทอมได้ -->
                     <div class="circle">
                         <div class="media pr m3 f f-space" style="background: #ffffff !important; border: 1px solid rgba(220, 38, 38, 0.18) !important; border-radius: 24px !important; padding: 30px 24px !important; box-shadow: 0 24px 50px rgba(0,0,0,0.5) !important;">
                             <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(220, 38, 38, 0.08); border: 1px solid rgba(220, 38, 38, 0.18); color: #dc2626; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 14px;">
-                                <i class="fa fa-server"></i>
+                                <i class="fa fa-credit-card"></i>
                             </div>
-                            <h3 class="card-title-mwg" style="font-size: 21px !important; font-weight: 800 !important; color: #111827 !important; margin: 0 0 5px 0 !important; font-family: 'Prompt', sans-serif !important; letter-spacing: -0.3px;">Lab & Server สเปกสูง</h3>
-                            <p style="font-size: 13px !important; color: #6b7280 !important; font-family: 'Prompt', sans-serif !important; margin: 0 0 16px 0 !important; font-weight: 600 !important;">ห้องปฏิบัติการมาตรฐานสากล</p>
+                            <h3 class="card-title-mwg" style="font-size: 21px !important; font-weight: 800 !important; color: #111827 !important; margin: 0 0 5px 0 !important; font-family: 'Prompt', sans-serif !important; letter-spacing: -0.3px;">ผ่อนจ่ายค่าเทอมได้</h3>
+                            <p style="font-size: 13px !important; color: #6b7280 !important; font-family: 'Prompt', sans-serif !important; margin: 0 0 16px 0 !important; font-weight: 600 !important;">แบ่งเป็น 2 งวด</p>
                             
                             <ul style="display: flex; flex-direction: column; gap: 9px; list-style: none; padding: 0; margin: 0 0 18px 0; font-size: 13.5px; font-weight: 600; color: #374151; font-family: 'Prompt', sans-serif !important;">
                                 <li style="display: flex; align-items: flex-start; gap: 8px;">
                                     <i class="fa fa-check-circle" style="color: #dc2626; font-size: 13px; margin-top: 3px; flex-shrink: 0;"></i>
-                                    <span>คอมพิวเตอร์ Core i7/i9 พร้อม RTX</span>
+                                    <span>แบ่งชำระเป็น 2 งวดต่อภาคเรียน</span>
                                 </li>
                                 <li style="display: flex; align-items: flex-start; gap: 8px;">
                                     <i class="fa fa-check-circle" style="color: #dc2626; font-size: 13px; margin-top: 3px; flex-shrink: 0;"></i>
-                                    <span>เซิร์ฟเวอร์จริงและอุปกรณ์ Network Cisco</span>
+                                    <span>ไม่มีดอกเบี้ย 0% ช่วยแบ่งเบาภาระ</span>
                                 </li>
                                 <li style="display: flex; align-items: flex-start; gap: 8px;">
                                     <i class="fa fa-check-circle" style="color: #dc2626; font-size: 13px; margin-top: 3px; flex-shrink: 0;"></i>
-                                    <span>Cloud & Database Server ใช้งานไม่จำกัด</span>
+                                    <span>ยื่นเรื่องขอผ่อนชำระกับงานการเงินได้สะดวก</span>
                                 </li>
                             </ul>
 
                             <div style="margin-top: auto; border-top: 1px solid #f3f4f6; padding-top: 12px;">
-                                <p style="font-size: clamp(26px, 2.3vw, 32px) !important; font-weight: 900 !important; color: #dc2626 !important; font-family: 'Prompt', sans-serif !important; margin: 0 !important; line-height: 1 !important; letter-spacing: -1px;">100% พร้อมใช้</p>
+                                <p style="font-size: clamp(26px, 2.3vw, 32px) !important; font-weight: 900 !important; color: #dc2626 !important; font-family: 'Prompt', sans-serif !important; margin: 0 !important; line-height: 1 !important; letter-spacing: -1px;">ไม่มีดอกเบี้ย</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Circle Card 4: สวัสดิการ & ประกันอุบัติเหตุ -->
+                    <!-- Circle Card 4: ประกันอุบัติเหตุ -->
                     <div class="circle">
                         <div class="media pr m4 f f-space" style="background: #ffffff !important; border: 1px solid rgba(220, 38, 38, 0.18) !important; border-radius: 24px !important; padding: 30px 24px !important; box-shadow: 0 24px 50px rgba(0,0,0,0.5) !important;">
                             <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(220, 38, 38, 0.08); border: 1px solid rgba(220, 38, 38, 0.18); color: #dc2626; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 14px;">
                                 <i class="fa fa-shield-alt"></i>
                             </div>
-                            <h3 class="card-title-mwg" style="font-size: 21px !important; font-weight: 800 !important; color: #111827 !important; margin: 0 0 5px 0 !important; font-family: 'Prompt', sans-serif !important; letter-spacing: -0.3px;">สวัสดิการ & ประกัน</h3>
-                            <p style="font-size: 13px !important; color: #6b7280 !important; font-family: 'Prompt', sans-serif !important; margin: 0 0 16px 0 !important; font-weight: 600 !important;">ดูแลตลอดหลักสูตร</p>
+                            <h3 class="card-title-mwg" style="font-size: 21px !important; font-weight: 800 !important; color: #111827 !important; margin: 0 0 5px 0 !important; font-family: 'Prompt', sans-serif !important; letter-spacing: -0.3px;">ประกันอุบัติเหตุ</h3>
+                            <p style="font-size: 13px !important; color: #6b7280 !important; font-family: 'Prompt', sans-serif !important; margin: 0 0 16px 0 !important; font-weight: 600 !important;">วิริยะประกันภัย</p>
                             
                             <ul style="display: flex; flex-direction: column; gap: 9px; list-style: none; padding: 0; margin: 0 0 18px 0; font-size: 13.5px; font-weight: 600; color: #374151; font-family: 'Prompt', sans-serif !important;">
                                 <li style="display: flex; align-items: flex-start; gap: 8px;">
                                     <i class="fa fa-check-circle" style="color: #dc2626; font-size: 13px; margin-top: 3px; flex-shrink: 0;"></i>
-                                    <span>ประกันอุบัติเหตุคุ้มครอง 24 ชั่วโมง</span>
+                                    <span>คุ้มครองอุบัติเหตุตลอด 24 ชั่วโมง</span>
                                 </li>
                                 <li style="display: flex; align-items: flex-start; gap: 8px;">
                                     <i class="fa fa-check-circle" style="color: #dc2626; font-size: 13px; margin-top: 3px; flex-shrink: 0;"></i>
-                                    <span>เคลมค่ารักษาพยาบาลสูงสุด ฿8,000</span>
+                                    <span>เคลมค่ารักษาพยาบาลสูงสุด ฿8,000 ต่อครั้ง</span>
                                 </li>
                                 <li style="display: flex; align-items: flex-start; gap: 8px;">
                                     <i class="fa fa-check-circle" style="color: #dc2626; font-size: 13px; margin-top: 3px; flex-shrink: 0;"></i>
-                                    <span>Wi-Fi 6 ความเร็วสูงและสิทธิ์ซอฟต์แวร์แท้</span>
+                                    <span>ดูแลความคุ้มครองตลอดระยะเวลาการศึกษา</span>
                                 </li>
                             </ul>
 
                             <div style="margin-top: auto; border-top: 1px solid #f3f4f6; padding-top: 12px;">
-                                <p style="font-size: clamp(26px, 2.3vw, 32px) !important; font-weight: 900 !important; color: #dc2626 !important; font-family: 'Prompt', sans-serif !important; margin: 0 !important; line-height: 1 !important; letter-spacing: -1px;">คุ้มครอง 24 ชม.</p>
+                                <p style="font-size: clamp(26px, 2.3vw, 32px) !important; font-weight: 900 !important; color: #dc2626 !important; font-family: 'Prompt', sans-serif !important; margin: 0 !important; line-height: 1 !important; letter-spacing: -1px;">฿8,000/ครั้ง</p>
                             </div>
                         </div>
                     </div>

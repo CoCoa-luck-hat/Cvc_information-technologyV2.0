@@ -170,7 +170,7 @@
 
 <div id="pvc-fees-section" class="pvc-gsap-section-exact">
 
-    <div class="pin-height" style="height: 600vh; position: relative;">
+    <div class="pin-height" style="height: 700vh; position: relative;">
         
         <div class="pvc-stage-container">
             

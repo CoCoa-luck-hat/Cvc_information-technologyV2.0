@@ -40,45 +40,65 @@
                 </div>
             </div>
 
-            <!-- Column 2: Quick Links (Grid span 3) -->
-            <div class="lg:col-span-3 flex flex-col space-y-6 lg:ps-6">
+            <!-- Column 2: Quick Links / สารบัญแผนก (Grid span 4) -->
+            <div class="lg:col-span-4 flex flex-col space-y-6 lg:ps-6">
                 <h4 class="text-white font-bold text-sm uppercase tracking-wider border-l-2 border-primary ps-3">สารบัญแผนก</h4>
-                <ul class="flex flex-col space-y-3.5 text-sm">
-                    <li>
-                        <a href="index.php" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
-                            <i class="fas fa-chevron-right text-[10px] text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-2"></i>
-                            หน้าหลัก
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <!-- Sub-Group 1: หลักสูตรที่เปิดสอน -->
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <span style="font-size: 11.5px; font-weight: 700; color: #dc2626; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">หลักสูตร</span>
+                        <a href="index.php" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                            <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
+                            หน้าแรก
                         </a>
-                    </li>
-                    <li>
-                        <a href="index.php?click=it_coo1" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
-                            <i class="fas fa-chevron-right text-[10px] text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-2"></i>
-                            หลักสูตร ปวช.
+                        <a href="index.php?click=it_coo1" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                            <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
+                            ระดับ ปวช.
                         </a>
-                    </li>
-                    <li>
-                        <a href="index.php?click=it_s1" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
-                            <i class="fas fa-chevron-right text-[10px] text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-2"></i>
-                            หลักสูตร ปวส.
+                        <a href="index.php?click=it_s1" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                            <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
+                            ระดับ ปวส. (IT)
                         </a>
-                    </li>
-                    <li>
-                        <a href="index.php?click=0_techer" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
-                            <i class="fas fa-chevron-right text-[10px] text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-2"></i>
-                            คณาจารย์ผู้สอน
+                        <a href="index.php?click=game_s1" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                            <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
+                            ระดับ ปวส. (เกม)
                         </a>
-                    </li>
-                    <li>
-                        <a href="index.php?click=gallery" class="text-[#82889a] hover:text-white transition duration-300 flex items-center group">
-                            <i class="fas fa-chevron-right text-[10px] text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-2"></i>
-                            ภาพกิจกรรมต่างๆ
+                        <a href="https://admission.vec.go.th/" target="_blank" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                            <i class="fas fa-external-link-alt text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
+                            สมัครเรียน
                         </a>
-                    </li>
-                </ul>
+                    </div>
+
+                    <!-- Sub-Group 2: ข้อมูลแนะนำ & ทำเนียบ -->
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <span style="font-size: 11.5px; font-weight: 700; color: #dc2626; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">ข้อมูลแนะนำ</span>
+                        <a href="index.php?click=0_techer" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                            <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
+                            แนะนำครูผู้สอน
+                        </a>
+                        <a href="index.php?click=c_all" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                            <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
+                            อาคาร/ห้องเรียน
+                        </a>
+                        <a href="index.php?click=gallery" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                            <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
+                            ภาพกิจกรรม
+                        </a>
+                        <a href="index.php?click=graduate" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                            <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
+                            ทำเนียบบัณฑิต
+                        </a>
+                        <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                            <i class="fas fa-external-link-alt text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
+                            รางวัลแผนกฯ
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <!-- Column 3: Contact & Info (Grid span 4) -->
-            <div class="lg:col-span-4 flex flex-col space-y-6">
+            <!-- Column 3: Contact & Info (Grid span 3) -->
+            <div class="lg:col-span-3 flex flex-col space-y-6">
                 <h4 class="text-white font-bold text-sm uppercase tracking-wider border-l-2 border-primary ps-3">ข้อมูลการติดต่อ</h4>
                 <div class="flex flex-col space-y-4 text-sm">
                     <!-- Location -->
@@ -132,6 +152,6 @@
 <!-- Footer End -->
 
 <!-- Back to Top (Awwwards Magnetic Style) -->
-<a href="#" class="fixed right-8 bottom-8 w-12 h-12 bg-white/5 hover:bg-primary border border-white/10 hover:border-transparent text-primary hover:text-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 z-50 back-to-top hidden" onclick="if(window.lenis){window.lenis.scrollTo(0); return false;}" data-magnetic aria-label="Back to top">
+<a href="#" class="fixed right-8 bottom-8 w-12 h-12 bg-white/5 hover:bg-primary border border-white/10 hover:border-transparent text-primary hover:text-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 z-50 back-to-top" onclick="if(window.lenis){window.lenis.scrollTo(0); return false;}" data-magnetic aria-label="Back to top">
     <i class="fas fa-arrow-up text-sm leading-none m-0 p-0"></i>
 </a>

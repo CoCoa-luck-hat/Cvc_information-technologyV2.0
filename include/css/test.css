@@ -1629,6 +1629,13 @@ body.preloader-active {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.04);
   background-color: #ffffff;
   transform-origin: center top !important;
+  margin-bottom: 180vh !important;
+}
+
+@media (min-width: 768px) {
+  #majorsSection .majors-card {
+    margin-bottom: 240vh !important;
+  }
 }
 
 /* Kora Framer Comparison Section Styles */
@@ -1946,13 +1953,26 @@ input[type="submit"],
   box-shadow: none !important;
 }
 
-/* Back-to-Top Button Exact Icon Centering */
+/* Back-to-Top Button Exact Icon Centering & Footer Reveal */
 .back-to-top {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
   padding: 0 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(20px) scale(0.85) !important;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s, background-color 0.3s !important;
+  z-index: 9999 !important;
+}
+
+.back-to-top.show-btn {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(0) scale(1) !important;
 }
 
 .back-to-top i,
@@ -1968,6 +1988,15 @@ input[type="submit"],
 
 /* Mobile Responsive Overhaul Rules */
 @media (max-width: 1023px) {
+  /* Hide Back to Top button on Mobile (< 1024px) */
+  .back-to-top,
+  .back-to-top.show-btn {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
   /* Fluid Title Typography for Mobile */
   #majorsTitleStage h2 {
     font-size: clamp(2rem, 8vw, 3.5rem) !important;
@@ -2219,11 +2248,13 @@ input[type="submit"],
     border-radius: 20px !important;
   }
 
-  /* Back-to-top button position on Mobile */
-  .back-to-top {
-    right: 16px !important;
-    bottom: 20px !important;
-    z-index: 90 !important;
+  /* Hide Back-to-top button completely on Mobile */
+  .back-to-top,
+  .back-to-top.show-btn {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 
   /* Footer Padding */
@@ -2234,29 +2265,32 @@ input[type="submit"],
 }
 
 /* ==========================================================================
-   Cinematic Dark Blinds Page Transition (Awwwards Style)
+   Cinematic Dark Blinds Page Transition (Awwwards Style) - Zero Gap
    ========================================================================== */
 #cinematic-blinds-wrapper {
   position: fixed !important;
-  inset: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  height: 100svh !important;
+  inset: -10px !important;
+  width: calc(100vw + 20px) !important;
+  height: calc(100vh + 20px) !important;
+  height: calc(100dvh + 20px) !important;
   display: flex !important;
   z-index: 999999 !important;
   pointer-events: none !important;
   overflow: hidden !important;
+  background: transparent;
+  transition: background-color 0.2s ease;
 }
 
 #cinematic-blinds-wrapper.active {
   pointer-events: all !important;
+  background-color: #0a0c10 !important;
 }
 
 .cinematic-blind-strip {
-  flex: 1 !important;
-  height: 100% !important;
+  flex: 1 0 calc(100% / 6 + 2px) !important;
+  height: 105% !important;
   background: #0a0c10 !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.04) !important;
+  margin-right: -2px !important;
   transform: scaleY(0);
   transform-origin: top;
   will-change: transform;

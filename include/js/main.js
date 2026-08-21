@@ -1,7 +1,7 @@
 (function ($) {
     "use strict";
 
-    // Spinner
+    // Spinner Hide Helper
     var spinner = function () {
         setTimeout(function () {
             if ($('#spinner').length > 0) {
@@ -11,120 +11,87 @@
     };
     spinner(0);
 
+    // Back to top button - Show ONLY when reached the Footer
+    (function () {
+        function setupBackToTop() {
+            const backToTopBtn = document.querySelector('.back-to-top');
+            const footer = document.getElementById('global-footer') || document.querySelector('footer');
 
-    // Initiate the wowjs
-    new WOW().init();
+            if (!backToTopBtn) return;
+            backToTopBtn.classList.remove('hidden');
 
-
-    // Sticky Navbar
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 45) {
-            $('.nav-bar').addClass('sticky-top shadow-sm').css('top', '0px');
-        } else {
-            $('.nav-bar').removeClass('sticky-top shadow-sm').css('top', '-100px');
-        }
-    });
-
-
-    // Header carousel
-    $(".header-carousel").owlCarousel({
-        animateOut: 'fadeOut',
-        items: 1,
-        margin: 0,
-        stagePadding: 0,
-        autoplay: true,
-        smartSpeed: 500,
-        dots: true,
-        loop: true,
-        nav: true,
-        navText: [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ],
-    });
-
-
-
-    // testimonial carousel
-    $(".testimonial-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1500,
-        center: false,
-        dots: false,
-        loop: true,
-        margin: 25,
-        nav: true,
-        navText: [
-            '<i class="fa fa-arrow-right"></i>',
-            '<i class="fa fa-arrow-left"></i>'
-        ],
-        responsiveClass: true,
-        responsive: {
-            0: {
-                items: 1
-            },
-            576: {
-                items: 1
-            },
-            768: {
-                items: 2
-            },
-            992: {
-                items: 2
-            },
-            1200: {
-                items: 2
+            function updateFooterState() {
+                if (!footer || window.innerWidth < 1024) {
+                    backToTopBtn.classList.remove('show-btn');
+                    return;
+                }
+                const rect = footer.getBoundingClientRect();
+                const vh = window.innerHeight || document.documentElement.clientHeight;
+                // Reveal when footer enters viewport
+                if (rect.top <= vh) {
+                    backToTopBtn.classList.add('show-btn');
+                } else {
+                    backToTopBtn.classList.remove('show-btn');
+                }
             }
+
+            // Window Scroll & Resize
+            window.addEventListener('scroll', updateFooterState, { passive: true });
+            window.addEventListener('resize', updateFooterState, { passive: true });
+
+            // Hook into Lenis Smooth Scroll
+            const hookLenis = () => {
+                if (window.lenis && typeof window.lenis.on === 'function') {
+                    window.lenis.on('scroll', updateFooterState);
+                    return true;
+                }
+                return false;
+            };
+
+            if (!hookLenis()) {
+                const lenisInterval = setInterval(() => {
+                    if (hookLenis()) clearInterval(lenisInterval);
+                }, 150);
+                setTimeout(() => clearInterval(lenisInterval), 5000);
+            }
+
+            // Intersection Observer
+            if (footer && 'IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            backToTopBtn.classList.add('show-btn');
+                        } else {
+                            updateFooterState();
+                        }
+                    });
+                }, {
+                    root: null,
+                    threshold: [0, 0.05, 0.1]
+                });
+                observer.observe(footer);
+            }
+
+            // Initial verification
+            updateFooterState();
+
+            // Click Scroll-to-Top
+            $(backToTopBtn).off('click').on('click', function (e) {
+                e.preventDefault();
+                if (typeof window.lenis?.scrollTo === 'function') {
+                    window.lenis.scrollTo(0, { duration: 1.2 });
+                } else {
+                    $('html, body').animate({ scrollTop: 0 }, 500);
+                }
+                return false;
+            });
         }
-    });
 
-
-    // Facts counter
-    $('[data-toggle="counter-up"]').counterUp({
-        delay: 5,
-        time: 2000
-    });
-
-
-    // Back to top button
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
-            $('.back-to-top').fadeIn('slow');
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupBackToTop);
         } else {
-            $('.back-to-top').fadeOut('slow');
+            setupBackToTop();
         }
-    });
-    $('.back-to-top').click(function () {
-        $('html, body').animate({ scrollTop: 0 }, 100, 'easeInOutExpo');
-        return false;
-    });
-
-
-// Event สำหรับ <li> ปกติ (เช่น "รูปภาพทั้งหมด")
-$('#portfolio-flters > li[data-filter]').on('click', function () {
-    var filterValue = $(this).data('filter');
-    $('.portfolio-container').isotope({ filter: filterValue });
-
-    // เปลี่ยนสถานะ active เฉพาะ <li> ปกติ
-    $('#portfolio-flters > li[data-filter]').removeClass('active');
-    $(this).addClass('active');
-});
-
-// Event สำหรับ dropdown-item
-$('.dropdown-item').on('click', function () {
-    var filterValue = $(this).data('filter');
-    $('.portfolio-container').isotope({ filter: filterValue });
-
-    // เปลี่ยนสถานะ active เฉพาะ dropdown-item
-    $('.dropdown-item').removeClass('active');
-    $(this).addClass('active');
-
-    // ลบ active จาก <li> อื่นๆ ใน #portfolio-flters
-    $('#portfolio-flters > li[data-filter]').removeClass('active');
-});
-
-
-
+    })();
 
 })(jQuery);
-

@@ -1,147 +1,247 @@
-<!-- SECTION 5: PVS GAME ADMISSION CTA & CAREER PATHWAYS -->
+<!-- SECTION 5: EXACT 1:1 MADEWITHGSAP REPLICA (ปวส. คอมพิวเตอร์เกมและแอนิเมชัน) -->
 <style>
-.game-cta-sec {
-    background: #000000;
-    color: #ffffff;
-    padding: 80px 20px 100px 20px;
+/* Responsive layout rules for Section 5 CTA & Sticky Note Badge */
+.s-pricing .inner-card-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    overflow: hidden;
-    font-family: 'Prompt', sans-serif !important;
-    text-align: center;
-}
-
-.game-cta-glow {
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(220, 38, 38, 0.22) 0%, rgba(0, 0, 0, 0) 70%);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 1;
-}
-
-.game-cta-card {
-    background: #ffffff;
-    color: #111827;
-    border-radius: 32px;
-    padding: 48px 36px;
     max-width: 900px;
     margin: 0 auto;
-    box-shadow: 0 25px 60px -15px rgba(220, 38, 38, 0.3);
+}
+
+.s-pricing .card-main-box {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border-radius: 28px;
+    padding: 48px 40px 40px 40px;
+    max-width: 520px;
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.35);
     position: relative;
-    z-index: 2;
+    border: 1px solid rgba(220, 38, 38, 0.12);
+    box-sizing: border-box;
 }
 
-.game-career-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    max-width: 1000px;
-    margin: 40px auto 0;
-    position: relative;
-    z-index: 2;
+.s-pricing .whatsin-badge {
+    position: absolute;
+    top: 30px;
+    right: -150px;
+    width: 250px;
+    background: #fef2f2 !important;
+    color: #991b1b !important;
+    border-radius: 24px;
+    padding: 26px 20px;
+    transform: rotate(5deg);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    z-index: 5;
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    box-sizing: border-box;
 }
 
-.game-career-badge {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 18px;
-    padding: 18px 16px;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.game-career-badge:hover {
-    background: rgba(220, 38, 38, 0.15);
-    border-color: rgba(220, 38, 38, 0.4);
-    transform: translateY(-4px);
+.pricing-svg-wrapper {
+    position: absolute;
+    bottom: -2px;
+    left: -20%;
+    width: 140%;
+    height: 240px;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 5;
+    pointer-events: none;
 }
 
 @media (max-width: 1023px) {
-    .game-cta-sec {
-        padding: 50px 16px 70px 16px;
+    .h-latest .pin-height {
+        height: 150vh !important;
     }
-    .game-cta-card {
-        padding: 32px 20px;
-        border-radius: 24px;
+    .h-top-pricing {
+        padding: 40px 16px 170px 16px !important;
+        margin-top: 0 !important;
     }
-    .game-career-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
+    .pricing-svg-wrapper {
+        left: -30% !important;
+        width: 160% !important;
+        height: 180px !important;
+        bottom: -2px !important;
+    }
+    .pricing-svg-wrapper svg {
+        height: 180px !important;
+    }
+    .s-pricing {
+        padding: 0 16px 70px 16px !important;
+        margin-top: -2px !important;
+    }
+    .s-pricing .inner-card-wrapper {
+        flex-direction: column !important;
+        gap: 16px !important;
+        padding: 0 !important;
+        margin-top: -45px !important;
+    }
+    .s-pricing .card-main-box {
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        padding: 30px 20px 24px 20px !important;
+        border-radius: 22px !important;
+    }
+    .s-pricing .whatsin-badge {
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
+        width: 100% !important;
+        transform: none !important;
+        margin-top: 14px !important;
+        border-radius: 20px !important;
+        padding: 20px 16px !important;
     }
 }
 </style>
 
-<section class="game-cta-sec">
-    <div class="game-cta-glow"></div>
+<div id="mwg-exact-admission-wrapper" style="position: relative; z-index: 10; overflow: hidden; background-color: #f1f1f1;">
 
-    <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;">
+    <!-- SECTION H-LATEST -->
+    <section class="h-latest sec-white sec-border pr" id="pvc-admission-latest" style="background-color: #f1f1f1 !important; color: #000000 !important; position: relative;">
+        <div class="content pr">
+            
+            <!-- PINNED SLOW HORIZONTAL SCROLL TEXT (.l-sentence) -->
+            <div class="l-sentence" style="position: relative;">
+                <div class="mwg_landing4">
+                    <div class="pin-height" style="height: 280vh; position: relative;">
+                        <div class="container" style="height: 100vh; display: flex; align-items: center; overflow: hidden; width: 100vw !important; max-width: 100vw !important; margin: 0 !important; padding: 0 !important;">
+                            <p class="text mwg-monster-text" style="font-family: 'Prompt', sans-serif !important; font-size: clamp(36px, 6vw, 84px); font-weight: 900; white-space: nowrap; color: #000000; margin: 0; line-height: 1; will-change: transform; opacity: 1; transform: translateX(100vw);">
+                                พร้อมหรือยัง? ปวส. เกม &amp; แอนิเมชัน CVC
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Pricing Intro (Unlock the full / admission quota) -->
+            <div class="h-top-pricing" style="text-align: center; padding: 60px 20px 280px 20px; margin-top: 20px; position: relative; z-index: 2;">
+                <h3 class="title-l pr" style="font-family: 'Prompt', sans-serif !important; margin: 0; line-height: 1.2;">
+                    <span style="font-size: clamp(26px, 5.5vw, 76px); font-weight: 900; color: #000000; display: block; letter-spacing: -0.5px;">ปลดล็อกความคิดสร้างสรรค์สู่โลกเกมมิ่ง</span>
+                    <span class="text-g" style="font-size: clamp(24px, 5vw, 68px); font-weight: 800; color: #dc2626; opacity: 0.95; display: block; margin-top: 6px; letter-spacing: -0.5px;">คว้าโควตาสาขาคอมพิวเตอร์เกมและแอนิเมชัน CVC</span>
+                </h3>
+            </div>
+
+        </div>
+
+        <!-- DYNAMIC ANIMATED BLACK SVG BEZIER CURVE (160% width full-bleed to eliminate straight seams) -->
+        <div class="pricing-svg-wrapper">
+            <svg viewBox="0 0 1640 280" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; display: block;">
+                <path id="pricing-curve-path" d="M0 280 C480 220, 1160 220, 1640 280 L1640 280 L0 280 Z" fill="#000000"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- SECTION S-PRICING (OVERLAPPING WHITE CARD + WHITE-RED TILTED STICKY NOTE + BLACK BACKGROUND) -->
+    <section class="s-pricing pr" id="pvc-admission-card" style="background-color: #000000 !important; color: #ffffff !important; padding: 0 20px 100px 20px; position: relative; z-index: 10;">
         
-        <!-- CTA Box -->
-        <div class="game-cta-card">
-            <!-- Icon -->
-            <div style="width: 72px; height: 72px; border-radius: 50%; background: rgba(220, 38, 38, 0.1); border: 1.5px solid rgba(220, 38, 38, 0.25); color: #dc2626; display: inline-flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: 20px;">
-                <i class="fas fa-gamepad"></i>
+        <div class="sec-black pa" aria-hidden="true" style="position: absolute; inset: 0; background: #000000; pointer-events: none;"></div>
+        
+        <!-- Animated Overlapping Hero CTA Card Container -->
+        <div class="inner-card inner-card-wrapper" id="pvc-pricing-inner-card" style="position: relative; z-index: 20; will-change: transform, opacity;">
+            
+            <div class="card pr card-main-box">
+                
+                <!-- Hero CTA Card Top Content -->
+                <div class="card-top f f-center pr" style="text-align: center;">
+                    <!-- Larger Circular Icon Badge -->
+                    <div style="width: 68px; height: 68px; border-radius: 50%; background: rgba(220, 38, 38, 0.08); border: 1.5px solid rgba(220, 38, 38, 0.2); color: #dc2626; display: inline-flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 18px; box-shadow: 0 6px 18px rgba(220, 38, 38, 0.15);">
+                        <i class="fa fa-gamepad"></i>
+                    </div>
+
+                    <!-- Main Hero Title & Description -->
+                    <div class="pr milieu" style="text-align: center;">
+                        <h2 style="font-size: 30px; font-weight: 900; color: #111827 !important; font-family: 'Prompt', sans-serif !important; margin: 0 0 10px 0; line-height: 1.2;">
+                            ก้าวสู่ครีเอเตอร์เกมมืออาชีพ
+                        </h2>
+                        <p style="font-size: 14.5px; color: #4b5563 !important; font-family: 'Prompt', sans-serif !important; margin: 0 0 28px 0; line-height: 1.6;">
+                            ยื่นสมัครเรียนวันนี้ เพื่อรับสิทธิ์โควตาพิเศษ กู้ กยศ. 100% พร้อมอุปกรณ์และซอฟต์แวร์ลิขสิทธิ์แท้ตลอดหลักสูตร 2 ปี
+                        </p>
+                    </div>
+
+                    <!-- High-Impact Crimson Red CTA Button "สนใจสมัครเรียน" -->
+                    <div style="text-align: center; margin-top: 10px;">
+                        <a href="https://admission.vec.go.th/" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; background: linear-gradient(135deg, #dc2626 0%, #b71616 100%) !important; color: #ffffff !important; padding: 16px 26px; border-radius: 999px; font-size: 17px; font-weight: 900; font-family: 'Prompt', sans-serif !important; text-decoration: none !important; letter-spacing: 0.5px; box-shadow: 0 10px 30px rgba(220, 38, 38, 0.45); transition: transform 0.25s ease, box-shadow 0.25s ease;" onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 14px 35px rgba(220, 38, 38, 0.6)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 30px rgba(220, 38, 38, 0.45)';">
+                            <span>สนใจสมัครเรียนออนไลน์</span>
+                            <i class="fa fa-arrow-right" style="font-size: 16px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- WHITE-RED TILTED STICKY NOTE CARD (.whatsin) -->
+                <div class="whatsin pa label f f-center whatsin-badge">
+                    <p style="font-family: 'Prompt', sans-serif !important; font-weight: 900; font-size: 15px; margin: 0 0 14px 0; text-transform: uppercase; letter-spacing: 0.5px; color: #dc2626; text-align: center;">
+                        <i class="fa fa-gift" style="margin-right: 6px;"></i>สิทธิ์ &amp; ทุน ปวส. เกม
+                    </p>
+                    <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; padding: 0; margin: 0; font-size: 13px; font-weight: 700; font-family: 'Prompt', sans-serif !important; color: #374151;">
+                        <li style="display: flex; align-items: flex-start; gap: 8px;">
+                            <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
+                            <span>กู้ กยศ. 100% ค่าเทอม/ครองชีพ</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px;">
+                            <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
+                            <span>แล็บคอมการ์ดจอ RTX แรงสูง</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px;">
+                            <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
+                            <span>ซอฟต์แวร์แท้ Maya / Unreal / Unity</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px;">
+                            <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
+                            <span>โปรเจกต์เกมจริงสู่ Store</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px;">
+                            <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
+                            <span>สตูดิโอเกมพาร์ตเนอร์รับเข้าทำงาน</span>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
 
-            <h2 style="font-size: clamp(26px, 4.8vw, 42px); font-weight: 900; color: #111827; margin-bottom: 12px; line-height: 1.2;">
-                ก้าวสู่ครีเอเตอร์เกมมืออาชีพกับ <span style="color: #dc2626;">CVC IT</span>
-            </h2>
-
-            <p style="font-size: 16px; color: #4b5563; max-width: 650px; margin: 0 auto 28px; line-height: 1.6;">
-                เปิดรับสมัครผู้สำเร็จการศึกษา ปวช. และ ม.6 เข้าศึกษาต่อระดับ ปวส. สาขาคอมพิวเตอร์เกมและแอนิเมชัน โควตาเรียนดี ทุนการศึกษา และอุปกรณ์ครบครันตลอดหลักสูตร
-            </p>
-
-            <div style="display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;">
-                <a href="https://admission.vec.go.th/" target="_blank" style="padding: 14px 32px; background: #dc2626; color: #ffffff; font-weight: 800; font-size: 16px; border-radius: 9999px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(220, 38, 38, 0.35); transition: all 0.25s;">
-                    <span>สมัครเรียนออนไลน์</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-                <a href="tel:053713036" style="padding: 14px 28px; background: #f3f4f6; color: #1f2937; font-weight: 700; font-size: 16px; border-radius: 9999px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s;">
-                    <i class="fas fa-phone-alt" style="color: #dc2626;"></i>
-                    <span>สอบถามเพิ่มเติม</span>
-                </a>
-            </div>
         </div>
 
-        <!-- Career Pathways Grid -->
-        <div style="margin-top: 60px;">
-            <h3 style="font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px;">
-                เส้นทางอาชีพในอุตสาหกรรมเกมและดิจิทัลคอนเทนต์
+        <!-- Career Pathways Grid (Below CTA Card) -->
+        <div style="max-width: 1100px; margin: 70px auto 0; position: relative; z-index: 20; text-align: center;">
+            <h3 style="font-size: 24px; font-weight: 800; color: #ffffff; margin-bottom: 8px; font-family: 'Prompt', sans-serif !important;">
+                เส้นทางอาชีพสำหรับผู้สำเร็จการศึกษา ปวส. คอมพิวเตอร์เกมและแอนิเมชัน
             </h3>
-            <p style="font-size: 14px; color: #9ca3af; margin: 0 auto 20px;">
-                โอกาสร่วมงานกับสตูดิโอเกม บริษัทแอนิเมชัน และดิจิทัลเอเจนซี่ชั้นนำ
+            <p style="font-size: 14px; color: #9ca3af; margin: 0 auto 24px; font-family: 'Prompt', sans-serif !important;">
+                สร้างสรรค์ผลงานสู่อุตสาหกรรมเกม ดิจิทัลคอนเทนต์ และอีสปอร์ต หรือศึกษาต่อระดับปริญญาตรี 100%
             </p>
 
-            <div class="game-career-grid">
-                <div class="game-career-badge">
-                    <i class="fas fa-code text-red-500 text-xl mb-2"></i>
-                    <h4 style="font-size: 16px; font-weight: 700; color: #ffffff; margin: 0;">Game Developer / Programmer</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;">
+                <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px 14px;">
+                    <i class="fas fa-gamepad text-red-500 text-xl mb-2"></i>
+                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0 0 4px 0; font-family: 'Prompt', sans-serif !important;">Game Developer</h4>
+                    <span style="font-size: 12px; color: #9ca3af; font-family: 'Prompt', sans-serif !important;">ผู้พัฒนาและเขียนโค้ดระบบเกม</span>
                 </div>
-                <div class="game-career-badge">
+                <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px 14px;">
                     <i class="fas fa-cube text-red-500 text-xl mb-2"></i>
-                    <h4 style="font-size: 16px; font-weight: 700; color: #ffffff; margin: 0;">3D Modeler & Texture Artist</h4>
+                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0 0 4px 0; font-family: 'Prompt', sans-serif !important;">3D Modeler &amp; Animator</h4>
+                    <span style="font-size: 12px; color: #9ca3af; font-family: 'Prompt', sans-serif !important;">นักสร้างโมเดล 3D และแอนิเมชัน</span>
                 </div>
-                <div class="game-career-badge">
-                    <i class="fas fa-film text-red-500 text-xl mb-2"></i>
-                    <h4 style="font-size: 16px; font-weight: 700; color: #ffffff; margin: 0;">2D/3D Character Animator</h4>
-                </div>
-                <div class="game-career-badge">
-                    <i class="fas fa-drafting-compass text-red-500 text-xl mb-2"></i>
-                    <h4 style="font-size: 16px; font-weight: 700; color: #ffffff; margin: 0;">Game Level Designer</h4>
-                </div>
-                <div class="game-career-badge">
+                <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px 14px;">
                     <i class="fas fa-magic text-red-500 text-xl mb-2"></i>
-                    <h4 style="font-size: 16px; font-weight: 700; color: #ffffff; margin: 0;">Technical Artist & VFX</h4>
+                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0 0 4px 0; font-family: 'Prompt', sans-serif !important;">Technical Artist &amp; VFX</h4>
+                    <span style="font-size: 12px; color: #9ca3af; font-family: 'Prompt', sans-serif !important;">ผู้เชี่ยวชาญเอฟเฟกต์และเทคนิคเกม</span>
                 </div>
-                <div class="game-career-badge">
-                    <i class="fas fa-vr-cardboard text-red-500 text-xl mb-2"></i>
-                    <h4 style="font-size: 16px; font-weight: 700; color: #ffffff; margin: 0;">AR / VR Content Creator</h4>
+                <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px 14px;">
+                    <i class="fas fa-map-marked-alt text-red-500 text-xl mb-2"></i>
+                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0 0 4px 0; font-family: 'Prompt', sans-serif !important;">Game &amp; Level Designer</h4>
+                    <span style="font-size: 12px; color: #9ca3af; font-family: 'Prompt', sans-serif !important;">ผู้ออกแบบระบบเกมและด่าน</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px 14px;">
+                    <i class="fas fa-paint-brush text-red-500 text-xl mb-2"></i>
+                    <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin: 0 0 4px 0; font-family: 'Prompt', sans-serif !important;">2D Concept &amp; UI Artist</h4>
+                    <span style="font-size: 12px; color: #9ca3af; font-family: 'Prompt', sans-serif !important;">ศิลปินคอนเซปต์และอินเทอร์เฟซเกม</span>
                 </div>
             </div>
         </div>
 
-    </div>
-</section>
+    </section>
+
+</div>

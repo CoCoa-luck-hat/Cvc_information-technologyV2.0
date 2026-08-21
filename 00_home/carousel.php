@@ -59,7 +59,7 @@
             <div class="w-full lg:w-1/2 flex justify-center">
                 <div class="radius-img-container">
                     <div class="general-reveal-img aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] w-full">
-                        <img src="02_design/team-programmers.jpg" alt="Learning by doing" class="w-full h-full object-cover">
+                        <img src="03_photo/3.4_room/8.jpg" alt="Learning by doing" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>

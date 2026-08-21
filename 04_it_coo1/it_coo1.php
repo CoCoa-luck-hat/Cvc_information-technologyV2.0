@@ -357,13 +357,13 @@ section.h-hero .sr-only {
 
 <!-- MAIN HERO SECTION HTML MARKUP -->
 <section class="h-hero pr intro-playing">
-    <h1 class="sr-only">หลักสูตร ปวช. เทคโนโลยีสารสนเทศ วิทยาลัยอาชีวศึกษาชลบุรี CVC IT</h1>
+    <h1 class="sr-only">หลักสูตร ปวช. เทคโนโลยีสารสนเทศ วิทยาลัยอาชีวศึกษาเชียงราย CVC IT</h1>
 
     <!-- Left & Right Split Headline -->
     <div class="wording-headline pa f f-space title-s">
         <div class="l">
             <span class="w1">หลักสูตร</span>
-            <span class="w2">ปวช.</span>
+            <span class="w2" style="color: red;">ปวช.</span>
         </div>
         <div class="r right">
             <span class="w3">เทคโนโลยี</span>

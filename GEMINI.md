@@ -85,4 +85,15 @@ This document serves as the primary technical context, architectural reference, 
     * Exiting elements on reverse scroll should use fast sync fades (`duration: 0.15s`) with immediate display class cleanup (`c.classList.remove('on')`).
 12. **Desktop Multi-Column Card Scale & Viewport Clamping**:
     * For horizontal multi-column spread rows (e.g. 4 cards across viewport), desktop card width should standardize to `340px - 350px` with dynamic spread spacing clamped to `Math.min(cardWidth + gap, (window.innerWidth - 60) / 4)` to fit all standard laptop/desktop resolutions (1366px to 1920px+) without horizontal clipping or wrapping.
+13. **Visual-First Luxury Gallery & Zero Text Clutter Rule**:
+    * For photo galleries, facility showcases, and architectural spaces, avoid heavy blog cards with long text paragraphs and cluttered info boxes.
+    * Adopt **Visual-First Masonry Architecture / Editorial Journal** layouts where high-resolution imagery takes center stage. Display metadata (room code, building, caption) cleanly via **Hover Reveal / Translucent Glass Scrims** or in a **Cinematic Ultra-Minimal Lightbox**.
+14. **Mobile Modal/Detail Floating Controls Initial State Guard**:
+    * Any floating control or back button intended strictly for detail/modal view modes (e.g. `.fp-btn-back-floating`) MUST default to `display: none;` in general CSS.
+    * Only apply `display: inline-flex !important;` within active state parent selectors (e.g. `#faculty-fullscreen-stage.bio-mode-mobile .fp-btn-back-floating`). Never put unconditional `display: inline-flex !important;` inside base `@media (max-width: 1023px)` styles.
+15. **Mobile Reverse Transition Choreography (Fade-Out -> Smooth Scroll -> Fade-In)**:
+    * When exiting an expanded/detail mode on mobile, avoid instantaneous state switches (`classList.remove`) while the viewport is scrolled down.
+    * Follow the 4-step sequence: (1) Fade out detail panels (`opacity: 1 -> 0, y: 18px`), (2) Smoothly scroll back to top of container using `window.lenis?.scrollTo()` or `window.scrollTo({ behavior: 'smooth' })`, (3) Remove mobile detail class and set showcase elements to `opacity: 0, y: 18px`, (4) Smoothly fade in showcase elements (`opacity: 0 -> 1, y: 0`) with `power2.out` timing.
+16. **Desktop Cleanup for Mobile Indicator Elements**:
+    * Elements designed specifically for mobile touch feedback (e.g. edge fade gradient masks, swipe chevrons, touch scroll indicators) must define explicit `display: none !important;` outside of `@media` blocks, and only enable (`display: flex !important;`) inside `@media (max-width: 1023px)`.
 

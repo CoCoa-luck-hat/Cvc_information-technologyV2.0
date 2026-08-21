@@ -27,11 +27,6 @@ $route = trim($_GET['route'] ?? $_GET['click'] ?? $_GET['page'] ?? '', '/');
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link rel="stylesheet" href="include/lib/animate/animate.min.css" />
-    <link href="include/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-    <link href="include/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
     <!-- Tailwind CSS -->
     <link href="include/css/tailwind.css" rel="stylesheet">
 
@@ -100,63 +95,42 @@ $route = trim($_GET['route'] ?? $_GET['click'] ?? $_GET['page'] ?? '', '/');
                     include('05_game_s1/game_s5.php');
                     break;
 
-                // 3. คณะครูผู้สอน
+                // 3. คณะครูผู้สอน (Unified 100vh Faculty Interactive Stage)
                 case '0_techer':
                 case 'teachers':
+                case 'teacher':
+                case '1_thawatchai':
+                case '2_piyamat':
+                case '3_plaopilart':
+                case '4_rodsathon':
+                case '5_teerapat':
+                case '6_teem':
+                case '7_jam':
                     include('06_techer/0_techer.php');
                     break;
-                case '1_thawatchai':
-                    include('06_techer/1_thawatchai.php');
-                    break;
-                case '2_piyamat':
-                    include('06_techer/2_piyamat.php');
-                    break;
-                case '3_plaopilart':
-                    include('06_techer/3_plaopilart.php');
-                    break;
-                case '4_rodsathon':
-                    include('06_techer/4_rodsathon.php');
-                    break;
-                case '5_teerapat':
-                    include('06_techer/5_teerapat.php');
-                    break;
-                case '6_teem':
-                    include('06_techer/6_teem.php');
-                    break;
-                case '7_jam':
-                    include('06_techer/7_jam.php');
-                    break;
 
-                // 4. แนะนำอาคารเรียน / ห้องเรียน
+                // 4. แนะนำอาคารเรียน & ห้องปฏิบัติการ
                 case 'c_all':
+                case 'c_241':
+                case 'c_242':
+                case 'c_653':
+                case 'c_654':
+                case 'classroom':
+                case 'classrooms':
                     include('07_classroom/c_all.php');
                     break;
-                case 'c_241':
-                    include('07_classroom/c_241.php');
-                    break;
-                case 'c_242':
-                    include('07_classroom/c_242.php');
-                    break;
-                case 'c_653':
-                case 'classroom':
-                    include('07_classroom/c_653.php');
-                    break;
-                case 'c_654':
-                    include('07_classroom/c_654.php');
-                    break;
+
+                // 5. กิจกรรมภาคเรียน / ภาพบรรยากาศ
+                case 'event':
+                case 'events':
                 case 'gallery':
-                    include('07_classroom/gallery.php');
+                    include('09_event/gallery.php');
                     break;
 
-                // 5. ผลงาน & บัณฑิต
-                case 'awards_it':
-                case 'awards':
-                    include('08_awards/awards_it.php');
-                    break;
-                case 'awards_sd':
-                    include('08_awards/awards_sd.php');
-                    break;
+                // 6. ทำเนียบบัณฑิต & ผลงาน
                 case 'graduate':
+                case 'graduates':
+                case 'awards':
                     include('08_awards/graduate.php');
                     break;
 
@@ -181,20 +155,14 @@ $route = trim($_GET['route'] ?? $_GET['click'] ?? $_GET['page'] ?? '', '/');
         <?php include('components/footer.php'); ?>
     </div>
 
-    <!-- JavaScript Libraries -->
+    <!-- Core JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="include/lib/wow/wow.min.js"></script>
-    <script src="include/lib/easing/easing.min.js"></script>
-    <script src="include/lib/waypoints/waypoints.min.js"></script>
-    <script src="include/lib/counterup/counterup.min.js"></script>
-    <script src="include/lib/lightbox/js/lightbox.min.js"></script>
-    <script src="include/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="include/js/lenis.min.js"></script>
-    <script src="include/js/main.js"></script>
-    <script src="include/js/test.js"></script>
+    <script src="include/js/main.js?v=<?= time() ?>"></script>
+    <script src="include/js/test.js?v=<?= time() ?>"></script>
 
     <!-- GSAP & Awwwards Interactions -->
     <script src="include/js/awwwards.js?v=<?= time() ?>"></script>
@@ -207,8 +175,8 @@ $route = trim($_GET['route'] ?? $_GET['click'] ?? $_GET['page'] ?? '', '/');
                 const targetId = this.getAttribute('href').substring(1);
                 const targetElement = document.getElementById(targetId);
                 if (targetElement) {
-                    if (typeof lenis !== 'undefined') {
-                        lenis.scrollTo(targetElement, { offset: -50 });
+                    if (typeof window.lenis?.scrollTo === 'function') {
+                        window.lenis.scrollTo(targetElement, { offset: -50 });
                     } else {
                         targetElement.scrollIntoView({
                             behavior: 'smooth',

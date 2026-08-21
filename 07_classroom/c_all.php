@@ -1,454 +1,227 @@
-<!-- Header Start -->
-<div class="container-fluid bg-breadcrumb p-0" style="position: relative;">
-    <img src="02_design/page-8.jpg" class="w-100" alt="">
-</div>
-<!-- Header End -->
-<style>
-    /*** Animal ***/
-    .animal-item {
-        position: relative;
-        display: block;
+<?php
+// Master Architecture Journal Gallery - Information Technology Department (CVC)
+// Ultra-Premium Visual-First Dynamic Multi-Column Flex Masonry with Load More & Mobile Scroll Arrows
+$targetRoom = isset($_GET['target']) ? trim($_GET['target']) : '';
+if (empty($targetRoom) && isset($_GET['click'])) {
+    $click = trim($_GET['click']);
+    if (in_array($click, ['c_241', 'c_242', 'c_653', 'c_654'])) {
+        $targetRoom = str_replace('c_', '', $click);
     }
+}
 
-    .animal-item .animal-text {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        background: rgba(0, 0, 0, .7);
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding-bottom: 100px !important;
-        opacity: 0;
-        transition: .5s;
-    }
+// Curated Architecture Photo Database
+$galleryItems = [
+    // ROOM 241 (Building 2, Floor 4)
+    [ "src" => "03_photo/3.4_room/5.3.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "มุมมองกว้างห้องปฏิบัติการระบบเครือข่าย & ฮาร์ดแวร์ 241" ],
+    [ "src" => "03_photo/3.4_room/5.0.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "โต๊ะปฏิบัติการระบบเครือข่ายและเครื่องคอมพิวเตอร์" ],
+    [ "src" => "03_photo/3.4_room/5.1.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "สถานีทดลองและฝึกปฏิบัติการติดตั้งระบบ" ],
+    [ "src" => "03_photo/3.4_room/5.2.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "มุมจอภาพแสดงผลและอุปกรณ์เซิร์ฟเวอร์" ],
+    [ "src" => "03_photo/3.4_room/5.4.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "บรรยากาศห้องเรียนและการจัดวางพื้นที่การสอน" ],
+    [ "src" => "03_photo/3.4_room/room-241-2.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "ภาพรวมอุปกรณ์ฮาร์ดแวร์และการเชื่อมต่อระบบ" ],
+    [ "src" => "03_photo/3.4_room/อาคาร2.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2", "roomLabel" => "อาคารเฉลิมพระเกียรติ", "caption" => "ทัศนียภาพภายนอก อาคาร 2 (อาคารเฉลิมพระเกียรติ)" ],
 
-    .animal-item:hover .animal-text {
-        opacity: 1;
-        padding-bottom: 20px !important;
-    }
+    // ROOM 242 (Building 2, Floor 4)
+    [ "src" => "03_photo/3.4_room/1.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "บรรยากาศการเรียนพัฒนาซอฟต์แวร์และเขียนโค้ด" ],
+    [ "src" => "03_photo/3.4_room/2.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "สถานีคอมพิวเตอร์สำหรับฝึกปฏิบัติการโปรแกรมมิ่ง" ],
+    [ "src" => "03_photo/3.4_room/3.0.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "หน้าจอการพัฒนาเว็บแอปพลิเคชันและทดสอบระบบ" ],
+    [ "src" => "03_photo/3.4_room/4.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "การพัฒนาโปรเจกต์โครงงานซอฟต์แวร์ของนักศึกษา" ],
+    [ "src" => "03_photo/3.4_room/7.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "มุมมองโต๊ะผู้เรียนพร้อมจอคู่สำหรับการเขียนโค้ด" ],
+    [ "src" => "03_photo/3.4_room/8.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "บรรยากาศการเรียนรู้และการทำกิจกรรมกลุ่มร่วมกัน" ],
+    [ "src" => "03_photo/3.4_room/9.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "การทดสอบและ Deploy แอปพลิเคชัน" ],
+    [ "src" => "03_photo/3.4_room/10.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "มุมควบคุมสื่อการสอนของอาจารย์ผู้สอน" ],
 
-    .portfolio-btn {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        background: rgba(47, 47, 47, 0.466);
-        display: flex;
-        align-items: flex-end !important;
-        padding: 15px !important;
-        padding-bottom: 100px !important;
-        opacity: 0;
-        transition: .5s;
-        justify-content: space-between;
+    // ROOM 653 (Building 6, Floor 5)
+    [ "src" => "03_photo/3.4_room/653-1.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "สตูดิโอมัลติมีเดีย, 3D แอนิเมชัน & ออกแบบเกม" ],
+    [ "src" => "03_photo/3.4_room/653-2.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "สถานีคอมพิวเตอร์กราฟิกประสิทธิภาพสูง Dedicated GPU" ],
+    [ "src" => "03_photo/3.4_room/653-3.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "มุมตัดต่อวิดีโอความละเอียดสูงและทำแอนิเมชัน" ],
+    [ "src" => "03_photo/3.4_room/653-4.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "การออกแบบโมเดล 3 มิติและจัดแสงด้วย Blender" ],
+    [ "src" => "03_photo/3.4_room/653-5.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "อุปกรณ์และจอภาพแสดงผลสีกราฟิกมาตรฐาน" ],
+    [ "src" => "03_photo/3.4_room/653-6.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "การเรียนรู้การพัฒนาเกมด้วย Unity Engine" ],
+    [ "src" => "03_photo/3.4_room/653-7.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "การเรนเดอร์ผลงานสร้างสรรค์ 3D Animation" ],
+    [ "src" => "03_photo/3.4_room/653-8.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "ภาพรวมห้องปฏิบัติการมัลติมีเดีย 653" ],
+    [ "src" => "03_photo/3.4_room/room-653-1.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "โต๊ะทำงานแบบสตูดิโอสร้างสรรค์ดิจิทัลมีเดีย" ],
+    [ "src" => "03_photo/3.4_room/room-653-2.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "มุมมองกว้างสตูดิโอห้อง 653" ],
+    [ "src" => "03_photo/3.4_room/อาคาร6.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6", "roomLabel" => "อาคารปฏิบัติการวิชาชีพ", "caption" => "ทัศนียภาพภายนอก อาคาร 6 (อาคารปฏิบัติการวิชาชีพ)" ],
 
-    }
+    // ROOM 654 (Building 6, Floor 5)
+    [ "src" => "03_photo/3.4_room/IMG_2958.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "ห้องปฏิบัติการ AI, Data Science & นวัตกรรมดิจิทัล 654" ],
+    [ "src" => "03_photo/3.4_room/IMG_2963.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "สถานีประมวลผลข้อมูลและจำลองโมเดล Machine Learning" ],
+    [ "src" => "03_photo/3.4_room/IMG_2965.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "จอภาพและเครื่องมือวิเคราะห์ข้อมูลเชิงลึก (Data Analytics)" ],
+    [ "src" => "03_photo/3.4_room/IMG_2966.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "มุมทำงานกลุ่มและระดมความคิดสร้างสรรค์นวัตกรรม" ],
+    [ "src" => "03_photo/3.4_room/IMG_2968.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "อุปกรณ์ทดสอบโมเดล AI และชุดเซนเซอร์" ],
+    [ "src" => "03_photo/3.4_room/IMG_2969.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "โต๊ะปฏิบัติการนวัตกรรมเทคโนโลยีสารสนเทศ" ],
+    [ "src" => "03_photo/3.4_room/IMG_2973.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "การเรียนรู้ Deep Learning และ Computer Vision" ],
+    [ "src" => "03_photo/3.4_room/IMG_2978.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "บรรยากาศห้องปฏิบัติการนวัตกรรม 654" ],
+    [ "src" => "03_photo/3.4_room/IMG_2990.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "สถานีออกแบบ UI/UX และพัฒนา Prototype" ],
+    [ "src" => "03_photo/3.4_room/IMG_2992.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "มุมมองสตูดิโอดิจิทัลอินโนเวชัน 654" ]
+];
 
-    .dropdown:hover>.dropdown-menu {
-        display: block;
-    }
+$totalCount = count($galleryItems);
+$initialLimit = 12;
+?>
 
-    .dropdown>.dropdown-toggle:active {
-        /*Without this, clicking will make it sticky*/
-        pointer-events: none;
-    }
+<!-- Modular Stylesheet -->
+<link rel="stylesheet" href="include/css/modules/classroom.css?v=<?= time() ?>">
 
-    .dropbtn {
-        font-size: 16px;
-        border: none;
-        font-weight: 500;
-        background: #ffffff00;
-        /* ใช้สีพื้นหลังจากตัวแปร */
-        transition: 0.5s;
-        color: var(--dark);
-    }
+<!-- MAIN ARCHITECTURAL JOURNAL STAGE -->
+<section id="maj-architecture-journal">
+    
+    <!-- Atmospheric Blueprint Grid & Ambient Lights -->
+    <div class="maj-blueprint-grid"></div>
+    <div class="maj-ambient-glow"></div>
 
-    .dropdown12 {
-        position: relative;
-    }
+    <div class="maj-container">
+        
+        <!-- 1. MINIMAL ELEGANT HEADER -->
+        <header class="maj-header-wrap">
+            <h1 class="maj-main-title">
+                อาคารเรียน &amp; <span class="maj-crimson-text">ห้องปฏิบัติการ</span>
+            </h1>
+            <p class="maj-sub-desc">
+                ทัศนียภาพและบรรยากาศห้องปฏิบัติการเทคโนโลยีสารสนเทศ วิทยาลัยอาชีวศึกษาเชียงราย
+            </p>
+        </header>
 
-    .dropdown12-content {
-        position: absolute;
-        visibility: hidden;
-        top: 100%;
-        transform: rotateX(-75deg);
-        transform-origin: 0% 0%;
-        border: 0;
-        border-radius: 10px;
-        transition: 0.5s;
-        opacity: 0;
-        background-color: var(--bs-light);
-        /* ใช้สีพื้นหลังจากตัวแปร */
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        min-width: 160px;
-        z-index: 1;
-    }
-
-
-
-    .dropdown12:hover .dropdown12-content {
-        transform: rotateX(0deg);
-        visibility: visible;
-        margin-top: 3px;
-        transition: 0.5s;
-        opacity: 1;
-    }
-
-    .dropdown-item {
-        border: none !important;
-    }
-
-    .dropdown-item:hover {
-        background: #d90707;
-        color: white !important;
-    }
-
-
-    #portfolio-flters li.active {
-        color: var(--primary);
-        border-color: var(--primary);
-    }
-
-    .dropdown-item.active {
-        background: #ff8888;
-        color: white !important;
-    }
-</style>
-
-<!-- Projects Start -->
-<div class="bg-light" style="position: relative;">
-    <div class="container-xxl py-6 pt-5 " id="project" style="padding-bottom: 150px;">
-        <div class="container">
-            <?php include ('navbar.php'); ?>
-
-
-            <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.1s">
-
-            <!-- แนะนำอาคาร -->
-            <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/อาคาร6.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 6</p>
-                               
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/อาคาร6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/อาคาร2.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 2</p>
-                               
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/อาคาร2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-
-                 <!-- ห้อง 242 -->
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/1.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 2</p>
-                                <h5 class="text-white mb-0">ห้อง 242</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/2.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 2</p>
-                                <h5 class="text-white mb-0">ห้อง 242</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/4.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 2</p>
-                                <h5 class="text-white mb-0">ห้อง 242</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/4.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/5.1.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 2</p>
-                                <h5 class="text-white mb-0">ห้อง 242</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/5.1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/5.2.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 2</p>
-                                <h5 class="text-white mb-0">ห้อง 242</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/5.2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- ห้อง 241 -->
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/5.3.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 2</p>
-                                <h5 class="text-white mb-0">ห้อง 241</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/5.3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/5.4.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 2</p>
-                                <h5 class="text-white mb-0">ห้อง 241</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/5.4.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/5.5.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 2</p>
-                                <h5 class="text-white mb-0">ห้อง 241</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/5.5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-            
-                 <!-- ห้อง 654 -->
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/7.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 6</p>
-                                <h5 class="text-white mb-0">ห้อง 654</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/7.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-
-                 <!-- ห้อง 654 -->
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/8.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 6</p>
-                                <h5 class="text-white mb-0">ห้อง 654</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/8.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/9.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 6</p>
-                                <h5 class="text-white mb-0">ห้อง 654</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/9.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/10.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 6</p>
-                                <h5 class="text-white mb-0">ห้อง 654</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/10.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-
-                 <!-- ห้อง 653 -->
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/12.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 6</p>
-                                <h5 class="text-white mb-0">ห้อง 653</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/12.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/11.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 6</p>
-                                <h5 class="text-white mb-0">ห้อง 653</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/11.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/13.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 6</p>
-                                <h5 class="text-white mb-0">ห้อง 653</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/13.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/14.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 6</p>
-                                <h5 class="text-white mb-0">ห้อง 653</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/14.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 portfolio-item first1">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="03_photo/3.4_room/15.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <div class="animal-text pb-0 p-4">
-                                <p class="text-white small text-uppercase mb-0">อาคาร 6</p>
-                                <h5 class="text-white mb-0">ห้อง 653</h5>
-                            </div>
-                            <a class="btn  btn-immg border-2 mx-1"
-                                style="width: 45px; height: 45px; align-content: center;"
-                                href="03_photo/3.4_room/15.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-
-                        </div>
-
-                    </div>
-                </div>
-            
+        <!-- 2. SLEEK FLOATING FILTER CAPSULE BAR WITH ARROW BUTTONS -->
+        <div class="maj-filter-bar-container">
+            <div class="maj-filter-scroll-wrapper">
+                <button class="maj-filter-arrow maj-filter-arrow-left" id="maj-filter-prev" type="button" aria-label="เลื่อนแถบซ้าย">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <nav class="maj-filter-bar" id="maj-filter-bar" aria-label="หมวดหมู่อาคารเรียน">
+                    <button class="maj-filter-item-btn active" data-filter="all" type="button">
+                        <span>ทั้งหมด</span>
+                        <span class="maj-count-badge" id="maj-total-count"><?= $totalCount ?></span>
+                    </button>
+                    <button class="maj-filter-item-btn" data-filter="b2" type="button">
+                        <span>อาคาร 2</span>
+                    </button>
+                    <button class="maj-filter-item-btn" data-filter="b6" type="button">
+                        <span>อาคาร 6</span>
+                    </button>
+                    <button class="maj-filter-item-btn" data-filter="241" type="button">
+                        <span>ห้อง 241</span>
+                    </button>
+                    <button class="maj-filter-item-btn" data-filter="242" type="button">
+                        <span>ห้อง 242</span>
+                    </button>
+                    <button class="maj-filter-item-btn" data-filter="653" type="button">
+                        <span>ห้อง 653</span>
+                    </button>
+                    <button class="maj-filter-item-btn" data-filter="654" type="button">
+                        <span>ห้อง 654</span>
+                    </button>
+                </nav>
+                <button class="maj-filter-arrow maj-filter-arrow-right" id="maj-filter-next" type="button" aria-label="เลื่อนแถบขวา">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
 
+        <!-- 3. VISUAL-FIRST MULTI-COLUMN FLEX MASONRY (Server-Side Rendered Initial 12 Items) -->
+        <main class="maj-masonry-wrapper" id="maj-masonry-wrapper">
+            <div class="maj-masonry-col" id="maj-col-0">
+                <?php for ($idx = 0; $idx < min($initialLimit, $totalCount); $idx++): if ($idx % 3 === 0): $item = $galleryItems[$idx]; ?>
+                    <figure class="maj-photo-tile" onclick="openCinematicLightbox(<?= $idx ?>)" data-idx="<?= $idx ?>" data-room="<?= htmlspecialchars($item['room']) ?>" data-building="<?= htmlspecialchars($item['building']) ?>">
+                        <img src="<?= htmlspecialchars($item['src']) ?>" alt="<?= htmlspecialchars($item['caption']) ?>" class="maj-tile-img" loading="eager">
+                        <div class="maj-hover-scrim">
+                            <div class="maj-hover-top-badges">
+                                <span class="maj-badge-building-tag"><i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($item['buildingLabel']) ?></span>
+                                <div class="maj-badge-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
+                            <div class="maj-hover-content">
+                                <div class="maj-hover-room-code"><?= htmlspecialchars($item['roomLabel']) ?></div>
+                            </div>
+                        </div>
+                    </figure>
+                <?php endif; endfor; ?>
+            </div>
 
+            <div class="maj-masonry-col" id="maj-col-1">
+                <?php for ($idx = 0; $idx < min($initialLimit, $totalCount); $idx++): if ($idx % 3 === 1): $item = $galleryItems[$idx]; ?>
+                    <figure class="maj-photo-tile" onclick="openCinematicLightbox(<?= $idx ?>)" data-idx="<?= $idx ?>" data-room="<?= htmlspecialchars($item['room']) ?>" data-building="<?= htmlspecialchars($item['building']) ?>">
+                        <img src="<?= htmlspecialchars($item['src']) ?>" alt="<?= htmlspecialchars($item['caption']) ?>" class="maj-tile-img" loading="eager">
+                        <div class="maj-hover-scrim">
+                            <div class="maj-hover-top-badges">
+                                <span class="maj-badge-building-tag"><i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($item['buildingLabel']) ?></span>
+                                <div class="maj-badge-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
+                            <div class="maj-hover-content">
+                                <div class="maj-hover-room-code"><?= htmlspecialchars($item['roomLabel']) ?></div>
+                            </div>
+                        </div>
+                    </figure>
+                <?php endif; endfor; ?>
+            </div>
+
+            <div class="maj-masonry-col" id="maj-col-2">
+                <?php for ($idx = 0; $idx < min($initialLimit, $totalCount); $idx++): if ($idx % 3 === 2): $item = $galleryItems[$idx]; ?>
+                    <figure class="maj-photo-tile" onclick="openCinematicLightbox(<?= $idx ?>)" data-idx="<?= $idx ?>" data-room="<?= htmlspecialchars($item['room']) ?>" data-building="<?= htmlspecialchars($item['building']) ?>">
+                        <img src="<?= htmlspecialchars($item['src']) ?>" alt="<?= htmlspecialchars($item['caption']) ?>" class="maj-tile-img" loading="eager">
+                        <div class="maj-hover-scrim">
+                            <div class="maj-hover-top-badges">
+                                <span class="maj-badge-building-tag"><i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($item['buildingLabel']) ?></span>
+                                <div class="maj-badge-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
+                            <div class="maj-hover-content">
+                                <div class="maj-hover-room-code"><?= htmlspecialchars($item['roomLabel']) ?></div>
+                            </div>
+                        </div>
+                    </figure>
+                <?php endif; endfor; ?>
+            </div>
+        </main>
+
+        <!-- 4. LOAD MORE BUTTON SECTION -->
+        <div class="maj-load-more-wrap" id="maj-load-more-wrap">
+            <button class="maj-btn-load-more" id="maj-btn-load-more" type="button">
+                <span class="maj-btn-load-text">ดูภาพเพิ่มเติม</span>
+                <span class="maj-btn-load-count" id="maj-load-count-badge">+6</span>
+                <i class="fas fa-arrow-down maj-btn-load-icon"></i>
+            </button>
+        </div>
 
     </div>
+</section>
 
+<!-- 5. CINEMATIC ULTRA-MINIMAL FULLSCREEN LIGHTBOX -->
+<div id="maj-cinematic-lightbox" role="dialog" aria-modal="true" aria-label="ภาพถ่ายห้องเรียน">
+    
+    <!-- Top Bar -->
+    <div class="maj-lb-top-bar">
+        <div class="maj-lb-room-title">
+            <i class="fas fa-building text-danger"></i>
+            <span id="maj-lb-room-text">ห้อง 241 — อาคาร 2 ชั้น 4</span>
+        </div>
+        <button class="maj-lb-close-btn" id="maj-btn-close-lb" type="button" aria-label="ปิด">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Main Visual Stage -->
+    <div class="maj-lb-stage">
+        <button class="maj-lb-arrow-btn maj-lb-prev" id="maj-lb-prev" type="button" aria-label="ภาพก่อนหน้า">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="maj-lb-img-wrap">
+            <img src="" alt="ภาพบรรยากาศห้องเรียน" class="maj-lb-main-img" id="maj-lb-img">
+        </div>
+
+        <button class="maj-lb-arrow-btn maj-lb-next" id="maj-lb-next" type="button" aria-label="ภาพถัดไป">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <!-- Bottom Floating Counter Bar -->
+    <div class="maj-lb-bottom-bar">
+        <div class="maj-lb-counter-pill" id="maj-lb-counter">1 / <?= $totalCount ?></div>
+    </div>
 </div>
-<!-- Projects End -->
+
+<!-- Pass PHP Classroom Data & Load Modular Engine -->
+<script>
+    window.__CLASSROOM_ITEMS__ = <?= json_encode($galleryItems, JSON_UNESCAPED_UNICODE) ?>;
+    window.__CLASSROOM_TARGET_ROOM__ = "<?= htmlspecialchars($targetRoom, ENT_QUOTES, 'UTF-8') ?>";
+</script>
+<script src="include/js/modules/classroom.js?v=<?= time() ?>"></script>
