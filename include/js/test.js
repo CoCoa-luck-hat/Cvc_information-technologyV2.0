@@ -1,5 +1,6 @@
-// เลือกทุกองค์ประกอบที่มี class "tilt"
+// เลือกทุกองค์ประกอบที่มี class "tilt" (เฉพาะอุปกรณ์ที่มีเมาส์ เพื่อประหยัดพลังงานบนมือถือ)
 function initTiltEffect() {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     let elements = document.querySelectorAll('.tilt');
 
     // ใช้ forEach เพื่อวนลูปทุกองค์ประกอบ
@@ -44,10 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// Initialize Lenis Smooth Scroll
+// Initialize Lenis Smooth Scroll with GSAP Ticker synchronization
 const lenis = new Lenis({
-  autoRaf: true,
-  lerp: 0.1, // Ultra smooth 60fps scrolling
+  autoRaf: false,
+  lerp: 0.1,
+  smoothWheel: true,
 });
 window.lenis = lenis;
 
@@ -56,3 +58,11 @@ lenis.on('scroll', () => {
     ScrollTrigger.update();
   }
 });
+
+// Bind Lenis animation frame directly to GSAP Ticker & disable lag smoothing to prevent skipped frames during fast scrolls
+if (typeof gsap !== 'undefined') {
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+  gsap.ticker.lagSmoothing(0);
+}

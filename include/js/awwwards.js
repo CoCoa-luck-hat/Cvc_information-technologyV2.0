@@ -4,6 +4,15 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+    // 0. CONFIGURE GSAP & SCROLLTRIGGER FOR MOBILE TOOLBAR COLLAPSE STABILITY
+    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+        gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.config({
+            ignoreMobileResize: true,
+            autoRefreshEvents: "visibilitychange,DOMContentLoaded,load"
+        });
+    }
+
     // 1. DYNAMIC DOM GENERATION FOR AWWWARDS ELEMENTS
     createInteractiveElements();
 
@@ -262,7 +271,7 @@ function initCareersWipe() {
                 start: "top top",
                 end: "bottom bottom",
                 scrub: true,
-                anticipatePin: 0,
+                anticipatePin: 1,
                 fastScrollEnd: true,
                 preventOverlaps: true,
                 invalidateOnRefresh: true
@@ -322,7 +331,10 @@ function initGalleryHorizontal() {
                 pin: sticky,
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 1,
+                scrub: true,
+                anticipatePin: 1,
+                fastScrollEnd: true,
+                preventOverlaps: true,
                 invalidateOnRefresh: true,
                 onUpdate: (self) => {
                     // Normalize progress over 75% scroll movement so last card holds for remaining 25% (~1.5-2 steps)
@@ -568,12 +580,25 @@ function triggerHeroReveal() {
     const cta = document.getElementById("heroCtaGroup");
     const scrollIndicator = document.getElementById("heroScrollIndicator");
 
-    // 1. Hero Video 3D Camera Zoom Reveal
+    // 1. Hero Video 3D Camera Zoom Reveal & Mobile Low-Power-Mode Playback Wake
     if (heroVideo) {
         gsap.fromTo(heroVideo,
-            { scale: 1.18 },
+            { scale: 1.15, transformOrigin: "center center" },
             { scale: 1.0, duration: 1.4, ease: "power3.out" }
         );
+
+        const playPromise = heroVideo.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                const touchWake = () => {
+                    heroVideo.play().catch(() => {});
+                    window.removeEventListener("touchstart", touchWake);
+                    window.removeEventListener("pointerdown", touchWake);
+                };
+                window.addEventListener("touchstart", touchWake, { passive: true });
+                window.addEventListener("pointerdown", touchWake, { passive: true });
+            });
+        }
     }
 
     // 2. Navbar Spring Drop Entrance
@@ -626,6 +651,7 @@ function triggerHeroReveal() {
  * Magnetic Button effect for immersive UI depth
  */
 function initMagneticElements() {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     const magneticItems = document.querySelectorAll("[data-magnetic]");
 
     magneticItems.forEach(item => {
@@ -1068,49 +1094,25 @@ function initGlobalBackgroundParallax() {
 }
 
 /**
- * Hero Section Elements Parallax using GSAP ScrollTrigger
+ * Hero Section Elements Parallax - delegated to initVideoHeroBlinds to avoid duplicate timeline conflict
  */
 function initHeroParallax() {
-    const heroTrack = document.getElementById("heroScrollTrack");
-    if (!heroTrack) return;
-
-    const headline = document.getElementById("heroHeadline");
-    const subtitle = document.getElementById("heroSubtitle");
-    const ctaGroup = document.getElementById("heroCtaGroup");
-    const indicator = document.getElementById("heroScrollIndicator");
-    if (!headline || !subtitle || !ctaGroup || !indicator) return;
-
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-        gsap.registerPlugin(ScrollTrigger);
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: heroTrack,
-                start: "top top",
-                end: "bottom top",
-                scrub: true
-            }
-        });
-
-        tl.to(headline, { scale: 0.88, y: 80, opacity: 0, ease: "none" }, 0)
-            .to(subtitle, { y: 40, opacity: 0, ease: "none" }, 0)
-            .to(ctaGroup, { y: 60, opacity: 0, ease: "none" }, 0)
-            .to(indicator, { opacity: 0, ease: "none" }, 0);
-    }
+    // Coordinated directly inside initVideoHeroBlinds for synchronized pinning & blind reveals
 }
 
 /**
- * 3D Card Deck Stacking Animation using GSAP ScrollTrigger with Pause Phase & Snap
+ * 3D Card Deck Stacking Animation using GSAP ScrollTrigger Master Timeline
  */
 function init3DCardStacking() {
     const titleStage = document.getElementById("majorsTitleStage");
     const titleContent = document.getElementById("majorsTitleContent");
+    const wrapper = document.getElementById("majorsCardsWrapper");
     const cards = gsap.utils.toArray("#majorsSection .majors-card");
 
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
         gsap.registerPlugin(ScrollTrigger);
 
-        // 1. Fullscreen Title Pinning & Scrubbed Timeline (Pin -> Fade In -> Hold -> Scale Up Fade Out)
+        // 1. Fullscreen Title Pinning & Scrubbed Timeline
         if (titleStage && titleContent) {
             const isMobile = window.innerWidth < 768;
             const endVal = isMobile ? "+=60%" : "+=120%";
@@ -1120,98 +1122,84 @@ function init3DCardStacking() {
                     start: "top top",
                     end: endVal,
                     pin: true,
-                    scrub: 0.8,
+                    scrub: true,
+                    anticipatePin: 1,
+                    fastScrollEnd: true,
+                    preventOverlaps: true,
                     invalidateOnRefresh: true
                 }
             });
 
             titleTl
-                // Stage 1: Fade In to Dead Center (starts ONLY after pinning at top top)
                 .fromTo(titleContent,
                     { opacity: 0, scale: 0.88, y: 0 },
                     { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power2.out" }
                 )
-                // Hold phase in dead center
                 .to(titleContent, { opacity: 1, scale: 1, y: 0, duration: 1 })
-                // Stage 2: Scale Up Expand & Fade Out
                 .to(titleContent,
                     { opacity: 0, scale: 1.25, y: 0, duration: 1, ease: "power2.in" }
                 );
         }
 
-        // 2. 3D Card Deck Stacking (Dynamically Centered Vertically on Desktop & Mobile)
-        const getTopOffset = (cardEl) => {
-            const vh = window.innerHeight;
-            const cardH = cardEl && cardEl.offsetHeight ? cardEl.offsetHeight : 450;
-            const minOffset = window.innerWidth < 768 ? 65 : 110;
-            return Math.max(minOffset, Math.round((vh - cardH) / 2));
-        };
+        // 2. Master 3D Card Deck Stacking Timeline (Single Pinned Stage, Smooth 1:1 Scrub)
+        if (wrapper && cards.length >= 2) {
+            const getTopOffset = () => {
+                const vh = window.innerHeight;
+                const cardH = cards[0] && cards[0].offsetHeight ? cards[0].offsetHeight : 450;
+                const minOffset = window.innerWidth < 768 ? 65 : 110;
+                return Math.max(minOffset, Math.round((vh - cardH) / 2));
+            };
 
-        const animDistance = Math.min(480, Math.round(window.innerHeight * 0.5));
+            // Set explicit initial visual states for all stacked cards
+            gsap.set(cards[0], { opacity: 1, scale: 1, y: 0, transformOrigin: "center center" });
+            for (let i = 1; i < cards.length; i++) {
+                gsap.set(cards[i], { opacity: 0, scale: 0.94, y: 50, transformOrigin: "center center" });
+            }
 
-        // Set explicit initial states and per-card dynamic topOffset pinning
-        cards.forEach((card, index) => {
-            gsap.set(card, {
-                transformOrigin: "center center",
-                opacity: index === 0 ? 1 : 0,
-                scale: index === 0 ? 1 : 0.96
+            const deckTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: wrapper,
+                    start: () => `top ${getTopOffset()}px`,
+                    end: `+=${cards.length * 90}%`,
+                    pin: true,
+                    scrub: true,
+                    anticipatePin: 1,
+                    fastScrollEnd: true,
+                    preventOverlaps: true,
+                    invalidateOnRefresh: true
+                }
             });
 
-            // Pin each card at its dynamic topOffset until the end of majorsSection
-            ScrollTrigger.create({
-                trigger: card,
-                start: () => `top ${getTopOffset(card)}px`,
-                endTrigger: "#majorsSection",
-                end: "bottom bottom",
-                pin: true,
-                pinSpacing: false,
-                invalidateOnRefresh: true
-            });
-        });
+            // Sequence each card transition along the unified timeline
+            for (let i = 0; i < cards.length - 1; i++) {
+                const currentCard = cards[i];
+                const nextCard = cards[i + 1];
+                const label = `step_${i}`;
 
-        // Entrance & Exit Transitions (Frame-Accurate 1:1 Natural Velocity Scrub)
-        cards.forEach((card, index) => {
-            const nextCard = cards[index + 1];
-            if (nextCard) {
-                // Next card fades in 0 -> 1 & scales 0.96 -> 1 with natural 1.0x scroll velocity as it reaches topOffset
-                gsap.to(nextCard, {
-                    opacity: 1,
-                    scale: 1,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: nextCard,
-                        start: () => `top ${getTopOffset(nextCard) + animDistance}px`,
-                        end: () => `top ${getTopOffset(nextCard)}px`,
-                        scrub: true,
-                        invalidateOnRefresh: true
-                    }
-                });
+                // Hold current card in focus
+                deckTl.to({}, { duration: 0.4 });
 
-                // Current card recedes smoothly (scale 1 -> 0.94, opacity 1 -> 0)
-                gsap.to(card, {
-                    scale: 0.94,
+                // Transition current card out and next card in concurrently
+                deckTl.to(currentCard, {
+                    scale: 0.92,
                     opacity: 0,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: nextCard,
-                        start: () => `top ${getTopOffset(nextCard) + animDistance}px`,
-                        end: () => `top ${getTopOffset(nextCard)}px`,
-                        scrub: true,
-                        invalidateOnRefresh: true
-                    }
-                });
-            }
-        });
+                    y: -30,
+                    ease: "power1.inOut",
+                    duration: 0.8
+                }, label);
 
-        // Trigger ScrollTrigger.refresh() when images inside #majorsSection complete loading
-        const majorsImages = document.querySelectorAll("#majorsSection img");
-        majorsImages.forEach(img => {
-            if (img.complete) {
-                ScrollTrigger.refresh();
-            } else {
-                img.addEventListener("load", () => ScrollTrigger.refresh());
+                deckTl.to(nextCard, {
+                    scale: 1,
+                    opacity: 1,
+                    y: 0,
+                    ease: "power1.inOut",
+                    duration: 0.8
+                }, label);
             }
-        });
+
+            // Hold final card in focus
+            deckTl.to({}, { duration: 0.4 });
+        }
     }
 }
 
@@ -1378,7 +1366,11 @@ function initVideoHeroBlinds() {
                 pin: "#heroScrollTrack .sticky-viewport",
                 start: "top top",
                 end: "+=220%",
-                scrub: true
+                scrub: true,
+                anticipatePin: 1,
+                fastScrollEnd: true,
+                preventOverlaps: true,
+                invalidateOnRefresh: true
             }
         });
 

@@ -5,7 +5,7 @@
         
         <!-- Autoplay Video Background (Optimized Preload) -->
         <div class="home-hero-container">
-            <video class="home-hero-video" autoplay muted playsinline loop preload="metadata">
+            <video class="home-hero-video" autoplay muted playsinline webkit-playsinline loop preload="auto" poster="02_design/banner-1.jpg">
                 <source src="02_design/Hero.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>

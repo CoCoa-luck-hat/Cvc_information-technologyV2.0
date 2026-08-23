@@ -2,8 +2,8 @@
  * Faculty & Instructors Stage & Editorial Bio Morph Engine
  * Module: include/js/modules/faculty.js
  */
-(function() {
-    window.initFacultyPortfolioStage = function(forceReinit = false) {
+(function () {
+    window.initFacultyPortfolioStage = function (forceReinit = false) {
         // 100% Accurate Faculty Database Synchronized with Individual Files
         const facultyDb = window.__FACULTY_DB__ || [
             {
@@ -44,7 +44,7 @@
                 backdrop: "PIYAMAS",
                 nick: "ครูส้ม",
                 name: "นางสาวปิยมาส แก้วอินตา",
-                role: "ครูชำนาญการ (คศ.2)",
+                role: "ครูชำนาญการ (คศ.3)",
                 img: "03_photo/3.3_teacher/removebg_ครูปิยะมาส-2.png",
                 link: "index.php?click=2_piyamat",
                 yt: null,
@@ -61,7 +61,7 @@
                 backdrop: "SATHARNDON",
                 nick: "ครูเจม",
                 name: "นายสธรรดร ยงยืน",
-                role: "ครูพิเศษสอน",
+                role: "ครูผู้ช่วย",
                 img: "03_photo/3.3_teacher/removebg_เจม.png",
                 link: "index.php?click=7_jam",
                 yt: null,

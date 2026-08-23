@@ -179,23 +179,15 @@
                     <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; padding: 0; margin: 0; font-size: 13px; font-weight: 700; font-family: 'Prompt', sans-serif !important; color: #374151;">
                         <li style="display: flex; align-items: flex-start; gap: 8px;">
                             <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
-                            <span>กู้ กยศ. 100% ค่าเทอม/ครองชีพ</span>
+                            <span>กู้ กยศ. ค่าเทอม/ครองชีพ</span>
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 8px;">
                             <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
-                            <span>แล็บคอมการ์ดจอ RTX แรงสูง</span>
+                            <span>ซอฟต์แวร์ Maya / Unreal / Unity</span>
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 8px;">
                             <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
-                            <span>ซอฟต์แวร์แท้ Maya / Unreal / Unity</span>
-                        </li>
-                        <li style="display: flex; align-items: flex-start; gap: 8px;">
-                            <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
-                            <span>โปรเจกต์เกมจริงสู่ Store</span>
-                        </li>
-                        <li style="display: flex; align-items: flex-start; gap: 8px;">
-                            <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
-                            <span>สตูดิโอเกมพาร์ตเนอร์รับเข้าทำงาน</span>
+                            <span>ประกันอุบัติเหตุฟรี</span>
                         </li>
                     </ul>
                 </div>

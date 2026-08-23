@@ -187,11 +187,7 @@
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 8px;">
                             <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
-                            <span>Lab & Server สเปกสูง</span>
-                        </li>
-                        <li style="display: flex; align-items: flex-start; gap: 8px;">
-                            <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>
-                            <span>ประกันอุบัติเหตุ 24 ชม. ฟรี</span>
+                            <span>ประกันอุบัติเหตุฟรี</span>
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 8px;">
                             <i class="fa fa-check-circle" style="color: #dc2626; margin-top: 3px; font-size: 13px; flex-shrink: 0;"></i>

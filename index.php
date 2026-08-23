@@ -4,19 +4,59 @@ error_reporting(0);
 
 // Unified Master Router
 $route = trim($_GET['route'] ?? $_GET['click'] ?? $_GET['page'] ?? '', '/');
+
+// Dynamic SEO & Metadata Engine
+$metaTitles = [
+    '' => 'แผนกวิชาเทคโนโลยีสารสนเทศ | วิทยาลัยอาชีวศึกษาเชียงราย (CVC)',
+    'home' => 'แผนกวิชาเทคโนโลยีสารสนเทศ | วิทยาลัยอาชีวศึกษาเชียงราย (CVC)',
+    '0_techer' => 'คณะครูและบุคลากร | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+    'teachers' => 'คณะครูและบุคลากร | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+    'c_all' => 'อาคารเรียนและห้องปฏิบัติการ | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+    'classroom' => 'อาคารเรียนและห้องปฏิบัติการ | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+    'graduate' => 'ทำเนียบบัณฑิตและศิษย์เก่า | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+    'gallery' => 'กิจกรรมและภาพบรรยากาศ | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+    'event' => 'กิจกรรมและภาพบรรยากาศ | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+    'it_coo1' => 'หลักสูตร ปวช. เทคโนโลยีสารสนเทศ | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+    'pvc' => 'หลักสูตร ปวช. เทคโนโลยีสารสนเทศ | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+    'it_s1' => 'หลักสูตร ปวส. เทคโนโลยีสารสนเทศ | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+    'pvs_it' => 'หลักสูตร ปวส. เทคโนโลยีสารสนเทศ | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+    'game_s1' => 'หลักสูตร ปวส. คอมพิวเตอร์เกมและแอนิเมชัน | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+    'pvs_game' => 'หลักสูตร ปวส. คอมพิวเตอร์เกมและแอนิเมชัน | แผนกวิชาเทคโนโลยีสารสนเทศ CVC',
+];
+
+$pageTitle = $metaTitles[$route] ?? 'แผนกวิชาเทคโนโลยีสารสนเทศ | วิทยาลัยอาชีวศึกษาเชียงราย';
+$pageDescription = 'หลักสูตรวิชาชีพด้านเทคโนโลยีสารสนเทศ ซอฟต์แวร์ เครือข่าย และคอมพิวเตอร์เกม วิทยาลัยอาชีวศึกษาเชียงราย มุ่งสู่อนาคตดิจิทัลระดับมืออาชีพ';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
     <meta charset="utf-8">
-    <title>แผนกวิชาเทคโนโลยีสารสนเทศ</title>
+    <title><?= htmlspecialchars($pageTitle) ?></title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta name="description" content="<?= htmlspecialchars($pageDescription) ?>">
+    <meta name="keywords" content="เทคโนโลยีสารสนเทศ, อาชีวะเชียงราย, CVC, IT CVC, ปวช., ปวส., คอมพิวเตอร์เกม, เชียงราย">
+    <meta name="author" content="แผนกวิชาเทคโนโลยีสารสนเทศ วิทยาลัยอาชีวศึกษาเชียงราย">
+    <meta name="theme-color" content="#dc2626">
 
-    <link rel="shortcut icon" href="img/Logo-it2.png" type="image/x-icon">
+    <!-- Open Graph / Social Media Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<?= htmlspecialchars($pageTitle) ?>">
+    <meta property="og:description" content="<?= htmlspecialchars($pageDescription) ?>">
+    <meta property="og:image" content="02_design/Logo-it2.png">
+    <meta property="og:site_name" content="Information Technology CVC">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?= htmlspecialchars($pageTitle) ?>">
+    <meta name="twitter:description" content="<?= htmlspecialchars($pageDescription) ?>">
+    <meta name="twitter:image" content="02_design/Logo-it2.png">
+
+    <!-- PWA & Web App Icons -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="02_design/Logo-it2.png">
+    <link rel="apple-touch-icon" href="02_design/Logo-it2.png">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,8 +70,6 @@ $route = trim($_GET['route'] ?? $_GET['click'] ?? $_GET['page'] ?? '', '/');
     <!-- Tailwind CSS -->
     <link href="include/css/tailwind.css" rel="stylesheet">
 
-    <link rel="shortcut icon" href="02_design/Logo-it2.png">
-
     <!-- GSAP Core & Plugins -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -39,6 +77,12 @@ $route = trim($_GET['route'] ?? $_GET['click'] ?? $_GET['page'] ?? '', '/');
     <script>
         if (typeof gsap !== 'undefined') {
             gsap.registerPlugin(ScrollTrigger, Observer);
+            if (typeof ScrollTrigger !== 'undefined') {
+                ScrollTrigger.config({
+                    ignoreMobileResize: true,
+                    autoRefreshEvents: "visibilitychange,DOMContentLoaded,load"
+                });
+            }
         }
     </script>
 

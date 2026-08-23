@@ -265,7 +265,7 @@
                             </ul>
 
                             <div style="margin-top: auto; border-top: 1px solid #f3f4f6; padding-top: 12px;">
-                                <p style="font-size: clamp(26px, 2.3vw, 32px) !important; font-weight: 900 !important; color: #dc2626 !important; font-family: 'Prompt', sans-serif !important; margin: 0 !important; line-height: 1 !important; letter-spacing: -1px;">฿950/เทอม</p>
+                                <p style="font-size: clamp(26px, 2.3vw, 32px) !important; font-weight: 900 !important; color: #dc2626 !important; font-family: 'Prompt', sans-serif !important; margin: 0 !important; line-height: 1 !important; letter-spacing: -1px;">฿950/ปี</p>
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,6 @@
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /it_2025_3/
 
     # Do not rewrite existing files, directories, or symbolic links
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -80,4 +79,20 @@
     <FilesMatch "\.(css|js)$">
         Header set Cache-Control "max-age=2592000, public"
     </FilesMatch>
+
+    # ==============================================================================
+    # 4. PRODUCTION SECURITY HEADERS
+    # ==============================================================================
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# ==============================================================================
+# 5. MIME TYPES
+# ==============================================================================
+<IfModule mod_mime.c>
+    AddType application/manifest+json .webmanifest .json
 </IfModule>

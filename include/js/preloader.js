@@ -16,7 +16,7 @@
                 if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
                 return;
             }
-        } catch (e) {}
+        } catch (e) { }
 
         const curtainTop = document.getElementById('preloader-curtain-top');
         const curtainBottom = document.getElementById('preloader-curtain-bottom');
@@ -40,7 +40,7 @@
 
             try {
                 sessionStorage.setItem('cvc_it_preloader_shown', 'true');
-            } catch (e) {}
+            } catch (e) { }
 
             if (overlay) {
                 gsap.to(overlay, {
@@ -146,7 +146,7 @@
 
         function completeAndReveal(finalPercent) {
             clearTimeout(fallbackTimer);
-            
+
             // Ensure counter reaches 100%
             gsap.to(currentProgress, {
                 value: 100,

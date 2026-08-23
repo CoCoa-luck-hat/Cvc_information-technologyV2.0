@@ -1116,15 +1116,13 @@ body.preloader-active {
 }
 
 .home-hero-video {
-  width: 100vw !important;
-  min-width: 100% !important;
-  height: 100vh !important;
-  min-height: 100% !important;
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover !important;
   position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: none !important;
 }
 
 /* Majors Section Layout & Padding Fix */
@@ -1133,28 +1131,38 @@ body.preloader-active {
 }
 
 .gallery-horizontal-track {
-  height: 58vh !important;
+  height: 62vh !important;
+  max-height: 600px !important;
 }
 
 .panorama-card {
   width: auto !important;
   height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
 }
 
 .panorama-img-wrapper {
-  height: 84% !important;
-  max-height: 380px !important;
+  height: 82% !important;
+  max-height: 500px !important;
+  width: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .panorama-img-wrapper img {
   border-radius: 20px !important;
   object-fit: cover !important;
-  width: 100% !important;
+  width: auto !important;
+  max-width: 75vw !important;
   height: 100% !important;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.16) !important;
 }
 
 .bottom-scroll-ruler {
-  padding-bottom: 28px !important;
+  padding-bottom: 24px !important;
 }
 
 /* ==========================================================================
@@ -1624,18 +1632,22 @@ body.preloader-active {
 }
 
 /* 3D Stacking Cards for Curriculum Majors Section */
-#majorsSection .majors-card {
+.majors-cards-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  grid-template-rows: 1fr !important;
+  align-items: stretch !important;
+  position: relative !important;
+  width: 100% !important;
+}
+
+.majors-cards-grid > .majors-card {
+  grid-area: 1 / 1 / 2 / 2 !important;
   will-change: transform, opacity;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.04);
   background-color: #ffffff;
-  transform-origin: center top !important;
-  margin-bottom: 180vh !important;
-}
-
-@media (min-width: 768px) {
-  #majorsSection .majors-card {
-    margin-bottom: 240vh !important;
-  }
+  transform-origin: center center !important;
+  margin-bottom: 0 !important;
 }
 
 /* Kora Framer Comparison Section Styles */
@@ -2332,4 +2344,127 @@ input[type="submit"],
 body.transition-lock {
   pointer-events: none !important;
   cursor: wait !important;
+}
+
+/* ==========================================================================
+   DYNAMIC VIEWPORT (100dvh) & MOBILE TOOLBAR COLLAPSE STABILIZATION
+   ========================================================================== */
+
+/* 1. Hero Scroll Track & Viewport Container */
+#heroScrollTrack {
+  background-color: #b71616 !important; /* Crimson Red background */
+  width: 100% !important;
+  height: 320vh !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+#heroScrollTrack .sticky-viewport {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  overflow: hidden !important;
+}
+
+.home-hero-container {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  background-color: #0a0c10 !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+}
+
+.home-hero-video {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transform: none !important;
+}
+
+.home-hero-overlay {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  z-index: 2 !important;
+}
+
+.home-hero-cover {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  z-index: 10 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+.blind-strip-v {
+  position: absolute !important;
+  top: 0 !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  background: #b71616 !important;
+  transform-origin: left center !important;
+  transform-style: preserve-3d !important;
+  will-change: transform, opacity !important;
+}
+
+.hero-bg-extension {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  background-color: #b71616 !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+/* 2. Global Dynamic Viewport support across all Fullscreen Pinned Sections */
+.reveal-sticky {
+  width: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+}
+
+.gallery-sticky {
+  width: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+}
+
+#faculty-fullscreen-stage {
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+}
+
+#preloader,
+#transition-curtain {
+  height: 100vh !important;
+  height: 100dvh !important;
 }
