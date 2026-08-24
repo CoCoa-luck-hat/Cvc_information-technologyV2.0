@@ -288,7 +288,7 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
                         <a href="index.php?click=0_techer" class="nav-dropdown-item">แนะนำครูผู้สอน</a>
                         <a href="index.php?click=c_all" class="nav-dropdown-item">แนะนำอาคารเรียน/ห้องเรียน</a>
                         <a href="index.php?click=event" class="nav-dropdown-item">ภาพกิจกรรมต่างๆ</a>
-                        <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" class="nav-dropdown-item">รางวัลของแผนกฯ</a>
+                        <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" rel="noopener noreferrer" class="nav-dropdown-item">รางวัลของแผนกฯ</a>
                     </div>
                 </div>
 
@@ -305,8 +305,8 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
                     </button>
                     <!-- Dropdown Menu -->
                     <div class="nav-dropdown-menu lg:absolute left-0 top-full mt-2 z-50" style="min-width: 210px; background: #ffffff; border-radius: 16px; border: 1px solid #e5e7eb; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); padding: 6px 0; overflow: hidden;">
-                        <a href="https://admission.vec.go.th/app/applicant/initContact" target="_blank" class="nav-dropdown-item">วิธีการสมัครเรียนออนไลน์</a>
-                        <a href="https://admission.vec.go.th/" target="_blank" class="nav-dropdown-item">สมัครเรียนออนไลน์</a>
+                        <a href="https://admission.vec.go.th/app/applicant/initContact" target="_blank" rel="noopener noreferrer" class="nav-dropdown-item">วิธีการสมัครเรียนออนไลน์</a>
+                        <a href="https://admission.vec.go.th/" target="_blank" rel="noopener noreferrer" class="nav-dropdown-item">สมัครเรียนออนไลน์</a>
                     </div>
                 </div>
 
@@ -421,7 +421,7 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
                     </div>
                     <i class="fa fa-chevron-right mobile-sub-link-icon"></i>
                 </a>
-                <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" class="mobile-sub-link">
+                <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">
                     <div class="mobile-sub-link-left">
                         <span class="mobile-sub-bullet-pill"></span>
                         <span>รางวัลของแผนกฯ</span>
@@ -442,14 +442,14 @@ $is_home_active = (empty($current_route) || $current_route == 'home');
                 <i class="fa fa-chevron-down acc-icon" style="font-size: 14px; opacity: 0.5; transition: transform 0.25s ease;"></i>
             </button>
             <div id="acc-apply" class="mobile-sub-accordion">
-                <a href="https://admission.vec.go.th/app/applicant/initContact" target="_blank" class="mobile-sub-link">
+                <a href="https://admission.vec.go.th/app/applicant/initContact" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">
                     <div class="mobile-sub-link-left">
                         <span class="mobile-sub-bullet-pill"></span>
                         <span>วิธีการสมัครเรียนออนไลน์</span>
                     </div>
                     <i class="fa fa-external-link-alt mobile-sub-link-icon" style="font-size: 10px;"></i>
                 </a>
-                <a href="https://admission.vec.go.th/" target="_blank" class="mobile-sub-link">
+                <a href="https://admission.vec.go.th/" target="_blank" rel="noopener noreferrer" class="mobile-sub-link">
                     <div class="mobile-sub-link-left">
                         <span class="mobile-sub-bullet-pill"></span>
                         <span>ระบบสมัครเรียนออนไลน์ VEC</span>

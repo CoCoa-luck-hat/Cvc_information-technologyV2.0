@@ -5,7 +5,7 @@
         
         <!-- Autoplay Video Background (Optimized Preload) -->
         <div class="home-hero-container">
-            <video class="home-hero-video" autoplay muted playsinline webkit-playsinline loop preload="auto" poster="02_design/banner-1.jpg">
+            <video class="home-hero-video" autoplay muted playsinline webkit-playsinline loop preload="metadata" poster="02_design/banner-1.webp" aria-label="วิดีโอนำเสนอแผนกวิชาเทคโนโลยีสารสนเทศ วิทยาลัยอาชีวศึกษาเชียงราย">
                 <source src="02_design/Hero.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -27,7 +27,7 @@
             
             <!-- CTAs -->
             <div class="flex flex-wrap justify-start gap-4 mt-8 md:mt-12" id="heroCtaGroup">
-                <a href="tel:+053713036" class="bg-primary hover:bg-white hover:text-gray-900 text-white font-medium py-3 px-8 rounded-xl transition duration-300 shadow-md" data-magnetic>
+                <a href="tel:+053713036" class="bg-primary hover:bg-white hover:text-gray-900 text-white font-medium py-3 px-8 rounded-xl transition duration-300 shadow-md" data-magnetic aria-label="โทรสอบถามข้อมูลแผนก">
                     <span>ติดต่อสอบถาม</span>
                 </a>
             </div>
@@ -38,7 +38,7 @@
         
         <!-- Scroll Indicator -->
         <div class="absolute bottom-10 flex flex-col items-center text-center select-none cursor-pointer z-20" id="heroScrollIndicator">
-            <span class="text-[10px] text-white/60 uppercase tracking-[0.3em] mb-2">Scroll to explore</span>
+            <span class="text-[10px] text-white/75 uppercase tracking-[0.3em] mb-2 font-medium">Scroll to explore</span>
             <div class="w-6 h-10 border border-white/30 rounded-full flex justify-center p-1">
                 <div class="w-1.5 h-3 bg-primary rounded-full animate-bounce"></div>
             </div>
@@ -59,7 +59,7 @@
             <div class="w-full lg:w-1/2 flex justify-center">
                 <div class="radius-img-container">
                     <div class="general-reveal-img aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] w-full">
-                        <img src="03_photo/3.4_room/8.jpg" alt="Learning by doing" class="w-full h-full object-cover">
+                        <img src="03_photo/3.4_room/8.webp" width="800" height="600" alt="บรรยากาศการเรียนรู้และการฝึกปฏิบัติจริงในห้องเรียน" class="w-full h-full object-cover" loading="lazy" decoding="async">
                     </div>
                 </div>
             </div>

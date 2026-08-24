@@ -199,15 +199,19 @@ section.pvg-hero .sr-only {
 /* Responsive Rules (< 900px) */
 @media (max-width: 900px) {
     .pvg-hero {
-        min-height: 100svh;
-        height: auto !important;
-        padding: 105px 16px 36px;
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+        max-height: 100dvh !important;
+        padding: 85px 16px 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
         box-sizing: border-box;
+        overflow: hidden;
     }
 
     .pvg-hero > .wording-headline {

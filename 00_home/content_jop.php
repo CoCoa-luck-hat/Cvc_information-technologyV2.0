@@ -9,26 +9,26 @@
                     <!-- Left: Graphic Mockup -->
                     <div class="flex flex-col space-y-6 order-2 md:order-1">
                         <div class="bg-white border border-gray-200/80 rounded-3xl p-6 md:p-8 shadow-xl">
-                            <span class="text-xs text-gray-400 font-bold uppercase tracking-widest block mb-1 fade-heading-in-only">GENERAL WORKFORCE</span>
-                            <h3 class="text-xl font-bold text-gray-500 mb-6 fade-heading-in-only">อาชีพทั่วไปที่ไม่มีทักษะเฉพาะทาง</h3>
+                            <span class="text-xs text-gray-500 font-bold uppercase tracking-widest block mb-1 fade-heading-in-only">GENERAL WORKFORCE</span>
+                            <h3 class="text-xl font-bold text-gray-700 mb-6 fade-heading-in-only">อาชีพทั่วไปที่ไม่มีทักษะเฉพาะทาง</h3>
                             
                             <div class="space-y-4">
                                 <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                                    <div class="w-10 h-10 rounded-xl bg-gray-200 flex items-center justify-center text-gray-500">
+                                    <div class="w-10 h-10 rounded-xl bg-gray-200 flex items-center justify-center text-gray-600">
                                         <i class="fas fa-wallet"></i>
                                     </div>
                                     <div>
-                                        <div class="text-xs text-gray-400">รายได้เฉลี่ยเริ่มต้น</div>
-                                        <div class="text-sm font-semibold text-gray-600">10,000 - 12,000 บาท / เดือน</div>
+                                        <div class="text-xs text-gray-500">รายได้เฉลี่ยเริ่มต้น</div>
+                                        <div class="text-sm font-semibold text-gray-700">10,000 - 12,000 บาท / เดือน</div>
                                     </div>
                                 </div>
                                 <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                                    <div class="w-10 h-10 rounded-xl bg-gray-200 flex items-center justify-center text-gray-500">
+                                    <div class="w-10 h-10 rounded-xl bg-gray-200 flex items-center justify-center text-gray-600">
                                         <i class="fas fa-exclamation-triangle"></i>
                                     </div>
                                     <div>
-                                        <div class="text-xs text-gray-400">ลักษณะงาน</div>
-                                        <div class="text-sm font-semibold text-gray-600">ทำงานซ้ำซาก เสี่ยงถูกระบบอัตโนมัติเข้าทดแทน</div>
+                                        <div class="text-xs text-gray-500">ลักษณะงาน</div>
+                                        <div class="text-sm font-semibold text-gray-700">ทำงานซ้ำซาก เสี่ยงถูกระบบอัตโนมัติเข้าทดแทน</div>
                                     </div>
                                 </div>
                             </div>
@@ -37,12 +37,12 @@
                     
                     <!-- Right: Text Content -->
                     <div class="flex flex-col items-start order-1 md:order-2">
-                        <span class="text-gray-400 font-semibold text-xs tracking-[0.2em] uppercase mb-3 fade-heading-in-only">CAREERS IN THE PAST</span>
-                        <h2 class="text-3xl md:text-6xl font-extrabold text-gray-400 leading-tight uppercase mb-6 fade-heading-in-only">
+                        <span class="text-gray-500 font-semibold text-xs tracking-[0.2em] uppercase mb-3 fade-heading-in-only">CAREERS IN THE PAST</span>
+                        <h2 class="text-3xl md:text-6xl font-extrabold text-gray-600 leading-tight uppercase mb-6 fade-heading-in-only">
                             เมื่อขาดทักษะ<br>
                             ด้านเทคโนโลยี
                         </h2>
-                        <p class="text-gray-500 text-sm md:text-base leading-relaxed">
+                        <p class="text-gray-600 text-sm md:text-base leading-relaxed">
                             ในยุคข้อมูลและ AI การทำงานที่ไร้ทักษะไอทีจะส่งผลให้โอกาสการเติบโตจำกัดและเผชิญความไม่มั่นคงสูง
                         </p>
                     </div>

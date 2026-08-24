@@ -264,16 +264,17 @@ function initCareersWipe() {
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
         gsap.registerPlugin(ScrollTrigger);
 
+        const isMobile = window.innerWidth < 1024;
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: revealSection,
                 pin: revealSticky,
                 start: "top top",
-                end: "bottom bottom",
+                end: isMobile ? "bottom+=10% bottom" : "bottom bottom",
                 scrub: true,
-                anticipatePin: 1,
-                fastScrollEnd: true,
-                preventOverlaps: true,
+                anticipatePin: 0,
+                fastScrollEnd: false,
+                preventOverlaps: false,
                 invalidateOnRefresh: true
             }
         });
@@ -304,15 +305,22 @@ function initCareersWipe() {
  * Panorama Horizontal Pinned Scroll Gallery
  */
 function initGalleryHorizontal() {
-    if (window.innerWidth < 768) return;
     const track = document.querySelector(".gallery-horizontal-track");
-    if (!track) return;
+    const sticky = document.querySelector(".gallery-sticky");
+    const section = document.getElementById("gallery-horizontal-section");
+    if (!track || !sticky || !section) return;
+
+    if (window.innerWidth < 1024) {
+        if (typeof gsap !== "undefined") {
+            gsap.set(track, { clearProps: "all" });
+            gsap.set(sticky, { clearProps: "all" });
+        }
+        return;
+    }
 
     const cards = track.querySelectorAll(".panorama-card");
     const rulerItems = document.querySelectorAll(".ruler-item");
-    const sticky = document.querySelector(".gallery-sticky");
-    const section = document.getElementById("gallery-horizontal-section");
-    if (!cards.length || !sticky || !section) return;
+    if (!cards.length) return;
 
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
         gsap.registerPlugin(ScrollTrigger);
@@ -408,11 +416,13 @@ function initGalleryHorizontal() {
     }
 
     // 3D Reveal animation for section_steps title & subtle wave parallax
-    const stepsHeader = document.querySelector(".steps-title .heading-xl");
+    const stepsTitleWrap = document.querySelector(".steps-title");
+    const stepsHeader = stepsTitleWrap ? stepsTitleWrap.querySelector(".heading-xl") : null;
     const waveBorder = document.querySelector(".section-border.is-steps .section-border-svg");
+    const stepsSection = document.querySelector(".section_steps");
 
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-        if (stepsHeader) {
+        if (stepsHeader && stepsTitleWrap) {
             gsap.fromTo(stepsHeader,
                 { y: 60, opacity: 0, scale: 0.95 },
                 {
@@ -422,7 +432,7 @@ function initGalleryHorizontal() {
                     duration: 1,
                     ease: "power2.out",
                     scrollTrigger: {
-                        trigger: ".steps-title",
+                        trigger: stepsTitleWrap,
                         start: "top 85%",
                         toggleActions: "play none none reverse"
                     }
@@ -430,13 +440,13 @@ function initGalleryHorizontal() {
             );
         }
 
-        if (waveBorder) {
+        if (waveBorder && stepsSection) {
             gsap.set(waveBorder, { transformOrigin: "center bottom" });
             gsap.to(waveBorder, {
                 scaleY: 1.2,
                 ease: "none",
                 scrollTrigger: {
-                    trigger: ".section_steps",
+                    trigger: stepsSection,
                     start: "top bottom",
                     end: "top 20%",
                     scrub: 0.5
@@ -1115,7 +1125,7 @@ function init3DCardStacking() {
         // 1. Fullscreen Title Pinning & Scrubbed Timeline
         if (titleStage && titleContent) {
             const isMobile = window.innerWidth < 768;
-            const endVal = isMobile ? "+=60%" : "+=120%";
+            const endVal = isMobile ? "+=45%" : "+=120%";
             const titleTl = gsap.timeline({
                 scrollTrigger: {
                     trigger: titleStage,
@@ -1141,64 +1151,116 @@ function init3DCardStacking() {
                 );
         }
 
-        // 2. Master 3D Card Deck Stacking Timeline (Single Pinned Stage, Smooth 1:1 Scrub)
+        // 2. Master 3D Card Deck Stacking - Discrete Snapshot Trigger Engine (elastic.out physics)
         if (wrapper && cards.length >= 2) {
+            const isMobile = window.innerWidth < 768;
             const getTopOffset = () => {
                 const vh = window.innerHeight;
                 const cardH = cards[0] && cards[0].offsetHeight ? cards[0].offsetHeight : 450;
-                const minOffset = window.innerWidth < 768 ? 65 : 110;
+                const minOffset = isMobile ? 65 : 110;
                 return Math.max(minOffset, Math.round((vh - cardH) / 2));
             };
 
             // Set explicit initial visual states for all stacked cards
-            gsap.set(cards[0], { opacity: 1, scale: 1, y: 0, transformOrigin: "center center" });
+            gsap.set(cards[0], { autoAlpha: 1, scale: 1, y: 0, pointerEvents: "auto", transformOrigin: "center center" });
             for (let i = 1; i < cards.length; i++) {
-                gsap.set(cards[i], { opacity: 0, scale: 0.94, y: 50, transformOrigin: "center center" });
+                gsap.set(cards[i], { autoAlpha: 0, scale: 0.94, y: 50, pointerEvents: "none", transformOrigin: "center center" });
             }
 
-            const deckTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: wrapper,
-                    start: () => `top ${getTopOffset()}px`,
-                    end: `+=${cards.length * 90}%`,
-                    pin: true,
-                    scrub: true,
-                    anticipatePin: 1,
-                    fastScrollEnd: true,
-                    preventOverlaps: true,
-                    invalidateOnRefresh: true
+            const numCards = cards.length;
+            const scrollDistance = isMobile ? `+=${numCards * 70}%` : `+=${numCards * 85}%`;
+            let activeCardIdx = 0;
+
+            const transitionToCard = (targetIdx, direction) => {
+                if (targetIdx === activeCardIdx) return;
+                const prevIdx = activeCardIdx;
+                activeCardIdx = targetIdx;
+
+                cards.forEach((card, idx) => {
+                    if (idx === targetIdx) {
+                        // Entrance Animation
+                        if (direction > 0) {
+                            // Forward entrance: Elastic spring-in from bottom
+                            gsap.fromTo(card,
+                                { y: 50, scale: 0.94, autoAlpha: 0 },
+                                {
+                                    y: 0,
+                                    scale: 1,
+                                    autoAlpha: 1,
+                                    pointerEvents: "auto",
+                                    duration: 0.75,
+                                    ease: "elastic.out(1, 0.75)",
+                                    overwrite: "auto"
+                                }
+                            );
+                        } else {
+                            // Reverse entrance: Smooth glide back into active focus
+                            gsap.to(card, {
+                                y: 0,
+                                scale: 1,
+                                autoAlpha: 1,
+                                pointerEvents: "auto",
+                                duration: 0.4,
+                                ease: "power2.out",
+                                overwrite: "auto"
+                            });
+                        }
+                    } else if (idx === prevIdx) {
+                        // Exit Animation
+                        if (direction > 0) {
+                            // Forward exit: Float up and fade out
+                            gsap.to(card, {
+                                y: -30,
+                                scale: 0.92,
+                                autoAlpha: 0,
+                                pointerEvents: "none",
+                                duration: 0.35,
+                                ease: "power2.inOut",
+                                overwrite: "auto"
+                            });
+                        } else {
+                            // Reverse exit: Drop down and fade out
+                            gsap.to(card, {
+                                y: 40,
+                                scale: 0.94,
+                                autoAlpha: 0,
+                                pointerEvents: "none",
+                                duration: 0.3,
+                                ease: "power2.inOut",
+                                overwrite: "auto"
+                            });
+                        }
+                    } else {
+                        // Other inactive cards
+                        gsap.set(card, {
+                            autoAlpha: 0,
+                            pointerEvents: "none",
+                            y: idx > targetIdx ? 50 : -30,
+                            scale: 0.94
+                        });
+                    }
+                });
+            };
+
+            ScrollTrigger.create({
+                trigger: wrapper,
+                start: () => `top ${getTopOffset()}px`,
+                end: scrollDistance,
+                pin: true,
+                anticipatePin: 1,
+                fastScrollEnd: false,
+                preventOverlaps: false,
+                invalidateOnRefresh: true,
+                onUpdate: (self) => {
+                    // Compute threshold-based active card index
+                    const rawProgress = self.progress;
+                    const computedIdx = Math.min(numCards - 1, Math.max(0, Math.floor(rawProgress * numCards)));
+
+                    if (computedIdx !== activeCardIdx) {
+                        transitionToCard(computedIdx, self.direction);
+                    }
                 }
             });
-
-            // Sequence each card transition along the unified timeline
-            for (let i = 0; i < cards.length - 1; i++) {
-                const currentCard = cards[i];
-                const nextCard = cards[i + 1];
-                const label = `step_${i}`;
-
-                // Hold current card in focus
-                deckTl.to({}, { duration: 0.4 });
-
-                // Transition current card out and next card in concurrently
-                deckTl.to(currentCard, {
-                    scale: 0.92,
-                    opacity: 0,
-                    y: -30,
-                    ease: "power1.inOut",
-                    duration: 0.8
-                }, label);
-
-                deckTl.to(nextCard, {
-                    scale: 1,
-                    opacity: 1,
-                    y: 0,
-                    ease: "power1.inOut",
-                    duration: 0.8
-                }, label);
-            }
-
-            // Hold final card in focus
-            deckTl.to({}, { duration: 0.4 });
         }
     }
 }
@@ -1360,12 +1422,15 @@ function initVideoHeroBlinds() {
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
         gsap.registerPlugin(ScrollTrigger);
 
+        const isTouchDevice = window.innerWidth < 1024;
+        const endDistance = isTouchDevice ? "+=100%" : "+=220%";
+
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: "#heroScrollTrack",
                 pin: "#heroScrollTrack .sticky-viewport",
                 start: "top top",
-                end: "+=220%",
+                end: endDistance,
                 scrub: true,
                 anticipatePin: 1,
                 fastScrollEnd: true,
@@ -1374,7 +1439,11 @@ function initVideoHeroBlinds() {
             }
         });
 
-        // Rotate blinds closed and fade in to cover, starting after 35% delay
+        // Rotate blinds closed and fade in to cover, starting after 35% delay (or 20% on touch devices)
+        const blindsStart = isTouchDevice ? 0.20 : 0.35;
+        const blindsDuration = isTouchDevice ? 0.75 : 0.65;
+        const contentFadeDuration = isTouchDevice ? 0.30 : 0.40;
+
         tl.fromTo(".blind-strip-v",
             {
                 rotationY: -90,
@@ -1383,20 +1452,20 @@ function initVideoHeroBlinds() {
             {
                 rotationY: 0,
                 opacity: 1,
-                stagger: 0.005,
+                stagger: isTouchDevice ? 0.003 : 0.005,
                 ease: "power2.out",
-                duration: 0.65
+                duration: blindsDuration
             },
-            0.35
+            blindsStart
         )
-            // Fade out hero content group in the first 40% of scroll
+            // Fade out hero content group in the first 30-40% of scroll
             .to("#heroContentGroup", {
                 opacity: 0,
                 scale: 0.85,
                 y: -80,
                 autoAlpha: 0,
                 ease: "power1.in",
-                duration: 0.4
+                duration: contentFadeDuration
             }, 0)
             // Fade out scroll indicator in the first 20% of scroll
             .to("#heroScrollIndicator", {
@@ -1725,13 +1794,14 @@ function initKoraComparisonScroll() {
             gsap.set(cardAfter, { opacity: 0, scale: 0.88, x: isDesktop ? shiftX + 200 : 0, y: isDesktop ? 0 : shiftY * 2 });
         }
 
+        const scrubVal = isDesktop ? 0.7 : 0.6;
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: section,
                 pin: stickyViewport,
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 0.7,
+                scrub: scrubVal,
                 invalidateOnRefresh: true
             }
         });
@@ -1794,26 +1864,29 @@ function initKoraComparisonScroll() {
 
             tl.to({}, { duration: 0.20 });
         } else {
-            // Mobile: Sequential Card Deck Stacking (1 by 1 with zero overlap)
-            tl.to(titleLine1, { opacity: 1, duration: 0.08 }, 0)
-                .to(titleLine2, { opacity: 1, duration: 0.08 }, 0)
-                .to(titleLine1, { y: -50, opacity: 0, ease: "power2.inOut", duration: 0.15 }, 0.08)
-                .to(titleLine2, { y: -50, opacity: 0, ease: "power2.inOut", duration: 0.15 }, 0.08)
-                .to(cardBefore, { opacity: 1, scale: 1.0, x: 0, y: 0, ease: "power2.out", duration: 0.20 }, 0.12)
-                .to({}, { duration: 0.12 });
+            // Mobile: Sequential Card Deck Stacking (1 by 1 with generous reading hold)
+            tl.to(titleLine1, { opacity: 1, duration: 0.15 }, 0)
+                .to(titleLine2, { opacity: 1, duration: 0.15 }, 0)
+                .to(titleLine1, { y: -40, opacity: 0, ease: "power2.inOut", duration: 0.30 }, 0.20)
+                .to(titleLine2, { y: -40, opacity: 0, ease: "power2.inOut", duration: 0.30 }, 0.20)
+                // Card 1: ปวช. Entrance & Reading Hold
+                .to(cardBefore, { opacity: 1, scale: 1.0, x: 0, y: 0, ease: "power2.out", duration: 0.40 }, 0.30)
+                .to({}, { duration: 0.80 });
 
             if (cardMiddle) {
-                tl.to(cardBefore, { opacity: 0, scale: 0.92, y: -40, ease: "power2.inOut", duration: 0.18 })
-                    .to(cardMiddle, { opacity: 1, scale: 1.0, x: 0, y: 0, ease: "power2.out", duration: 0.20 }, "<0.05")
-                    .to({}, { duration: 0.12 });
+                // Card 1 Exit -> Card 2 (ปวส.) Entrance & Reading Hold
+                tl.to(cardBefore, { opacity: 0, scale: 0.92, y: -30, ease: "power2.inOut", duration: 0.50 })
+                    .to(cardMiddle, { opacity: 1, scale: 1.0, x: 0, y: 0, ease: "power2.out", duration: 0.50 }, "<0.10")
+                    .to({}, { duration: 0.80 });
             }
 
             if (cardAfter) {
+                // Card 2 Exit -> Card 3 (ป.ตรี) Entrance & Reading Hold
                 if (cardMiddle) {
-                    tl.to(cardMiddle, { opacity: 0, scale: 0.92, y: -40, ease: "power2.inOut", duration: 0.18 });
+                    tl.to(cardMiddle, { opacity: 0, scale: 0.92, y: -30, ease: "power2.inOut", duration: 0.50 });
                 }
-                tl.to(cardAfter, { opacity: 1, scale: 1.0, x: 0, y: 0, ease: "power2.out", duration: 0.20 }, "<0.05")
-                    .to({}, { duration: 0.15 });
+                tl.to(cardAfter, { opacity: 1, scale: 1.0, x: 0, y: 0, ease: "power2.out", duration: 0.50 }, "<0.10")
+                    .to({}, { duration: 0.80 });
             }
         }
     } else {
@@ -2105,18 +2178,19 @@ function initPvcHTextsAndCards() {
 
                         if (idx === activeIdx) {
                             c.classList.add('on');
-                            const entrance = Math.min(1, localProg / 0.25);
-                            const exit = localProg > 0.8 ? (localProg - 0.8) / 0.2 : 0;
+                            // Smooth fast entrance (15%), generous steady reading hold (70%), smooth exit (15%)
+                            const entrance = Math.min(1, localProg / 0.15);
+                            const exit = localProg > 0.85 ? (localProg - 0.85) / 0.15 : 0;
                             const cardScale = idx === numCards - 1 ? 1 : 1 - exit * 0.08;
                             const cardOpacity = idx === numCards - 1 ? 1 : 1 - exit;
 
                             gsap.set(c, { rotation: 0 });
                             gsap.set(media, {
                                 x: 0,
-                                y: (1 - entrance) * 30 - exit * 30,
+                                y: (1 - entrance) * 24 - exit * 24,
                                 xPercent: -50,
                                 yPercent: -50,
-                                scale: 0.92 + 0.08 * entrance * cardScale,
+                                scale: 0.94 + 0.06 * entrance * cardScale,
                                 opacity: entrance * cardOpacity,
                                 rotation: 0
                             });
@@ -2306,12 +2380,13 @@ function initMwgHLatestAndPricing() {
     const curvePath = document.querySelector('#pricing-curve-path');
     const pricingCardSec = document.querySelector('#pvc-admission-card');
     const innerCard = document.querySelector('#pvc-pricing-inner-card');
+    const topPricing = document.querySelector('.h-top-pricing');
 
-    if (curvePath && pricingCardSec) {
+    if (curvePath && pricingCardSec && topPricing) {
         const isMobile = window.innerWidth < 1024;
         const curveTl = gsap.timeline({
             scrollTrigger: {
-                trigger: '.h-top-pricing',
+                trigger: topPricing,
                 start: isMobile ? "top 90%" : "top 80%",
                 endTrigger: pricingCardSec,
                 end: isMobile ? "top 50%" : "top 30%",

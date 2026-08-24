@@ -5,6 +5,20 @@ error_reporting(0);
 // Unified Master Router
 $route = trim($_GET['route'] ?? $_GET['click'] ?? $_GET['page'] ?? '', '/');
 
+// Dynamic Base URL Engine
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || ($_SERVER['SERVER_PORT'] ?? 80) == 443) ? "https://" : "http://";
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$scriptDir = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
+$baseUrl = $protocol . $host . ($scriptDir ? $scriptDir : '');
+$currentUrl = $baseUrl . '/' . ($route ? '?route=' . urlencode($route) : '');
+$ogImageUrl = $baseUrl . '/02_design/Logo-it2.png';
+
+// Asset versioning helper using filemtime for optimized browser caching
+function asset_v($relativePath) {
+    $fullPath = __DIR__ . '/' . ltrim($relativePath, '/');
+    return file_exists($fullPath) ? filemtime($fullPath) : '2.0.0';
+}
+
 // Dynamic SEO & Metadata Engine
 $metaTitles = [
     '' => 'แผนกวิชาเทคโนโลยีสารสนเทศ | วิทยาลัยอาชีวศึกษาเชียงราย (CVC)',
@@ -40,23 +54,53 @@ $pageDescription = 'หลักสูตรวิชาชีพด้านเ
     <meta name="author" content="แผนกวิชาเทคโนโลยีสารสนเทศ วิทยาลัยอาชีวศึกษาเชียงราย">
     <meta name="theme-color" content="#dc2626">
 
+    <!-- Canonical URL -->
+    <link rel="canonical" href="<?= htmlspecialchars($currentUrl) ?>">
+
     <!-- Open Graph / Social Media Preview -->
     <meta property="og:type" content="website">
+    <meta property="og:url" content="<?= htmlspecialchars($currentUrl) ?>">
     <meta property="og:title" content="<?= htmlspecialchars($pageTitle) ?>">
     <meta property="og:description" content="<?= htmlspecialchars($pageDescription) ?>">
-    <meta property="og:image" content="02_design/Logo-it2.png">
+    <meta property="og:image" content="<?= htmlspecialchars($ogImageUrl) ?>">
     <meta property="og:site_name" content="Information Technology CVC">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?= htmlspecialchars($pageTitle) ?>">
     <meta name="twitter:description" content="<?= htmlspecialchars($pageDescription) ?>">
-    <meta name="twitter:image" content="02_design/Logo-it2.png">
+    <meta name="twitter:image" content="<?= htmlspecialchars($ogImageUrl) ?>">
+
+    <!-- Structured Data (JSON-LD) for Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "แผนกวิชาเทคโนโลยีสารสนเทศ วิทยาลัยอาชีวศึกษาเชียงราย",
+      "alternateName": "Information Technology Department CVC",
+      "url": "<?= htmlspecialchars($baseUrl) ?>",
+      "logo": "<?= htmlspecialchars($ogImageUrl) ?>",
+      "description": "<?= htmlspecialchars($pageDescription) ?>",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "เมืองเชียงราย",
+        "addressRegion": "เชียงราย",
+        "addressCountry": "TH"
+      },
+      "sameAs": [
+        "https://cvc.ac.th/webcvc/show_it",
+        "https://admission.vec.go.th/"
+      ]
+    }
+    </script>
 
     <!-- PWA & Web App Icons -->
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <link rel="icon" type="image/png" href="02_design/Logo-it2.png">
     <link rel="apple-touch-icon" href="02_design/Logo-it2.png">
+
+    <!-- Preload Critical Assets (LCP Optimization) -->
+    <link rel="preload" as="image" href="02_design/banner-1.webp" fetchpriority="high">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,7 +112,7 @@ $pageDescription = 'หลักสูตรวิชาชีพด้านเ
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Tailwind CSS -->
-    <link href="include/css/tailwind.css" rel="stylesheet">
+    <link href="include/css/tailwind.css?v=<?= asset_v('include/css/tailwind.css') ?>" rel="stylesheet">
 
     <!-- GSAP Core & Plugins -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -86,8 +130,8 @@ $pageDescription = 'หลักสูตรวิชาชีพด้านเ
         }
     </script>
 
-    <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="include/css/test.css?v=<?= time() ?>">
+    <!-- Custom Stylesheet with Smart Caching -->
+    <link rel="stylesheet" href="include/css/test.css?v=<?= asset_v('include/css/test.css') ?>">
 </head>
 
 
@@ -204,13 +248,13 @@ $pageDescription = 'หลักสูตรวิชาชีพด้านเ
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="include/js/lenis.min.js"></script>
-    <script src="include/js/main.js?v=<?= time() ?>"></script>
-    <script src="include/js/test.js?v=<?= time() ?>"></script>
+    <script src="include/js/lenis.min.js?v=<?= asset_v('include/js/lenis.min.js') ?>"></script>
+    <script src="include/js/main.js?v=<?= asset_v('include/js/main.js') ?>"></script>
+    <script src="include/js/test.js?v=<?= asset_v('include/js/test.js') ?>"></script>
 
     <!-- GSAP & Awwwards Interactions -->
-    <script src="include/js/awwwards.js?v=<?= time() ?>"></script>
-    <script src="include/js/preloader.js?v=<?= time() ?>"></script>
+    <script src="include/js/awwwards.js?v=<?= asset_v('include/js/awwwards.js') ?>"></script>
+    <script src="include/js/preloader.js?v=<?= asset_v('include/js/preloader.js') ?>"></script>
 
     <script>
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

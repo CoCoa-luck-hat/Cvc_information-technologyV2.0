@@ -13,28 +13,28 @@
             
             <!-- Column 1: Brand Info (Grid span 5) -->
             <div class="lg:col-span-5 flex flex-col space-y-6">
-                <a href="index.php" class="flex items-center space-x-3 w-max hover:opacity-90 transition-opacity" data-magnetic>
+                <a href="index.php" class="flex items-center space-x-3 w-max hover:opacity-90 transition-opacity" data-magnetic aria-label="กลับสู่หน้าหลัก">
                     <div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 shadow-lg relative group overflow-hidden">
                         <!-- Rotating Red Aura Ring (4s) -->
                         <div class="footer-rotating-aura"></div>
-                        <img src="02_design/Logo-it2.png" class="w-10 h-10 object-contain relative z-10 transition-transform duration-300 group-hover:scale-110" alt="IT Logo">
+                        <img src="02_design/Logo-it2.webp" width="40" height="40" class="w-10 h-10 object-contain relative z-10 transition-transform duration-300 group-hover:scale-110" alt="ตราสัญลักษณ์แผนกวิชาเทคโนโลยีสารสนเทศ CVC" loading="lazy" decoding="async">
                     </div>
                     <div class="flex flex-col">
                         <span class="text-white font-bold text-lg leading-tight tracking-wide">เทคโนโลยีสารสนเทศ CVC</span>
-                        <span class="text-gray-500 text-xs tracking-wider">Chiang Rai Vocational College</span>
+                        <span class="text-gray-400 text-xs tracking-wider">Chiang Rai Vocational College</span>
                     </div>
                 </a>
                 
-                <p class="text-sm text-[#82889a] leading-relaxed max-w-md">
+                <p class="text-sm text-[#9da3b4] leading-relaxed max-w-md">
                     มุ่งเน้นการพัฒนายอดฝีมือไอทีด้วยนวัตกรรมและเทคโนโลยีที่ทันสมัย ปั้นวิศวกรซอฟต์แวร์ นักพัฒนาเว็บ นักจัดการระบบคลาวด์ และนักวิเคราะห์ความปลอดภัยไซเบอร์สู่ยุคข้อมูลข่าวสารระดับสากล
                 </p>
 
                 <!-- Social Icons -->
                 <div class="flex items-center space-x-3 pt-2">
-                    <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary hover:border-transparent transition-all duration-300 shadow-sm" data-magnetic aria-label="Website">
+                    <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary hover:border-transparent transition-all duration-300 shadow-sm" data-magnetic aria-label="เว็บไซต์หลักวิทยาลัยอาชีวศึกษาเชียงราย">
                         <i class="fas fa-globe text-sm"></i>
                     </a>
-                    <a href="https://admission.vec.go.th/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary hover:border-transparent transition-all duration-300 shadow-sm" data-magnetic aria-label="Admission">
+                    <a href="https://admission.vec.go.th/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary hover:border-transparent transition-all duration-300 shadow-sm" data-magnetic aria-label="ระบบรับสมัครนักเรียนนักศึกษา อาชีวศึกษา">
                         <i class="fas fa-user-plus text-sm"></i>
                     </a>
                 </div>
@@ -48,23 +48,23 @@
                     <!-- Sub-Group 1: หลักสูตรที่เปิดสอน -->
                     <div style="display: flex; flex-direction: column; gap: 10px;">
                         <span style="font-size: 11.5px; font-weight: 700; color: #dc2626; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">หลักสูตร</span>
-                        <a href="index.php" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                        <a href="index.php" class="text-[#9da3b4] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
                             <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
                             หน้าแรก
                         </a>
-                        <a href="index.php?click=it_coo1" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                        <a href="index.php?click=it_coo1" class="text-[#9da3b4] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
                             <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
                             ระดับ ปวช.
                         </a>
-                        <a href="index.php?click=it_s1" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                        <a href="index.php?click=it_s1" class="text-[#9da3b4] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
                             <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
                             ระดับ ปวส. (IT)
                         </a>
-                        <a href="index.php?click=game_s1" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                        <a href="index.php?click=game_s1" class="text-[#9da3b4] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
                             <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
                             ระดับ ปวส. (เกม)
                         </a>
-                        <a href="https://admission.vec.go.th/" target="_blank" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                        <a href="https://admission.vec.go.th/" target="_blank" rel="noopener noreferrer" class="text-[#9da3b4] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
                             <i class="fas fa-external-link-alt text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
                             สมัครเรียน
                         </a>
@@ -73,23 +73,23 @@
                     <!-- Sub-Group 2: ข้อมูลแนะนำ & ทำเนียบ -->
                     <div style="display: flex; flex-direction: column; gap: 10px;">
                         <span style="font-size: 11.5px; font-weight: 700; color: #dc2626; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">ข้อมูลแนะนำ</span>
-                        <a href="index.php?click=0_techer" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                        <a href="index.php?click=0_techer" class="text-[#9da3b4] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
                             <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
                             แนะนำครูผู้สอน
                         </a>
-                        <a href="index.php?click=c_all" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                        <a href="index.php?click=c_all" class="text-[#9da3b4] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
                             <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
                             อาคาร/ห้องเรียน
                         </a>
-                        <a href="index.php?click=gallery" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                        <a href="index.php?click=gallery" class="text-[#9da3b4] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
                             <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
                             ภาพกิจกรรม
                         </a>
-                        <a href="index.php?click=graduate" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                        <a href="index.php?click=graduate" class="text-[#9da3b4] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
                             <i class="fas fa-chevron-right text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
                             ทำเนียบบัณฑิต
                         </a>
-                        <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" class="text-[#82889a] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
+                        <a href="https://cvc.ac.th/webcvc/show_it" target="_blank" rel="noopener noreferrer" class="text-[#9da3b4] hover:text-white transition text-xs flex items-center group" style="text-decoration: none;">
                             <i class="fas fa-external-link-alt text-[8px] text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all mr-1.5"></i>
                             รางวัลแผนกฯ
                         </a>
