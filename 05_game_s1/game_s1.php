@@ -1,4 +1,8 @@
 <?php
+if (!defined('INDEX_LOADED')) {
+    header("Location: ../index.php?click=game_s1", true, 301);
+    exit;
+}
 /**
  * SECTION 1: H-HERO IT DEPARTMENT HIGH VOCATIONAL DIPLOMA (ปวส. คอมพิวเตอร์เกมและแอนิเมชัน)
  * 05_game_s1/game_s1.php
@@ -388,12 +392,12 @@ section.pvg-hero .sr-only {
     <!-- Center Card Stack Photo Gallery Container -->
     <div class="hero-deck-container">
         <div class="hero-deck-content">
-            <img class="media" draggable="false" src="03_photo/3.4_room/IMG_2963.jpg" alt="ผลงานและกิจกรรมเกม 1" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/IMG_2990.jpg" alt="ผลงานและกิจกรรมเกม 2" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/IMG_2966.jpg" alt="สตูดิโอพัฒนาเกม" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/IMG_2969.jpg" alt="ทีมพัฒนาเกมและแอนิเมชัน" />
-            <img class="media" draggable="false" src="02_design/game1.png" alt="ผลงานและกิจกรรมเกม 1" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/IMG_2973.jpg" alt="ห้องปฏิบัติการดิจิทัลอาร์ตและเกม" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_654_02.webp" alt="ผลงานและกิจกรรมเกม 1" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_654_09.webp" alt="ผลงานและกิจกรรมเกม 2" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_654_04.webp" alt="สตูดิโอพัฒนาเกม" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_654_06.webp" alt="ทีมพัฒนาเกมและแอนิเมชัน" />
+            <img class="media" draggable="false" src="02_design/game1.webp" alt="ผลงานและกิจกรรมเกม 1" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_654_07.webp" alt="ห้องปฏิบัติการดิจิทัลอาร์ตและเกม" />
         </div>
     </div>
 

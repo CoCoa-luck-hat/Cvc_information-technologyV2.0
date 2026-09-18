@@ -175,3 +175,12 @@
         <h2 id="preloader-title" style="opacity: 0; transform: translateY(15px); display: none;">แผนกวิชาเทคโนโลยีสารสนเทศ</h2>
     </div>
 </div>
+
+<script>
+    try {
+        if (sessionStorage.getItem('cvc_it_preloader_shown') === 'true') {
+            var _po = document.getElementById('preloader-overlay');
+            if (_po) _po.style.display = 'none';
+        }
+    } catch(e) {}
+</script>

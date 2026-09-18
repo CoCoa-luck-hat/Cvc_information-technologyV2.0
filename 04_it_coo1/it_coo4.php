@@ -115,8 +115,8 @@
             <div class="tech-icon-item"><img src="03_photo/icon/bootstrap5.png" alt="Bootstrap 5"></div>
             <div class="tech-icon-item"><img src="03_photo/icon/Power BI.png" alt="Power BI"></div>
             <div class="tech-icon-item"><img src="03_photo/icon/GitHub.png" alt="GitHub"></div>
-            <div class="tech-icon-item"><img src="03_photo/icon/Docker.png" alt="Docker"></div>
-            <div class="tech-icon-item"><img src="03_photo/icon/ภาษาC.png" alt="C / C++"></div>
+            <div class="tech-icon-item"><img src="03_photo/icon/Docker.webp" alt="Docker"></div>
+            <div class="tech-icon-item"><img src="03_photo/icon/lang_c.webp" alt="C / C++"></div>
 
             <!-- Loop Set 2 (Duplicate for Seamless Endless Scroll) -->
             <div class="tech-icon-item"><img src="03_photo/icon/vs.png" alt="VS Code"></div>
@@ -129,8 +129,8 @@
             <div class="tech-icon-item"><img src="03_photo/icon/bootstrap5.png" alt="Bootstrap 5"></div>
             <div class="tech-icon-item"><img src="03_photo/icon/Power BI.png" alt="Power BI"></div>
             <div class="tech-icon-item"><img src="03_photo/icon/GitHub.png" alt="GitHub"></div>
-            <div class="tech-icon-item"><img src="03_photo/icon/Docker.png" alt="Docker"></div>
-            <div class="tech-icon-item"><img src="03_photo/icon/ภาษาC.png" alt="C / C++"></div>
+            <div class="tech-icon-item"><img src="03_photo/icon/Docker.webp" alt="Docker"></div>
+            <div class="tech-icon-item"><img src="03_photo/icon/lang_c.webp" alt="C / C++"></div>
         </div>
     </div>
 </div>

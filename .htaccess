@@ -1,15 +1,31 @@
 # ==============================================================================
-# CVC IT DEPARTMENT - HIGH PERFORMANCE APACHE CONFIGURATION (.htaccess)
+# 0. SECURITY HARDENING & DIRECTORY PROTECTION
 # ==============================================================================
+Options -Indexes
+
+# Deny access to sensitive files (Markdown documentation, logs, backups, env files, zip archives)
+<FilesMatch "(?i)\.(md|sql|log|bak|env|ini|sh|zip|tar|gz)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Do not rewrite existing files, directories, or symbolic links
+    # Block access to hidden directories and files (e.g. .git, .agents) except .well-known
+    RewriteCond %{REQUEST_URI} !^/\.well-known/
+    RewriteRule (^|/)\. - [F,L]
+
+    # Do not rewrite existing static files (CSS, JS, WebP, images, fonts, sitemap, robots)
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
 
-    # Route all other URLs to index.php with route parameter
+    # Route clean URLs to index.php with route parameter
     RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]
 </IfModule>
 
@@ -41,10 +57,10 @@
 <IfModule mod_expires.c>
     ExpiresActive On
     
-    # Images
+    # Images (Aggressive Caching for Fast Loading)
+    ExpiresByType image/webp "access plus 1 year"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/png "access plus 1 year"
-    ExpiresByType image/webp "access plus 1 year"
     ExpiresByType image/gif "access plus 1 year"
     ExpiresByType image/svg+xml "access plus 1 year"
     ExpiresByType image/x-icon "access plus 1 year"
@@ -67,12 +83,13 @@
 </IfModule>
 
 # ==============================================================================
-# 3. HTTP CACHE-CONTROL HEADERS
+# 3. HTTP CACHE-CONTROL & CORS HEADERS
 # ==============================================================================
 <IfModule mod_headers.c>
     # 1 Year Cache for Static Media & Fonts
     <FilesMatch "\.(ico|jpe?g|png|gif|webp|svg|woff2?|ttf|otf|mp4|webm)$">
         Header set Cache-Control "max-age=31536000, public"
+        Header set Access-Control-Allow-Origin "*"
     </FilesMatch>
 
     # 1 Month Cache for CSS & JS
@@ -94,5 +111,6 @@
 # 5. MIME TYPES
 # ==============================================================================
 <IfModule mod_mime.c>
+    AddType image/webp .webp
     AddType application/manifest+json .webmanifest .json
 </IfModule>

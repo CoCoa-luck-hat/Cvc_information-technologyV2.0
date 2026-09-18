@@ -203,7 +203,7 @@
                 
                 <!-- Step 2: Pure Standalone Diagram Showcase -->
                 <div id="sec3-diagram-card" style="background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; text-align: center; will-change: transform, opacity; max-width: 1050px; width: 100%; opacity: 0; transform: scale(0.85); margin: 0 auto;">
-                    <img src="02_design/โครงสร้างหลักสูตร_ปวช.png" alt="ผังโครงสร้างหลักสูตร ปวช." loading="lazy" decoding="async" style="width: 100%; max-height: 80vh; height: auto; object-fit: contain; display: block; mix-blend-mode: multiply !important; margin: 0 auto;">
+                    <img src="02_design/curriculum_structure_pvc.webp" alt="ผังโครงสร้างหลักสูตร ปวช." loading="lazy" decoding="async" style="width: 100%; max-height: 80vh; height: auto; object-fit: contain; display: block; mix-blend-mode: multiply !important; margin: 0 auto;">
                     <span class="sec3-zoom-badge"><i class="fas fa-search-plus"></i> แตะดูผังเต็มจอ</span>
                 </div>
 
@@ -291,7 +291,7 @@
     <button class="sec3-lightbox-close" id="sec3-lightbox-close-btn" aria-label="ปิดภาพขยาย">
         <i class="fas fa-times"></i>
     </button>
-    <img src="02_design/โครงสร้างหลักสูตร_ปวช.png" alt="ผังโครงสร้างหลักสูตร ปวช. ขนาดเต็ม" id="sec3-lightbox-img">
+    <img src="02_design/curriculum_structure_pvc.webp" alt="ผังโครงสร้างหลักสูตร ปวช. ขนาดเต็ม" id="sec3-lightbox-img">
 </div>
 
 <!-- GSAP ScrollTrigger Script for Section 3 Sequence -->

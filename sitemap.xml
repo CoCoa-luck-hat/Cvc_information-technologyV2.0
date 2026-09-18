@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://cvc.ac.th/web_branch/it_2025/</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Major: ปวช. เทคโนโลยีสารสนเทศ -->
+  <url>
+    <loc>https://cvc.ac.th/web_branch/it_2025/index.php?click=it_coo1</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Major: ปวส. เทคโนโลยีสารสนเทศ -->
+  <url>
+    <loc>https://cvc.ac.th/web_branch/it_2025/index.php?click=it_s1</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Major: ปวส. คอมพิวเตอร์เกมและแอนิเมชัน -->
+  <url>
+    <loc>https://cvc.ac.th/web_branch/it_2025/index.php?click=game_s1</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Faculty & Teachers -->
+  <url>
+    <loc>https://cvc.ac.th/web_branch/it_2025/index.php?click=0_techer</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Classroom & Facilities -->
+  <url>
+    <loc>https://cvc.ac.th/web_branch/it_2025/index.php?click=07_classroom</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Graduate Directory -->
+  <url>
+    <loc>https://cvc.ac.th/web_branch/it_2025/index.php?click=graduate</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Activities & Events Gallery -->
+  <url>
+    <loc>https://cvc.ac.th/web_branch/it_2025/index.php?click=gallery</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

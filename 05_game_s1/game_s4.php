@@ -102,12 +102,12 @@
     <div class="game-tech-marquee-row">
         <!-- 2 Identical Tracks for Seamless -50% Loop -->
         <div class="game-tech-marquee-track">
-            <div class="game-tech-icon-item"><img src="03_photo/icon/Unity_Technologies_logo.svg.png" alt="Unity 3D Engine"></div>
+            <div class="game-tech-icon-item"><img src="03_photo/icon/unity_logo.webp" alt="Unity 3D Engine"></div>
             <div class="game-tech-icon-item"><img src="03_photo/icon/adan.png" alt="Adobe Animate"></div>
             <div class="game-tech-icon-item"><img src="03_photo/icon/adps.png" alt="Adobe Photoshop"></div>
             <div class="game-tech-icon-item"><img src="03_photo/icon/ae.png" alt="Adobe After Effects"></div>
-            <div class="game-tech-icon-item"><img src="03_photo/icon/Clip Studio.png" alt="Clip Studio Paint"></div>
-            <div class="game-tech-icon-item"><img src="03_photo/icon/ภาษาC.png" alt="C# & C++ Game Programming"></div>
+            <div class="game-tech-icon-item"><img src="03_photo/icon/Clip_Studio.webp" alt="Clip Studio Paint"></div>
+            <div class="game-tech-icon-item"><img src="03_photo/icon/lang_c.webp" alt="C# & C++ Game Programming"></div>
             <div class="game-tech-icon-item"><img src="03_photo/icon/figma.png" alt="Figma Game UI/UX"></div>
             <div class="game-tech-icon-item"><img src="03_photo/icon/vs.png" alt="Visual Studio IDE"></div>
             <div class="game-tech-icon-item"><img src="03_photo/icon/GitHub.png" alt="GitHub Version Control"></div>
@@ -115,12 +115,12 @@
         </div>
 
         <div class="game-tech-marquee-track" aria-hidden="true">
-            <div class="game-tech-icon-item"><img src="03_photo/icon/Unity_Technologies_logo.svg.png" alt="Unity 3D Engine"></div>
+            <div class="game-tech-icon-item"><img src="03_photo/icon/unity_logo.webp" alt="Unity 3D Engine"></div>
             <div class="game-tech-icon-item"><img src="03_photo/icon/adan.png" alt="Adobe Animate"></div>
             <div class="game-tech-icon-item"><img src="03_photo/icon/adps.png" alt="Adobe Photoshop"></div>
             <div class="game-tech-icon-item"><img src="03_photo/icon/ae.png" alt="Adobe After Effects"></div>
-            <div class="game-tech-icon-item"><img src="03_photo/icon/Clip Studio.png" alt="Clip Studio Paint"></div>
-            <div class="game-tech-icon-item"><img src="03_photo/icon/ภาษาC.png" alt="C# & C++ Game Programming"></div>
+            <div class="game-tech-icon-item"><img src="03_photo/icon/Clip_Studio.webp" alt="Clip Studio Paint"></div>
+            <div class="game-tech-icon-item"><img src="03_photo/icon/lang_c.webp" alt="C# & C++ Game Programming"></div>
             <div class="game-tech-icon-item"><img src="03_photo/icon/figma.png" alt="Figma Game UI/UX"></div>
             <div class="game-tech-icon-item"><img src="03_photo/icon/vs.png" alt="Visual Studio IDE"></div>
             <div class="game-tech-icon-item"><img src="03_photo/icon/GitHub.png" alt="GitHub Version Control"></div>

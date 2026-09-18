@@ -1,4 +1,8 @@
 <?php
+if (!defined('INDEX_LOADED')) {
+    header("Location: ../index.php?click=event", true, 301);
+    exit;
+}
 // Master Activity Journal Gallery - Information Technology Department (CVC)
 // Ultra-Premium Visual-First Dynamic Multi-Column Flex Masonry with Load More
 $targetCat = isset($_GET['target']) ? trim($_GET['target']) : '';
@@ -6,28 +10,28 @@ $targetCat = isset($_GET['target']) ? trim($_GET['target']) : '';
 // Curated Activity Photo Database (หมวด กิจกรรมการเรียนรู้)
 $eventItems = [
     [ 
-        "src" => "03_photo/3.8_ภาพกิจกรรม/66-ปวช3-1.jpg", 
+        "src" => "03_photo/3.8_event/event_66_pvc3_01.webp", 
         "category" => "academic", 
         "catLabel" => "กิจกรรมครู และนักเรียน", 
         "title" => "กิจกรรมแลกของขวัญวันปีใหม่", 
         "caption" => "กิจกรรมแลกของขวัญวันปีใหม่ เพื่อสร้างความสัมพันธ์อันดีระหว่างครูและนักเรียน" 
     ],
     [ 
-        "src" => "03_photo/3.8_ภาพกิจกรรม/66-ปวช3-2.jpg", 
+        "src" => "03_photo/3.8_event/event_66_pvc3_02.webp", 
         "category" => "academic", 
         "catLabel" => "กิจกรรมครู และนักเรียน", 
         "title" => "กิจกรรมแลกของขวัญวันปีใหม่", 
         "caption" => "กิจกรรมแลกของขวัญวันปีใหม่ เพื่อสร้างความสัมพันธ์อันดีระหว่างครูและนักเรียน" 
     ],
     [ 
-        "src" => "03_photo/3.8_ภาพกิจกรรม/66-ปวช3-3.jpg", 
+        "src" => "03_photo/3.8_event/event_66_pvc3_03.webp", 
         "category" => "academic", 
         "catLabel" => "กิจกรรมนักเรียน", 
         "title" => "ตั้งบูธผลงาน", 
         "caption" => "กิจกรรมตั้งบูธผลงาน" 
     ],
     [ 
-        "src" => "03_photo/3.8_ภาพกิจกรรม/66-ปวช3-4.jpg", 
+        "src" => "03_photo/3.8_event/event_66_pvc3_04.webp", 
         "category" => "academic", 
         "catLabel" => "กิจกรรมนักเรียน", 
         "title" => "ตั้งบูธผลงาน", 

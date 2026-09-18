@@ -12,13 +12,13 @@
                 nick: "ครูเหน่ง",
                 name: "นายธวัชชัย สาเกตุ",
                 role: "หัวหน้าแผนกวิชาฯ • ครูชำนาญการพิเศษ (คศ.3)",
-                img: "03_photo/3.3_teacher/removebg_ครูธวัชชัย.png",
+                img: "03_photo/3.3_teacher/teacher_thawatchai_nobg.webp",
                 link: "index.php?click=1_thawatchai",
                 yt: null,
                 skills: ["Programming", "Game Programming", "Web Programming", "Network Computer", "Linux Server", "Animation"],
                 education: [
-                    { degree: "ปริญญาโท: ครุศาสตร์อุตสาหกรรมมหาบัณฑิต (คอ.ม)", major: "สาขาวิชา: เทคโนโลยีคอมพิวเตอร์", inst: "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ", logo: "03_photo/icon/จอมเกล้าพระนครเหนือ.png" },
-                    { degree: "ปริญญาตรี: ครุศาสตรบัณฑิต (คบ.)", major: "สาขาวิชา: คอมพิวเตอร์ศึกษา", inst: "มหาวิทยาลัยราชภัฏสกลนคร", logo: "03_photo/icon/snru-logo-n.png" }
+                    { degree: "ปริญญาโท: ครุศาสตร์อุตสาหกรรมมหาบัณฑิต (คอ.ม)", major: "สาขาวิชา: เทคโนโลยีคอมพิวเตอร์", inst: "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ", logo: "03_photo/icon/inst_kmutnb.webp" },
+                    { degree: "ปริญญาตรี: ครุศาสตรบัณฑิต (คบ.)", major: "สาขาวิชา: คอมพิวเตอร์ศึกษา", inst: "มหาวิทยาลัยราชภัฏสกลนคร", logo: "03_photo/icon/snru-logo-n.webp" }
                 ],
                 email: "sakate99@cvc.ac.th",
                 tel: "062-9511-512"
@@ -29,12 +29,12 @@
                 nick: "ครูก้อย",
                 name: "นางสาวเพลาพิลาส พนมเทพ",
                 role: "ครูชำนาญการ",
-                img: "03_photo/3.3_teacher/removebg_ครูเพลาพิลาส.png",
+                img: "03_photo/3.3_teacher/teacher_plaopilart_nobg.webp",
                 link: "index.php?click=3_plaopilart",
                 yt: null,
                 skills: ["Motion Graphics", "Digital Media Creation", "Data Management & Analytics", "Diagnostics and Troubleshooting"],
                 education: [
-                    { degree: "ปริญญาตรี: ครุศาสตร์อุตสาหกรรมบัณฑิต (ค.อ.บ)", major: "สาขาวิชา: วิศวกรรมคอมพิวเตอร์", inst: "มหาวิทยาลัยเทคโนโลยีราชมงคลธัญบุรี", logo: "03_photo/icon/มหาวิทยาลัยเทคโนโลยีราชมงคลธัญบุรี.png" }
+                    { degree: "ปริญญาตรี: ครุศาสตร์อุตสาหกรรมบัณฑิต (ค.อ.บ)", major: "สาขาวิชา: วิศวกรรมคอมพิวเตอร์", inst: "มหาวิทยาลัยเทคโนโลยีราชมงคลธัญบุรี", logo: "03_photo/icon/inst_rmutt.webp" }
                 ],
                 email: "plaopilart@cvc.ac.th",
                 tel: "084-6638-140"
@@ -45,13 +45,13 @@
                 nick: "ครูส้ม",
                 name: "นางสาวปิยมาส แก้วอินตา",
                 role: "ครูชำนาญการ (คศ.3)",
-                img: "03_photo/3.3_teacher/removebg_ครูปิยะมาส-2.png",
+                img: "03_photo/3.3_teacher/teacher_piyamas_nobg.webp",
                 link: "index.php?click=2_piyamat",
                 yt: null,
                 skills: ["Business Analysis", "System Analysis", "System Design", "Programming"],
                 education: [
-                    { degree: "ปริญญาโท: วิทยาศาสตรมหาบัณฑิต (วท.ม.)", major: "สาขาวิชา: การจัดการเทคโนโลยีสารสนเทศสมัยใหม่", inst: "มหาวิทยาลัยพะเยา", logo: "03_photo/icon/มอพะเยา.png" },
-                    { degree: "ปริญญาตรี: บริหารธุรกิจบัณฑิต (บธ.บ.)", major: "สาขาวิชา: ระบบสารสนเทศทางคอมพิวเตอร์", inst: "มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา เชียงราย", logo: "03_photo/icon/ล้านนาเชียงราย.png" }
+                    { degree: "ปริญญาโท: วิทยาศาสตรมหาบัณฑิต (วท.ม.)", major: "สาขาวิชา: การจัดการเทคโนโลยีสารสนเทศสมัยใหม่", inst: "มหาวิทยาลัยพะเยา", logo: "03_photo/icon/inst_up.webp" },
+                    { degree: "ปริญญาตรี: บริหารธุรกิจบัณฑิต (บธ.บ.)", major: "สาขาวิชา: ระบบสารสนเทศทางคอมพิวเตอร์", inst: "มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา เชียงราย", logo: "03_photo/icon/inst_rmutl.webp" }
                 ],
                 email: "piyamas.kaew@cvc.ac.th",
                 tel: "088-2692-263"
@@ -62,12 +62,12 @@
                 nick: "ครูเจม",
                 name: "นายสธรรดร ยงยืน",
                 role: "ครูผู้ช่วย",
-                img: "03_photo/3.3_teacher/removebg_เจม.png",
+                img: "03_photo/3.3_teacher/teacher_satharndon_nobg.webp",
                 link: "index.php?click=7_jam",
                 yt: null,
                 skills: ["Application development", "Internet of Thing", "Computer Repair and Maintenance", "Digital Literacy"],
                 education: [
-                    { degree: "ปริญญาตรี: ครุศาสตร์อุตสาหกรรมบัณฑิต (คอ.บ)", major: "สาขาวิชา: คอมพิวเตอร์และเทคโนโลยี", inst: "มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ", logo: "03_photo/icon/ล้านนาเชียงราย.png" }
+                    { degree: "ปริญญาตรี: ครุศาสตร์อุตสาหกรรมบัณฑิต (คอ.บ)", major: "สาขาวิชา: คอมพิวเตอร์และเทคโนโลยี", inst: "มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ", logo: "03_photo/icon/inst_rmutl.webp" }
                 ],
                 email: "satundorn@cvc.ac.th",
                 tel: "098-984-8052"
@@ -78,7 +78,7 @@
                 nick: "ครูหลิน",
                 name: "นางสาวรสธร หลวงตา",
                 role: "ครูพิเศษสอน",
-                img: "03_photo/3.3_teacher/removebg_ครูรสธร.png",
+                img: "03_photo/3.3_teacher/teacher_rodsathon_nobg.webp",
                 link: "index.php?click=4_rodsathon",
                 yt: "https://www.youtube.com/@t-rodsathon/videos",
                 skills: [
@@ -91,7 +91,7 @@
                     "อินเทอร์เน็ตของสรรพสิ่ง (IoT) เบื้องต้น"
                 ],
                 education: [
-                    { degree: "ปริญญาตรี: วิทยาศาสตรบัณฑิต (วท.บ.)", major: "สาขาวิชา: เทคโนโลยีสารสนเทศ", inst: "มหาวิทยาลัยราชมงคลล้านนาเชียงราย", logo: "03_photo/icon/ล้านนาเชียงราย.png" }
+                    { degree: "ปริญญาตรี: วิทยาศาสตรบัณฑิต (วท.บ.)", major: "สาขาวิชา: เทคโนโลยีสารสนเทศ", inst: "มหาวิทยาลัยราชมงคลล้านนาเชียงราย", logo: "03_photo/icon/inst_rmutl.webp" }
                 ],
                 email: "rodsathon_rt@cvc.ac.th",
                 tel: "082-091-5771"
@@ -102,7 +102,7 @@
                 nick: "ครูเยียร์",
                 name: "นายธีรภัทร ศรีเหรา",
                 role: "ครูพิเศษสอน",
-                img: "03_photo/3.3_teacher/removebg_ครูธีภัทร.png.png",
+                img: "03_photo/3.3_teacher/teacher_teerapat_nobg.webp",
                 link: "index.php?click=5_teerapat",
                 yt: null,
                 skills: [
@@ -113,7 +113,7 @@
                     "Storytelling & Narrative Design"
                 ],
                 education: [
-                    { degree: "ปริญญาตรี: วิทยาศาสตรบัณฑิต (วท.บ.)", major: "สาขาวิชา: เทคโนโลยีมัลติมีเดียและการสร้างภาพเคลื่อนไหว", inst: "มหาวิทยาลัยแม่ฟ้าหลวง เชียงราย", logo: "03_photo/icon/มหาวิทยาลัยแม่ฟ้าหลวง-เชียงราย.png" }
+                    { degree: "ปริญญาตรี: วิทยาศาสตรบัณฑิต (วท.บ.)", major: "สาขาวิชา: เทคโนโลยีมัลติมีเดียและการสร้างภาพเคลื่อนไหว", inst: "มหาวิทยาลัยแม่ฟ้าหลวง เชียงราย", logo: "03_photo/icon/inst_mfu.webp" }
                 ],
                 email: "teerapat.srihera@cvc.ac.th",
                 tel: "090 468 2660"

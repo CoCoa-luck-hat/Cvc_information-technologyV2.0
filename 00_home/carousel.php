@@ -59,7 +59,7 @@
             <div class="w-full lg:w-1/2 flex justify-center">
                 <div class="radius-img-container">
                     <div class="general-reveal-img aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] w-full">
-                        <img src="03_photo/3.4_room/8.webp" width="800" height="600" alt="บรรยากาศการเรียนรู้และการฝึกปฏิบัติจริงในห้องเรียน" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                        <img src="03_photo/3.4_room/room_242_06.webp" width="800" height="600" alt="บรรยากาศการเรียนรู้และการฝึกปฏิบัติจริงในห้องเรียน" class="w-full h-full object-cover" loading="lazy" decoding="async">
                     </div>
                 </div>
             </div>

@@ -1,12 +1,15 @@
 <?php
-session_start();
+define('INDEX_LOADED', true);
 error_reporting(0);
 
 // Unified Master Router
 $route = trim($_GET['route'] ?? $_GET['click'] ?? $_GET['page'] ?? '', '/');
 
-// Dynamic Base URL Engine
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || ($_SERVER['SERVER_PORT'] ?? 80) == 443) ? "https://" : "http://";
+// Dynamic Base URL Engine (Supports Cloudflare & Reverse Proxies)
+$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+    || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
+    || (($_SERVER['SERVER_PORT'] ?? 80) == 443);
+$protocol = $isHttps ? "https://" : "http://";
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 $scriptDir = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
 $baseUrl = $protocol . $host . ($scriptDir ? $scriptDir : '');
@@ -252,8 +255,12 @@ $pageDescription = 'หลักสูตรวิชาชีพด้านเ
     <script src="include/js/main.js?v=<?= asset_v('include/js/main.js') ?>"></script>
     <script src="include/js/test.js?v=<?= asset_v('include/js/test.js') ?>"></script>
 
-    <!-- GSAP & Awwwards Interactions -->
+    <?php if (in_array($route, ['', 'home'])): ?>
+    <!-- GSAP & Awwwards Homepage Interactions -->
     <script src="include/js/awwwards.js?v=<?= asset_v('include/js/awwwards.js') ?>"></script>
+    <?php endif; ?>
+
+    <!-- Preloader Engine -->
     <script src="include/js/preloader.js?v=<?= asset_v('include/js/preloader.js') ?>"></script>
 
     <script>

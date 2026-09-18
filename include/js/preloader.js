@@ -1,14 +1,14 @@
 /**
- * True Asset-Driven Preloader Engine
- * Tracks Real Image & Font Loading Progress (0% -> 100%)
- * Uses GSAP + HTML5 Canvas + Promise Asset Decoder
+ * Smart Lightweight Preloader Engine
+ * Optimized for Fast Production Loading (Max 1.1s Cap)
+ * Department of Information Technology (CVC)
  */
-(function initRealAssetPreloader() {
+(function initSmartPreloader() {
     const run = () => {
         const overlay = document.getElementById('preloader-overlay');
         if (!overlay) return;
 
-        // 1. Session check: if already visited in this browser session, open immediately
+        // 1. Session Guard: If already shown in this browser session, open immediately without blocking
         try {
             if (sessionStorage.getItem('cvc_it_preloader_shown') === 'true') {
                 if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
@@ -26,10 +26,11 @@
         const logoWrapper = document.querySelector('.preloader-logo-wrapper');
         const titleText = document.getElementById('preloader-title');
 
-        // Lock body scrolling during preloading
+        // Prevent body scroll during brief curtain intro
         document.body.style.overflow = 'hidden';
 
         let isCompleted = false;
+        let animFrameId = null;
 
         const hidePreloader = () => {
             if (isCompleted) return;
@@ -43,38 +44,34 @@
             } catch (e) { }
 
             if (overlay) {
-                gsap.to(overlay, {
-                    opacity: 0,
-                    duration: 0.25,
-                    ease: 'power2.inOut',
-                    onComplete: () => {
-                        if (overlay && overlay.parentNode) {
-                            overlay.parentNode.removeChild(overlay);
+                if (typeof gsap !== 'undefined') {
+                    gsap.to(overlay, {
+                        opacity: 0,
+                        duration: 0.2,
+                        ease: 'power2.inOut',
+                        onComplete: () => {
+                            if (overlay && overlay.parentNode) {
+                                overlay.parentNode.removeChild(overlay);
+                            }
+                            window.dispatchEvent(new Event('resize'));
+                            if (typeof ScrollTrigger !== 'undefined') {
+                                ScrollTrigger.refresh();
+                            }
                         }
-                        window.dispatchEvent(new Event('resize'));
-                        if (typeof ScrollTrigger !== 'undefined') {
-                            ScrollTrigger.refresh();
-                        }
-                    }
-                });
+                    });
+                } else {
+                    if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+                    window.dispatchEvent(new Event('resize'));
+                }
             }
         };
 
-        // Safety fallback timeout (5 seconds max in case of network stall)
-        const fallbackTimer = setTimeout(() => {
-            if (!isCompleted) {
-                completeAndReveal(100);
-            }
-        }, 5000);
-
         if (typeof gsap === 'undefined') {
-            clearTimeout(fallbackTimer);
             hidePreloader();
             return;
         }
 
-        // Ambient Background Canvas Particles
-        let animFrameId;
+        // Canvas Tech Particles (Lightweight & Smooth)
         if (canvas) {
             const ctx = canvas.getContext('2d');
             let width = (canvas.width = window.innerWidth);
@@ -86,13 +83,13 @@
             };
             window.addEventListener('resize', handleResize, { passive: true });
 
-            const particles = Array.from({ length: 30 }, () => ({
+            const particles = Array.from({ length: 20 }, () => ({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.7,
-                vy: (Math.random() - 0.5) * 0.7,
+                vx: (Math.random() - 0.5) * 0.8,
+                vy: (Math.random() - 0.5) * 0.8,
                 radius: Math.random() * 2 + 1,
-                alpha: Math.random() * 0.5 + 0.2
+                alpha: Math.random() * 0.4 + 0.2
             }));
 
             function draw() {
@@ -108,123 +105,106 @@
                     ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                     ctx.fill();
                 });
-                animFrameId = requestAnimationFrame(draw);
+                if (!isCompleted) animFrameId = requestAnimationFrame(draw);
             }
             draw();
         }
 
-        // 2. REAL ASSET PROMISE TRACKING
-        // Collect all images in the document + font ready promise
-        const images = Array.from(document.images);
-        const totalAssets = Math.max(images.length + 1, 2); // +1 for Web Fonts
-        let loadedAssets = 0;
-
+        // 2. CRITICAL ASSET PROGRESS TRACKING (Fonts + Hero Banner Only)
         const currentProgress = { value: 0 };
+        let criticalReady = false;
 
-        function updateProgress(targetPercent) {
-            gsap.to(currentProgress, {
-                value: targetPercent,
-                duration: 0.25,
-                ease: 'power1.out',
-                onUpdate: () => {
-                    if (counterEl) {
-                        counterEl.textContent = `${Math.floor(currentProgress.value)}%`;
-                    }
-                }
+        const updateCounter = (val) => {
+            if (counterEl) {
+                counterEl.textContent = `${Math.min(100, Math.floor(val))}%`;
+            }
+        };
+
+        // Smooth Counter Interpolation (0 -> 100% over 0.7s)
+        const counterTween = gsap.to(currentProgress, {
+            value: 100,
+            duration: 0.75,
+            ease: 'power2.out',
+            onUpdate: () => updateCounter(currentProgress.value),
+            onComplete: () => {
+                revealStage();
+            }
+        });
+
+        // Track only essential Web Fonts
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(() => {
+                criticalReady = true;
+            }).catch(() => {
+                criticalReady = true;
             });
         }
 
-        function onItemLoaded() {
-            loadedAssets++;
-            const realPercent = Math.min(Math.round((loadedAssets / totalAssets) * 100), 100);
-            updateProgress(realPercent);
-
-            if (loadedAssets >= totalAssets) {
-                completeAndReveal(realPercent);
+        // Track critical Hero Banner if present
+        const heroPreload = document.querySelector('link[rel="preload"][as="image"]');
+        if (heroPreload) {
+            const heroImg = new Image();
+            heroImg.src = heroPreload.href;
+            if (heroImg.decode) {
+                heroImg.decode().catch(() => {});
             }
         }
 
-        function completeAndReveal(finalPercent) {
-            clearTimeout(fallbackTimer);
+        function revealStage() {
+            if (isCompleted) return;
 
-            // Ensure counter reaches 100%
-            gsap.to(currentProgress, {
-                value: 100,
-                duration: 0.2,
-                onUpdate: () => {
-                    if (counterEl) counterEl.textContent = `${Math.floor(currentProgress.value)}%`;
-                },
-                onComplete: () => {
-                    // Play Final Entrance Sequence
-                    const tl = gsap.timeline({
-                        onComplete: hidePreloader
-                    });
+            // Play Final Snappy Entrance Sequence
+            const tl = gsap.timeline({
+                onComplete: hidePreloader
+            });
 
-                    // 1. Counter Out & Logo Entrance
-                    tl.to(counterEl, { opacity: 0, scale: 0.85, duration: 0.2, ease: 'power2.in' });
-                    tl.to(logoWrapper, {
-                        opacity: 1,
-                        scale: 1.0,
-                        duration: 0.35,
-                        ease: 'back.out(1.4)'
-                    }, '<+=0.05');
+            // 1. Counter Out & Logo Entrance
+            tl.to(counterEl, { opacity: 0, scale: 0.85, duration: 0.15, ease: 'power2.in' });
+            if (logoWrapper) {
+                tl.to(logoWrapper, {
+                    opacity: 1,
+                    scale: 1.0,
+                    duration: 0.25,
+                    ease: 'back.out(1.2)'
+                }, '<+=0.04');
+            }
 
-                    if (titleText) {
-                        tl.set(titleText, { display: 'block' }, '<');
-                        tl.to(titleText, { opacity: 1, y: 0, duration: 0.25 }, '<');
+            if (titleText) {
+                tl.set(titleText, { display: 'block' }, '<');
+                tl.to(titleText, { opacity: 1, y: 0, duration: 0.2 }, '<');
+            }
+
+            // 2. Snappy Curtain Split Opening
+            if (contentBox) {
+                tl.to(contentBox, { opacity: 0, scale: 0.96, duration: 0.18, ease: 'power2.in' }, '+=0.1');
+            }
+            if (curtainTop && curtainBottom) {
+                tl.to(curtainTop, {
+                    yPercent: -100,
+                    duration: 0.45,
+                    ease: 'power3.inOut',
+                    force3D: true,
+                    onStart: () => {
+                        document.body.style.overflow = '';
                     }
-
-                    // 2. Smooth Curtain Opening
-                    tl.to(contentBox, { opacity: 0, scale: 0.95, duration: 0.2, ease: 'power2.in' }, '+=0.2');
-                    tl.to(curtainTop, {
-                        yPercent: -100,
-                        duration: 0.55,
-                        ease: 'power2.inOut',
-                        force3D: true,
-                        onStart: () => {
-                            document.body.style.overflow = '';
-                        }
-                    }, '-=0.08');
-                    tl.to(curtainBottom, {
-                        yPercent: 100,
-                        duration: 0.55,
-                        ease: 'power2.inOut',
-                        force3D: true
-                    }, '<');
-                }
-            });
+                }, '-=0.06');
+                tl.to(curtainBottom, {
+                    yPercent: 100,
+                    duration: 0.45,
+                    ease: 'power3.inOut',
+                    force3D: true
+                }, '<');
+            }
         }
 
-        // Track Fonts Loading
-        if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(() => {
-                onItemLoaded();
-            }).catch(() => {
-                onItemLoaded();
-            });
-        } else {
-            onItemLoaded();
-        }
-
-        // Track All Image Loading / Decoding
-        if (images.length === 0) {
-            onItemLoaded();
-        } else {
-            images.forEach((img) => {
-                if (img.complete && img.naturalWidth !== 0) {
-                    onItemLoaded();
-                } else if (typeof img.decode === 'function') {
-                    img.decode().then(() => {
-                        onItemLoaded();
-                    }).catch(() => {
-                        onItemLoaded();
-                    });
-                } else {
-                    img.addEventListener('load', onItemLoaded, { once: true });
-                    img.addEventListener('error', onItemLoaded, { once: true });
-                }
-            });
-        }
+        // Strict Fallback Timer: Cap total preloader time at 1100ms max
+        setTimeout(() => {
+            if (!isCompleted) {
+                counterTween.kill();
+                updateCounter(100);
+                revealStage();
+            }
+        }, 1100);
     };
 
     if (document.readyState === 'loading') {

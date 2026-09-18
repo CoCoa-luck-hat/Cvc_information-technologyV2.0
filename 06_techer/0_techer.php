@@ -1,4 +1,8 @@
 <?php
+if (!defined('INDEX_LOADED')) {
+    header("Location: ../index.php?click=0_techer", true, 301);
+    exit;
+}
 /**
  * SECTION: FACULTY & INSTRUCTORS SHOWCASE (คณะครูและบุคลากรทางการศึกษา)
  * 06_techer/0_techer.php
@@ -58,7 +62,7 @@
 
         <!-- CENTER HERO: Pure Cutout Standing Portrait -->
         <div class="fp-center-portrait-stage" id="fp-portrait-box">
-            <img class="fp-pure-cutout-img" id="fp-main-portrait" src="03_photo/3.3_teacher/removebg_ครูธวัชชัย.png" alt="ครูธวัชชัย สาเกตุ" draggable="false">
+            <img class="fp-pure-cutout-img" id="fp-main-portrait" src="03_photo/3.3_teacher/teacher_thawatchai_nobg.webp" alt="ครูธวัชชัย สาเกตุ" draggable="false">
         </div>
 
         <!-- RIGHT FLANK: Skills Chips & Primary CTA Action Button -->
@@ -91,27 +95,27 @@
             <div class="fp-rail-fade-left" id="fp-rail-fade-left"></div>
             <div class="fp-thumbnail-deck" id="fp-thumb-deck">
                 <button class="fp-thumb-item-btn active" data-idx="0" type="button">
-                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/crop_ครูธวัชชัย.png" alt="ครูเหน่ง">
+                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/teacher_thawatchai_crop.webp" alt="ครูเหน่ง" loading="lazy" decoding="async">
                     <span>ครูเหน่ง</span>
                 </button>
                 <button class="fp-thumb-item-btn" data-idx="1" type="button">
-                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/crop_ครูเพลาพิลาส.png" alt="ครูก้อย">
+                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/teacher_plaopilart_crop.webp" alt="ครูก้อย" loading="lazy" decoding="async">
                     <span>ครูก้อย</span>
                 </button>
                 <button class="fp-thumb-item-btn" data-idx="2" type="button">
-                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/crop_ครูปิยะมาส-2.png" alt="ครูส้ม">
+                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/teacher_piyamas_crop.webp" alt="ครูส้ม" loading="lazy" decoding="async">
                     <span>ครูส้ม</span>
                 </button>
                 <button class="fp-thumb-item-btn" data-idx="3" type="button">
-                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/crop2_เจม.png" alt="ครูเจม">
+                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/teacher_satharndon_crop.webp" alt="ครูเจม" loading="lazy" decoding="async">
                     <span>ครูเจม</span>
                 </button>
                 <button class="fp-thumb-item-btn" data-idx="4" type="button">
-                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/crop_ครูรสธร.png" alt="ครูหลิน">
+                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/teacher_rodsathon_crop.webp" alt="ครูหลิน" loading="lazy" decoding="async">
                     <span>ครูหลิน</span>
                 </button>
                 <button class="fp-thumb-item-btn" data-idx="5" type="button">
-                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/crop2_ครูธีภัทร.png" alt="ครูเยียร์">
+                    <img class="fp-thumb-item-avatar" src="03_photo/3.3_teacher/teacher_teerapat_crop.webp" alt="ครูเยียร์" loading="lazy" decoding="async">
                     <span>ครูเยียร์</span>
                 </button>
             </div>

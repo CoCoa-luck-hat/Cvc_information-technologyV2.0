@@ -1,4 +1,8 @@
 <?php
+if (!defined('INDEX_LOADED')) {
+    header("Location: ../index.php?click=it_coo1", true, 301);
+    exit;
+}
 /**
  * SECTION 1: H-HERO IT DEPARTMENT VOCATIONAL CERTIFICATE (ปวช.)
  * 04_it_coo1/it_coo1.php
@@ -384,16 +388,16 @@ section.h-hero .sr-only {
     <!-- Center Card Stack Photo Gallery Container -->
     <div class="hero-deck-container">
         <div class="hero-deck-content">
-            <img class="media" draggable="false" src="03_photo/3.4_room/P1.jpg" alt="ห้องปฏิบัติการคอมพิวเตอร์ 1" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/P2.jpg" alt="ห้องปฏิบัติการคอมพิวเตอร์ 2" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/3.0.jpg" alt="เครื่องมืออุปกรณ์ไอที" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/5.0.jpg" alt="ห้องคอมพิวเตอร์กราฟิก" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/4.jpg" alt="ผลงานและกิจกรรมไอที" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/P1.jpg" alt="ห้องปฏิบัติการคอมพิวเตอร์ 1" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/P2.jpg" alt="ห้องปฏิบัติการคอมพิวเตอร์ 2" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/3.0.jpg" alt="เครื่องมืออุปกรณ์ไอที" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/5.0.jpg" alt="ห้องคอมพิวเตอร์กราฟิก" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/4.jpg" alt="ผลงานและกิจกรรมไอที" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_242_p1.webp" alt="ห้องปฏิบัติการคอมพิวเตอร์ 1" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_242_p2.webp" alt="ห้องปฏิบัติการคอมพิวเตอร์ 2" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_242_03.webp" alt="เครื่องมืออุปกรณ์ไอที" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_241_01.webp" alt="ห้องคอมพิวเตอร์กราฟิก" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_242_04.webp" alt="ผลงานและกิจกรรมไอที" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_242_p1.webp" alt="ห้องปฏิบัติการคอมพิวเตอร์ 1" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_242_p2.webp" alt="ห้องปฏิบัติการคอมพิวเตอร์ 2" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_242_03.webp" alt="เครื่องมืออุปกรณ์ไอที" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_241_01.webp" alt="ห้องคอมพิวเตอร์กราฟิก" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_242_04.webp" alt="ผลงานและกิจกรรมไอที" />
         </div>
     </div>
 

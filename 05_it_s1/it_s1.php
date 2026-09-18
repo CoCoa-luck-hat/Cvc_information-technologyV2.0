@@ -1,4 +1,8 @@
 <?php
+if (!defined('INDEX_LOADED')) {
+    header("Location: ../index.php?click=it_s1", true, 301);
+    exit;
+}
 /**
  * SECTION 1: H-HERO IT DEPARTMENT HIGH VOCATIONAL DIPLOMA (ปวส.)
  * 05_it_s1/it_s1.php
@@ -388,12 +392,12 @@ section.pvs-hero .sr-only {
     <!-- Center Card Stack Photo Gallery Container -->
     <div class="hero-deck-container">
         <div class="hero-deck-content">
-            <img class="media" draggable="false" src="03_photo/3.4_room/5.3.jpg" alt="ห้องปฏิบัติการไอที 1" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/7.jpg" alt="ห้องปฏิบัติการไอที 2" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/5.2.jpg" alt="เครื่องมืออุปกรณ์ไอที" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/5.4.jpg" alt="ผลงานและกิจกรรมไอที ปวส." />
-            <img class="media" draggable="false" src="02_design/it-1.png" alt="ห้องปฏิบัติการพัฒนาระบบ" />
-            <img class="media" draggable="false" src="03_photo/3.4_room/5.1.jpg" alt="ห้องปฏิบัติการพัฒนาระบบ" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_241_04.webp" alt="ห้องปฏิบัติการไอที 1" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_242_05.webp" alt="ห้องปฏิบัติการไอที 2" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_241_03.webp" alt="เครื่องมืออุปกรณ์ไอที" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_241_05.webp" alt="ผลงานและกิจกรรมไอที ปวส." />
+            <img class="media" draggable="false" src="02_design/it-1.webp" alt="ห้องปฏิบัติการพัฒนาระบบ" />
+            <img class="media" draggable="false" src="03_photo/3.4_room/room_241_02.webp" alt="ห้องปฏิบัติการพัฒนาระบบ" />
         </div>
     </div>
 

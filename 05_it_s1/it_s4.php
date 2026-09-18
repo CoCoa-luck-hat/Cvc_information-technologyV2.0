@@ -104,7 +104,7 @@
         <div class="pvs-tech-marquee-track">
             <!-- Loop Set 1 -->
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/vs.png" alt="VS Code"></div>
-            <div class="pvs-tech-icon-item"><img src="03_photo/icon/Docker.png" alt="Docker"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/Docker.webp" alt="Docker"></div>
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/python.png" alt="Python"></div>
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/php.png" alt="PHP Web"></div>
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/linux.png" alt="Linux OS"></div>
@@ -114,11 +114,11 @@
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/Power BI.png" alt="Power BI"></div>
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/GitHub.png" alt="GitHub"></div>
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/figma.png" alt="Figma"></div>
-            <div class="pvs-tech-icon-item"><img src="03_photo/icon/ภาษาC.png" alt="C / C++"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/lang_c.webp" alt="C / C++"></div>
 
             <!-- Loop Set 2 (Duplicate for Seamless Endless Scroll) -->
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/vs.png" alt="VS Code"></div>
-            <div class="pvs-tech-icon-item"><img src="03_photo/icon/Docker.png" alt="Docker"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/Docker.webp" alt="Docker"></div>
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/python.png" alt="Python"></div>
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/php.png" alt="PHP Web"></div>
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/linux.png" alt="Linux OS"></div>
@@ -128,7 +128,7 @@
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/Power BI.png" alt="Power BI"></div>
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/GitHub.png" alt="GitHub"></div>
             <div class="pvs-tech-icon-item"><img src="03_photo/icon/figma.png" alt="Figma"></div>
-            <div class="pvs-tech-icon-item"><img src="03_photo/icon/ภาษาC.png" alt="C / C++"></div>
+            <div class="pvs-tech-icon-item"><img src="03_photo/icon/lang_c.webp" alt="C / C++"></div>
         </div>
     </div>
 </div>

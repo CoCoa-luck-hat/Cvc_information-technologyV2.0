@@ -23,20 +23,22 @@ document.addEventListener("DOMContentLoaded", () => {
     initPageTransitions();
     initSmartNavbar();
 
-    // 3. INITIALIZE SCROLL TRIGGERS & TEXT SPLITTING
-    initGlobalBackgroundParallax();
-    initHeroParallax();
-    initVideoHeroBlinds();
-    initStorytellingTransition();
-    init3DCardStacking();
-    initTextSplitting();
-    initHeadingFadeAnimations();
-    initCareersWipe();
-    initKoraComparisonScroll();
-    initGalleryHorizontal();
-    init3DSpatialPortalTransitions();
-    initStepsPinScroll();
-    initRibbonsMomentumHover();
+    // 3. INITIALIZE SCROLL TRIGGERS & TEXT SPLITTING (Homepage Only Guard)
+    if (document.getElementById("majorsSection") || document.querySelector(".home-hero-video") || document.getElementById("careers-reveal-section")) {
+        initGlobalBackgroundParallax();
+        initHeroParallax();
+        initVideoHeroBlinds();
+        initStorytellingTransition();
+        init3DCardStacking();
+        initTextSplitting();
+        initHeadingFadeAnimations();
+        initCareersWipe();
+        initKoraComparisonScroll();
+        initGalleryHorizontal();
+        init3DSpatialPortalTransitions();
+        initStepsPinScroll();
+        initRibbonsMomentumHover();
+    }
 });
 
 /**
@@ -791,6 +793,15 @@ function performPageSwap(url, pushToHistory = true) {
                     document.body.style.overflow = "";
                 }
 
+                // Defensive cleanup: kill existing ScrollTriggers BEFORE wiping DOM elements
+                if (typeof ScrollTrigger !== "undefined") {
+                    try {
+                        ScrollTrigger.getAll().forEach(trigger => trigger.kill(true));
+                    } catch (err) {
+                        console.warn("ScrollTrigger teardown non-fatal:", err);
+                    }
+                }
+
                 // Update DOM content
                 currentContainer.innerHTML = newContainer.innerHTML;
 
@@ -868,7 +879,11 @@ function performPageSwap(url, pushToHistory = true) {
                                 onComplete: () => {
                                     gsap.set(currentContainer, { clearProps: "all" });
                                     if (typeof ScrollTrigger !== "undefined") {
-                                        ScrollTrigger.refresh(true);
+                                        try {
+                                            ScrollTrigger.refresh(true);
+                                        } catch (e) {
+                                            console.warn("ScrollTrigger refresh non-fatal:", e);
+                                        }
                                     }
                                 }
                             }
@@ -983,7 +998,11 @@ function reinitPageScripts() {
 
     // 6. Kill and re-create ScrollTrigger scroll-linked animations
     if (typeof ScrollTrigger !== "undefined") {
-        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        try {
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill(true));
+        } catch (e) {
+            console.warn("ScrollTrigger kill non-fatal:", e);
+        }
     }
 
     // Force scroll top 0 again before constructing section ScrollTriggers
@@ -1002,20 +1021,23 @@ function reinitPageScripts() {
         initTiltEffect();
     }
 
-    // 8. Re-apply all scroll triggers & text splitting for Home & Subpages
-    if (typeof initGlobalBackgroundParallax === "function") initGlobalBackgroundParallax();
-    if (typeof initHeroParallax === "function") initHeroParallax();
-    if (typeof initVideoHeroBlinds === "function") initVideoHeroBlinds();
-    if (typeof initStorytellingTransition === "function") initStorytellingTransition();
-    if (typeof init3DCardStacking === "function") init3DCardStacking();
-    if (typeof initTextSplitting === "function") initTextSplitting();
-    if (typeof initHeadingFadeAnimations === "function") initHeadingFadeAnimations();
-    if (typeof initCareersWipe === "function") initCareersWipe();
-    if (typeof initKoraComparisonScroll === "function") initKoraComparisonScroll();
-    if (typeof initGalleryHorizontal === "function") initGalleryHorizontal();
-    if (typeof init3DSpatialPortalTransitions === "function") init3DSpatialPortalTransitions();
-    if (typeof initStepsPinScroll === "function") initStepsPinScroll();
-    if (typeof initRibbonsMomentumHover === "function") initRibbonsMomentumHover();
+    // 8. Re-apply all scroll triggers & text splitting ONLY if on Homepage
+    const isHomePage = !!(document.getElementById("majorsSection") || document.querySelector(".home-hero-video") || document.getElementById("careers-reveal-section"));
+    if (isHomePage) {
+        if (typeof initGlobalBackgroundParallax === "function") initGlobalBackgroundParallax();
+        if (typeof initHeroParallax === "function") initHeroParallax();
+        if (typeof initVideoHeroBlinds === "function") initVideoHeroBlinds();
+        if (typeof initStorytellingTransition === "function") initStorytellingTransition();
+        if (typeof init3DCardStacking === "function") init3DCardStacking();
+        if (typeof initTextSplitting === "function") initTextSplitting();
+        if (typeof initHeadingFadeAnimations === "function") initHeadingFadeAnimations();
+        if (typeof initCareersWipe === "function") initCareersWipe();
+        if (typeof initKoraComparisonScroll === "function") initKoraComparisonScroll();
+        if (typeof initGalleryHorizontal === "function") initGalleryHorizontal();
+        if (typeof init3DSpatialPortalTransitions === "function") init3DSpatialPortalTransitions();
+        if (typeof initStepsPinScroll === "function") initStepsPinScroll();
+        if (typeof initRibbonsMomentumHover === "function") initRibbonsMomentumHover();
+    }
 
     // 9. Re-initialize subpage sections strictly in top-to-bottom DOM hierarchy order
     // Section 1: Hero Section

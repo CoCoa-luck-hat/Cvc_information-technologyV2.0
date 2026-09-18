@@ -1,4 +1,8 @@
 <?php
+if (!defined('INDEX_LOADED')) {
+    header("Location: ../index.php?click=c_all", true, 301);
+    exit;
+}
 // Master Architecture Journal Gallery - Information Technology Department (CVC)
 // Ultra-Premium Visual-First Dynamic Multi-Column Flex Masonry with Load More & Mobile Scroll Arrows
 $targetRoom = isset($_GET['target']) ? trim($_GET['target']) : '';
@@ -12,48 +16,48 @@ if (empty($targetRoom) && isset($_GET['click'])) {
 // Curated Architecture Photo Database
 $galleryItems = [
     // ROOM 241 (Building 2, Floor 4)
-    [ "src" => "03_photo/3.4_room/5.3.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "มุมมองกว้างห้องปฏิบัติการระบบเครือข่าย & ฮาร์ดแวร์ 241" ],
-    [ "src" => "03_photo/3.4_room/5.0.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "โต๊ะปฏิบัติการระบบเครือข่ายและเครื่องคอมพิวเตอร์" ],
-    [ "src" => "03_photo/3.4_room/5.1.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "สถานีทดลองและฝึกปฏิบัติการติดตั้งระบบ" ],
-    [ "src" => "03_photo/3.4_room/5.2.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "มุมจอภาพแสดงผลและอุปกรณ์เซิร์ฟเวอร์" ],
-    [ "src" => "03_photo/3.4_room/5.4.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "บรรยากาศห้องเรียนและการจัดวางพื้นที่การสอน" ],
-    [ "src" => "03_photo/3.4_room/room-241-2.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "ภาพรวมอุปกรณ์ฮาร์ดแวร์และการเชื่อมต่อระบบ" ],
-    [ "src" => "03_photo/3.4_room/อาคาร2.jpg", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2", "roomLabel" => "อาคารเฉลิมพระเกียรติ", "caption" => "ทัศนียภาพภายนอก อาคาร 2 (อาคารเฉลิมพระเกียรติ)" ],
+    [ "src" => "03_photo/3.4_room/room_241_04.webp", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "มุมมองกว้างห้องปฏิบัติการระบบเครือข่าย & ฮาร์ดแวร์ 241" ],
+    [ "src" => "03_photo/3.4_room/room_241_01.webp", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "โต๊ะปฏิบัติการระบบเครือข่ายและเครื่องคอมพิวเตอร์" ],
+    [ "src" => "03_photo/3.4_room/room_241_02.webp", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "สถานีทดลองและฝึกปฏิบัติการติดตั้งระบบ" ],
+    [ "src" => "03_photo/3.4_room/room_241_03.webp", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "มุมจอภาพแสดงผลและอุปกรณ์เซิร์ฟเวอร์" ],
+    [ "src" => "03_photo/3.4_room/room_241_05.webp", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "บรรยากาศห้องเรียนและการจัดวางพื้นที่การสอน" ],
+    [ "src" => "03_photo/3.4_room/room_241_06.webp", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 241", "caption" => "ภาพรวมอุปกรณ์ฮาร์ดแวร์และการเชื่อมต่อระบบ" ],
+    [ "src" => "03_photo/3.4_room/building_2.webp", "room" => "241", "building" => "b2", "buildingLabel" => "อาคาร 2", "roomLabel" => "อาคารเฉลิมพระเกียรติ", "caption" => "ทัศนียภาพภายนอก อาคาร 2 (อาคารเฉลิมพระเกียรติ)" ],
 
     // ROOM 242 (Building 2, Floor 4)
-    [ "src" => "03_photo/3.4_room/1.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "บรรยากาศการเรียนพัฒนาซอฟต์แวร์และเขียนโค้ด" ],
-    [ "src" => "03_photo/3.4_room/2.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "สถานีคอมพิวเตอร์สำหรับฝึกปฏิบัติการโปรแกรมมิ่ง" ],
-    [ "src" => "03_photo/3.4_room/3.0.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "หน้าจอการพัฒนาเว็บแอปพลิเคชันและทดสอบระบบ" ],
-    [ "src" => "03_photo/3.4_room/4.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "การพัฒนาโปรเจกต์โครงงานซอฟต์แวร์ของนักศึกษา" ],
-    [ "src" => "03_photo/3.4_room/7.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "มุมมองโต๊ะผู้เรียนพร้อมจอคู่สำหรับการเขียนโค้ด" ],
-    [ "src" => "03_photo/3.4_room/8.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "บรรยากาศการเรียนรู้และการทำกิจกรรมกลุ่มร่วมกัน" ],
-    [ "src" => "03_photo/3.4_room/9.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "การทดสอบและ Deploy แอปพลิเคชัน" ],
-    [ "src" => "03_photo/3.4_room/10.jpg", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "มุมควบคุมสื่อการสอนของอาจารย์ผู้สอน" ],
+    [ "src" => "03_photo/3.4_room/room_242_01.webp", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "บรรยากาศการเรียนพัฒนาซอฟต์แวร์และเขียนโค้ด" ],
+    [ "src" => "03_photo/3.4_room/room_242_02.webp", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "สถานีคอมพิวเตอร์สำหรับฝึกปฏิบัติการโปรแกรมมิ่ง" ],
+    [ "src" => "03_photo/3.4_room/room_242_03.webp", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "หน้าจอการพัฒนาเว็บแอปพลิเคชันและทดสอบระบบ" ],
+    [ "src" => "03_photo/3.4_room/room_242_04.webp", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "การพัฒนาโปรเจกต์โครงงานซอฟต์แวร์ของนักศึกษา" ],
+    [ "src" => "03_photo/3.4_room/room_242_05.webp", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "มุมมองโต๊ะผู้เรียนพร้อมจอคู่สำหรับการเขียนโค้ด" ],
+    [ "src" => "03_photo/3.4_room/room_242_06.webp", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "บรรยากาศการเรียนรู้และการทำกิจกรรมกลุ่มร่วมกัน" ],
+    [ "src" => "03_photo/3.4_room/room_242_07.webp", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "การทดสอบและ Deploy แอปพลิเคชัน" ],
+    [ "src" => "03_photo/3.4_room/room_242_08.webp", "room" => "242", "building" => "b2", "buildingLabel" => "อาคาร 2 (ชั้น 4)", "roomLabel" => "ห้อง 242", "caption" => "มุมควบคุมสื่อการสอนของอาจารย์ผู้สอน" ],
 
     // ROOM 653 (Building 6, Floor 5)
-    [ "src" => "03_photo/3.4_room/653-1.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "สตูดิโอมัลติมีเดีย, 3D แอนิเมชัน & ออกแบบเกม" ],
-    [ "src" => "03_photo/3.4_room/653-2.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "สถานีคอมพิวเตอร์กราฟิกประสิทธิภาพสูง Dedicated GPU" ],
-    [ "src" => "03_photo/3.4_room/653-3.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "มุมตัดต่อวิดีโอความละเอียดสูงและทำแอนิเมชัน" ],
-    [ "src" => "03_photo/3.4_room/653-4.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "การออกแบบโมเดล 3 มิติและจัดแสงด้วย Blender" ],
-    [ "src" => "03_photo/3.4_room/653-5.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "อุปกรณ์และจอภาพแสดงผลสีกราฟิกมาตรฐาน" ],
-    [ "src" => "03_photo/3.4_room/653-6.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "การเรียนรู้การพัฒนาเกมด้วย Unity Engine" ],
-    [ "src" => "03_photo/3.4_room/653-7.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "การเรนเดอร์ผลงานสร้างสรรค์ 3D Animation" ],
-    [ "src" => "03_photo/3.4_room/653-8.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "ภาพรวมห้องปฏิบัติการมัลติมีเดีย 653" ],
-    [ "src" => "03_photo/3.4_room/room-653-1.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "โต๊ะทำงานแบบสตูดิโอสร้างสรรค์ดิจิทัลมีเดีย" ],
-    [ "src" => "03_photo/3.4_room/room-653-2.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "มุมมองกว้างสตูดิโอห้อง 653" ],
-    [ "src" => "03_photo/3.4_room/อาคาร6.jpg", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6", "roomLabel" => "อาคารปฏิบัติการวิชาชีพ", "caption" => "ทัศนียภาพภายนอก อาคาร 6 (อาคารปฏิบัติการวิชาชีพ)" ],
+    [ "src" => "03_photo/3.4_room/room_653_01.webp", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "สตูดิโอมัลติมีเดีย, 3D แอนิเมชัน & ออกแบบเกม" ],
+    [ "src" => "03_photo/3.4_room/room_653_02.webp", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "สถานีคอมพิวเตอร์กราฟิกประสิทธิภาพสูง Dedicated GPU" ],
+    [ "src" => "03_photo/3.4_room/room_653_03.webp", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "มุมตัดต่อวิดีโอความละเอียดสูงและทำแอนิเมชัน" ],
+    [ "src" => "03_photo/3.4_room/room_653_04.webp", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "การออกแบบโมเดล 3 มิติและจัดแสงด้วย Blender" ],
+    [ "src" => "03_photo/3.4_room/room_653_05.webp", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "อุปกรณ์และจอภาพแสดงผลสีกราฟิกมาตรฐาน" ],
+    [ "src" => "03_photo/3.4_room/room_653_06.webp", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "การเรียนรู้การพัฒนาเกมด้วย Unity Engine" ],
+    [ "src" => "03_photo/3.4_room/room_653_07.webp", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "การเรนเดอร์ผลงานสร้างสรรค์ 3D Animation" ],
+    [ "src" => "03_photo/3.4_room/room_653_08.webp", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "ภาพรวมห้องปฏิบัติการมัลติมีเดีย 653" ],
+    [ "src" => "03_photo/3.4_room/room_653_09.webp", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "โต๊ะทำงานแบบสตูดิโอสร้างสรรค์ดิจิทัลมีเดีย" ],
+    [ "src" => "03_photo/3.4_room/room_653_10.webp", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 653", "caption" => "มุมมองกว้างสตูดิโอห้อง 653" ],
+    [ "src" => "03_photo/3.4_room/building_6.webp", "room" => "653", "building" => "b6", "buildingLabel" => "อาคาร 6", "roomLabel" => "อาคารปฏิบัติการวิชาชีพ", "caption" => "ทัศนียภาพภายนอก อาคาร 6 (อาคารปฏิบัติการวิชาชีพ)" ],
 
     // ROOM 654 (Building 6, Floor 5)
-    [ "src" => "03_photo/3.4_room/IMG_2958.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "ห้องปฏิบัติการ AI, Data Science & นวัตกรรมดิจิทัล 654" ],
-    [ "src" => "03_photo/3.4_room/IMG_2963.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "สถานีประมวลผลข้อมูลและจำลองโมเดล Machine Learning" ],
-    [ "src" => "03_photo/3.4_room/IMG_2965.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "จอภาพและเครื่องมือวิเคราะห์ข้อมูลเชิงลึก (Data Analytics)" ],
-    [ "src" => "03_photo/3.4_room/IMG_2966.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "มุมทำงานกลุ่มและระดมความคิดสร้างสรรค์นวัตกรรม" ],
-    [ "src" => "03_photo/3.4_room/IMG_2968.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "อุปกรณ์ทดสอบโมเดล AI และชุดเซนเซอร์" ],
-    [ "src" => "03_photo/3.4_room/IMG_2969.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "โต๊ะปฏิบัติการนวัตกรรมเทคโนโลยีสารสนเทศ" ],
-    [ "src" => "03_photo/3.4_room/IMG_2973.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "การเรียนรู้ Deep Learning และ Computer Vision" ],
-    [ "src" => "03_photo/3.4_room/IMG_2978.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "บรรยากาศห้องปฏิบัติการนวัตกรรม 654" ],
-    [ "src" => "03_photo/3.4_room/IMG_2990.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "สถานีออกแบบ UI/UX และพัฒนา Prototype" ],
-    [ "src" => "03_photo/3.4_room/IMG_2992.jpg", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "มุมมองสตูดิโอดิจิทัลอินโนเวชัน 654" ]
+    [ "src" => "03_photo/3.4_room/room_654_01.webp", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "ห้องปฏิบัติการ AI, Data Science & นวัตกรรมดิจิทัล 654" ],
+    [ "src" => "03_photo/3.4_room/room_654_02.webp", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "สถานีประมวลผลข้อมูลและจำลองโมเดล Machine Learning" ],
+    [ "src" => "03_photo/3.4_room/room_654_03.webp", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "จอภาพและเครื่องมือวิเคราะห์ข้อมูลเชิงลึก (Data Analytics)" ],
+    [ "src" => "03_photo/3.4_room/room_654_04.webp", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "มุมทำงานกลุ่มและระดมความคิดสร้างสรรค์นวัตกรรม" ],
+    [ "src" => "03_photo/3.4_room/room_654_05.webp", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "อุปกรณ์ทดสอบโมเดล AI และชุดเซนเซอร์" ],
+    [ "src" => "03_photo/3.4_room/room_654_06.webp", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "โต๊ะปฏิบัติการนวัตกรรมเทคโนโลยีสารสนเทศ" ],
+    [ "src" => "03_photo/3.4_room/room_654_07.webp", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "การเรียนรู้ Deep Learning และ Computer Vision" ],
+    [ "src" => "03_photo/3.4_room/room_654_08.webp", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "บรรยากาศห้องปฏิบัติการนวัตกรรม 654" ],
+    [ "src" => "03_photo/3.4_room/room_654_09.webp", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "สถานีออกแบบ UI/UX และพัฒนา Prototype" ],
+    [ "src" => "03_photo/3.4_room/room_654_10.webp", "room" => "654", "building" => "b6", "buildingLabel" => "อาคาร 6 (ชั้น 5)", "roomLabel" => "ห้อง 654", "caption" => "มุมมองสตูดิโอดิจิทัลอินโนเวชัน 654" ]
 ];
 
 $totalCount = count($galleryItems);
@@ -123,7 +127,7 @@ $initialLimit = 12;
             <div class="maj-masonry-col" id="maj-col-0">
                 <?php for ($idx = 0; $idx < min($initialLimit, $totalCount); $idx++): if ($idx % 3 === 0): $item = $galleryItems[$idx]; ?>
                     <figure class="maj-photo-tile" onclick="openCinematicLightbox(<?= $idx ?>)" data-idx="<?= $idx ?>" data-room="<?= htmlspecialchars($item['room']) ?>" data-building="<?= htmlspecialchars($item['building']) ?>">
-                        <img src="<?= htmlspecialchars($item['src']) ?>" alt="<?= htmlspecialchars($item['caption']) ?>" class="maj-tile-img" loading="eager">
+                        <img src="<?= htmlspecialchars($item['src']) ?>" alt="<?= htmlspecialchars($item['caption']) ?>" class="maj-tile-img" loading="lazy" decoding="async">
                         <div class="maj-hover-scrim">
                             <div class="maj-hover-top-badges">
                                 <span class="maj-badge-building-tag"><i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($item['buildingLabel']) ?></span>
@@ -140,7 +144,7 @@ $initialLimit = 12;
             <div class="maj-masonry-col" id="maj-col-1">
                 <?php for ($idx = 0; $idx < min($initialLimit, $totalCount); $idx++): if ($idx % 3 === 1): $item = $galleryItems[$idx]; ?>
                     <figure class="maj-photo-tile" onclick="openCinematicLightbox(<?= $idx ?>)" data-idx="<?= $idx ?>" data-room="<?= htmlspecialchars($item['room']) ?>" data-building="<?= htmlspecialchars($item['building']) ?>">
-                        <img src="<?= htmlspecialchars($item['src']) ?>" alt="<?= htmlspecialchars($item['caption']) ?>" class="maj-tile-img" loading="eager">
+                        <img src="<?= htmlspecialchars($item['src']) ?>" alt="<?= htmlspecialchars($item['caption']) ?>" class="maj-tile-img" loading="lazy" decoding="async">
                         <div class="maj-hover-scrim">
                             <div class="maj-hover-top-badges">
                                 <span class="maj-badge-building-tag"><i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($item['buildingLabel']) ?></span>
@@ -157,7 +161,7 @@ $initialLimit = 12;
             <div class="maj-masonry-col" id="maj-col-2">
                 <?php for ($idx = 0; $idx < min($initialLimit, $totalCount); $idx++): if ($idx % 3 === 2): $item = $galleryItems[$idx]; ?>
                     <figure class="maj-photo-tile" onclick="openCinematicLightbox(<?= $idx ?>)" data-idx="<?= $idx ?>" data-room="<?= htmlspecialchars($item['room']) ?>" data-building="<?= htmlspecialchars($item['building']) ?>">
-                        <img src="<?= htmlspecialchars($item['src']) ?>" alt="<?= htmlspecialchars($item['caption']) ?>" class="maj-tile-img" loading="eager">
+                        <img src="<?= htmlspecialchars($item['src']) ?>" alt="<?= htmlspecialchars($item['caption']) ?>" class="maj-tile-img" loading="lazy" decoding="async">
                         <div class="maj-hover-scrim">
                             <div class="maj-hover-top-badges">
                                 <span class="maj-badge-building-tag"><i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($item['buildingLabel']) ?></span>
