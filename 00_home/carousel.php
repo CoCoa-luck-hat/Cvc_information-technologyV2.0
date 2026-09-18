@@ -3,14 +3,39 @@
     <!-- Sticky Viewport Wrapper -->
     <div class="sticky-viewport">
         
-        <!-- Autoplay Video Background (Optimized Preload) -->
+        <!-- Autoplay Video Background (Smart Deferred Loading for Fast Mobile & Slow Internet) -->
         <div class="home-hero-container">
-            <video class="home-hero-video" autoplay muted playsinline webkit-playsinline loop preload="metadata" poster="02_design/banner-1.webp" aria-label="วิดีโอนำเสนอแผนกวิชาเทคโนโลยีสารสนเทศ วิทยาลัยอาชีวศึกษาเชียงราย">
-                <source src="02_design/Hero.mp4" type="video/mp4">
+            <video class="home-hero-video" muted playsinline webkit-playsinline loop preload="none" poster="02_design/banner-1.webp" aria-label="วิดีโอนำเสนอแผนกวิชาเทคโนโลยีสารสนเทศ วิทยาลัยอาชีวศึกษาเชียงราย">
+                <source data-src="02_design/Hero.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <div class="home-hero-overlay"></div>
         </div>
+        <script>
+        (function() {
+            var isDesktop = window.innerWidth >= 768;
+            var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            var isDataSaver = conn && (conn.saveData || conn.effectiveType === '2g' || conn.effectiveType === 'slow-2g');
+            if (isDesktop && !isDataSaver) {
+                var startVideo = function() {
+                    var vid = document.querySelector('.home-hero-video');
+                    if (!vid) return;
+                    var src = vid.querySelector('source[data-src]');
+                    if (src && !src.src) {
+                        src.src = src.getAttribute('data-src');
+                        vid.load();
+                        var p = vid.play();
+                        if (p !== undefined) p.catch(function() {});
+                    }
+                };
+                if ('requestIdleCallback' in window) {
+                    requestIdleCallback(function() { setTimeout(startVideo, 600); }, { timeout: 3500 });
+                } else {
+                    setTimeout(startVideo, 1000);
+                }
+            }
+        })();
+        </script>
         
         <!-- Content Container on Top of Video -->
         <div class="home-hero-content" id="heroContentGroup">

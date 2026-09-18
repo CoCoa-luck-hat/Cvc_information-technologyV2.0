@@ -189,7 +189,7 @@ $totalCount = count($graduates);
 ?>
 
 <!-- Modular Stylesheet -->
-<link rel="stylesheet" href="include/css/modules/graduate.css?v=<?= time() ?>">
+<link rel="stylesheet" href="include/css/modules/graduate.css?v=<?= function_exists('asset_v') ? asset_v('include/css/modules/graduate.css') : '2.0.0' ?>">
 
 <!-- MAIN SPLIT-SCREEN GRADUATE STUDIO COMPONENT -->
 <section id="split-graduate-studio">
@@ -326,4 +326,4 @@ $totalCount = count($graduates);
 <script>
     window.__GRADUATES_DATA__ = <?= json_encode($graduates, JSON_UNESCAPED_UNICODE) ?>;
 </script>
-<script src="include/js/modules/graduate.js?v=<?= time() ?>"></script>
+<script src="include/js/modules/graduate.js?v=<?= function_exists('asset_v') ? asset_v('include/js/modules/graduate.js') : '2.0.0' ?>"></script>

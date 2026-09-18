@@ -177,10 +177,38 @@
 </div>
 
 <script>
+(function() {
+    var overlay = document.getElementById('preloader-overlay');
+    if (!overlay) return;
+
+    // 1. Instant Session Bypass if already viewed in this browser tab
     try {
         if (sessionStorage.getItem('cvc_it_preloader_shown') === 'true') {
-            var _po = document.getElementById('preloader-overlay');
-            if (_po) _po.style.display = 'none';
+            overlay.style.display = 'none';
+            if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+            document.body.style.overflow = '';
+            return;
         }
     } catch(e) {}
+
+    // 2. HARD GUARANTEE TIMEOUT FOR SLOW CONNECTIONS
+    // If user is on 2G/Slow connection or Data Saver, dismiss in 300ms. Normal max 1.1s.
+    var forceDismiss = function() {
+        var el = document.getElementById('preloader-overlay');
+        if (!el || el.dataset.dismissed) return;
+        el.dataset.dismissed = 'true';
+        try { sessionStorage.setItem('cvc_it_preloader_shown', 'true'); } catch(e) {}
+        el.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
+        el.style.opacity = '0';
+        document.body.style.overflow = '';
+        setTimeout(function() {
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+        }, 320);
+    };
+
+    var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    var isSlow = conn && (conn.saveData || conn.effectiveType === '2g' || conn.effectiveType === 'slow-2g');
+    var maxWait = isSlow ? 300 : 1100;
+    window.__cvcPreloadFallbackTimer = setTimeout(forceDismiss, maxWait);
+})();
 </script>

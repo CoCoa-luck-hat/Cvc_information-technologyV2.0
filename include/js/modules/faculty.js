@@ -159,6 +159,40 @@
 
         if (!stageContainer || !mainPortrait) return;
 
+        // Reset to clean initial state (Teacher 0 - ครูเหน่ง)
+        isBioMode = false;
+        activeIdx = 0;
+        isTransitioning = false;
+
+        if (typeof gsap !== 'undefined') {
+            gsap.killTweensOf([leftFlank, rightFlank, bottomRail, portraitBox, backdropName, mainPortrait]);
+        }
+
+        if (bioPanel) bioPanel.style.display = "none";
+        if (btnBackShowcase) btnBackShowcase.style.display = "none";
+        if (leftFlank) {
+            leftFlank.style.visibility = "visible";
+            leftFlank.style.pointerEvents = "auto";
+            if (typeof gsap !== 'undefined') gsap.set(leftFlank, { opacity: 1, y: 0 });
+        }
+        if (rightFlank) {
+            rightFlank.style.visibility = "visible";
+            rightFlank.style.pointerEvents = "auto";
+            if (typeof gsap !== 'undefined') gsap.set(rightFlank, { opacity: 1, y: 0 });
+        }
+        if (bottomRail) {
+            bottomRail.style.visibility = "visible";
+            bottomRail.style.pointerEvents = "auto";
+            if (typeof gsap !== 'undefined') gsap.set(bottomRail, { opacity: 1, y: 0 });
+        }
+        if (stageContainer) stageContainer.classList.remove("bio-mode-mobile");
+        if (mainPortrait && typeof gsap !== 'undefined') gsap.set(mainPortrait, { opacity: 1, scale: 1, x: 0, y: 0 });
+        if (backdropName && typeof gsap !== 'undefined') gsap.set(backdropName, { opacity: 1, x: 0, y: 0 });
+
+        thumbButtons.forEach((btn, i) => {
+            btn.classList.toggle("active", i === 0);
+        });
+
         // Switch Teacher Slide Function
         function goToSlide(targetIdx, direction = 1, isAuto = false) {
             if (isBioMode) return;

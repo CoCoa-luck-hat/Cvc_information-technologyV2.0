@@ -35,8 +35,6 @@ if (!defined('INDEX_LOADED')) {
 
 <!-- HERO SECTION SCOPED STYLES -->
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800&display=swap');
-
 :root {
     --pvs-white: #FFFFFF;
     --pvs-black: #0A0A0B;

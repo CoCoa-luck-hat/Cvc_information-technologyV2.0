@@ -599,17 +599,24 @@ function triggerHeroReveal() {
             { scale: 1.0, duration: 1.4, ease: "power3.out" }
         );
 
-        const playPromise = heroVideo.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(() => {
-                const touchWake = () => {
-                    heroVideo.play().catch(() => {});
-                    window.removeEventListener("touchstart", touchWake);
-                    window.removeEventListener("pointerdown", touchWake);
-                };
-                window.addEventListener("touchstart", touchWake, { passive: true });
-                window.addEventListener("pointerdown", touchWake, { passive: true });
-            });
+        const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const isSlow = conn && (conn.saveData || conn.effectiveType === '2g' || conn.effectiveType === 'slow-2g');
+        const isDesktop = window.innerWidth >= 768;
+        const vidSrc = heroVideo.querySelector('source[src]');
+
+        if (!isSlow && isDesktop && vidSrc) {
+            const playPromise = heroVideo.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    const touchWake = () => {
+                        heroVideo.play().catch(() => {});
+                        window.removeEventListener("touchstart", touchWake);
+                        window.removeEventListener("pointerdown", touchWake);
+                    };
+                    window.addEventListener("touchstart", touchWake, { passive: true });
+                    window.addEventListener("pointerdown", touchWake, { passive: true });
+                });
+            }
         }
     }
 
@@ -719,11 +726,24 @@ function initMagneticElements() {
 }
 
 /**
- * PJAX Custom Page Transition
+ * Helper to update the top page progress bar
+ */
+function setPageProgress(percent, opacity = 1) {
+    const bar = document.getElementById("page-progress-bar");
+    if (!bar) return;
+    bar.style.opacity = opacity;
+    bar.style.width = percent + "%";
+}
+
+let isPageTransitioning = false;
+
+/**
+ * PJAX Custom Page Transition (Network-Adaptive with Top Progress Bar & 3.5s Safety Abort)
  */
 function initPageTransitions() {
     // Ensure blinds overlay is reset on init
     resetCinematicBlinds();
+    setPageProgress(0, 0);
 
     document.addEventListener("click", (e) => {
         const link = e.target.closest("a");
@@ -755,30 +775,50 @@ function initPageTransitions() {
             if (url.startsWith("http://") || url.startsWith("https://")) return;
         }
 
-        // Valid internal link: trigger page transition
+        // Prevent duplicate transition triggers
+        if (isPageTransitioning) return;
+
+        // Valid internal link: trigger non-blocking page transition
         e.preventDefault();
 
-        // Trigger Cinematic Dark Blinds Out transition
-        triggerCinematicBlindsOut(() => {
-            performPageSwap(url);
-        });
+        // Perform parallel fetch with top progress bar
+        performPageSwap(url);
     });
 
     // Handle browser back/forward buttons
     window.addEventListener("popstate", () => {
-        triggerCinematicBlindsOut(() => {
-            performPageSwap(window.location.href, false);
-        });
+        if (isPageTransitioning) return;
+        performPageSwap(window.location.href, false);
     });
 }
 
 /**
- * Fetch HTML of the new page and swap dynamic contents
+ * Fetch HTML in background, show top progress bar, and only trigger snappy blind reveal when ready
  */
 function performPageSwap(url, pushToHistory = true) {
-    fetch(url)
-        .then(response => response.text())
+    isPageTransitioning = true;
+
+    // 1. Immediately show top progress bar
+    setPageProgress(25, 1);
+    const progressTimer = setTimeout(() => {
+        setPageProgress(65, 1);
+    }, 350);
+
+    // 2. AbortController with 3.5s timeout for slow connections
+    const controller = new AbortController();
+    const abortTimeout = setTimeout(() => {
+        controller.abort();
+    }, 3500);
+
+    fetch(url, { signal: controller.signal })
+        .then(response => {
+            clearTimeout(progressTimer);
+            clearTimeout(abortTimeout);
+            if (!response.ok) throw new Error("HTTP " + response.status);
+            return response.text();
+        })
         .then(html => {
+            setPageProgress(95, 1);
             const parser = new DOMParser();
             const newDoc = parser.parseFromString(html, "text/html");
 
@@ -786,111 +826,136 @@ function performPageSwap(url, pushToHistory = true) {
             const currentContainer = document.getElementById("swup-container");
 
             if (newContainer && currentContainer) {
-                // Defensively close mobile navigation overlay
-                const mobileNav = document.getElementById("mobileNavOverlay");
-                if (mobileNav) {
-                    mobileNav.classList.remove("mobile-menu-active");
-                    document.body.style.overflow = "";
-                }
+                // Trigger snappy blinds close now that content is ready
+                triggerCinematicBlindsOut(() => {
+                    setPageProgress(100, 1);
 
-                // Defensive cleanup: kill existing ScrollTriggers BEFORE wiping DOM elements
-                if (typeof ScrollTrigger !== "undefined") {
-                    try {
-                        ScrollTrigger.getAll().forEach(trigger => trigger.kill(true));
-                    } catch (err) {
-                        console.warn("ScrollTrigger teardown non-fatal:", err);
+                    // Defensively close mobile navigation overlay
+                    const mobileNav = document.getElementById("mobileNavOverlay");
+                    if (mobileNav) {
+                        mobileNav.classList.remove("mobile-menu-active");
+                        document.body.style.overflow = "";
                     }
-                }
 
-                // Update DOM content
-                currentContainer.innerHTML = newContainer.innerHTML;
-
-                // Execute inline & external scripts inside swapped container
-                executeContainerScripts(currentContainer);
-
-                // Update page metadata
-                document.title = newDoc.title;
-
-                // Update navbar active states by copying over class names from navbar items
-                const currentNavbar = document.getElementById("navbarCollapse");
-                const newNavbar = newDoc.getElementById("navbarCollapse");
-                if (currentNavbar && newNavbar) {
-                    currentNavbar.innerHTML = newNavbar.innerHTML;
-                    // Re-bind mobile menu toggle since navbar HTML was overwritten
-                    const mobileBtn = document.getElementById('mobileMenuToggle');
-                    const collapseMenu = document.getElementById('navbarCollapse');
-                    if (mobileBtn && collapseMenu) {
-                        mobileBtn.addEventListener('click', () => {
-                            collapseMenu.classList.toggle('hidden');
-                            collapseMenu.classList.toggle('flex');
-                        });
+                    // Defensive cleanup: kill existing ScrollTriggers BEFORE wiping DOM elements
+                    if (typeof ScrollTrigger !== "undefined") {
+                        try {
+                            ScrollTrigger.getAll().forEach(trigger => trigger.kill(true));
+                        } catch (err) {
+                            console.warn("ScrollTrigger teardown non-fatal:", err);
+                        }
                     }
-                }
 
-                // Push history state if requested
-                if (pushToHistory) {
-                    history.pushState(null, "", url);
-                }
-
-                // Force immediate synchronous scroll reset to top
-                window.scrollTo(0, 0);
-                document.documentElement.scrollTop = 0;
-                document.body.scrollTop = 0;
-                if (typeof window.lenis !== "undefined" && window.lenis) {
-                    window.lenis.scroll = 0;
-                    if (typeof window.lenis.scrollTo === "function") {
-                        window.lenis.scrollTo(0, { immediate: true });
-                    }
-                }
-
-                // Pre-decode critical images in the new container before opening blinds
-                const newImages = Array.from(currentContainer.querySelectorAll("img"));
-                const imagePromises = newImages.slice(0, 10).map(img => {
-                    if (img.complete && img.naturalWidth !== 0) return Promise.resolve();
-                    if (typeof img.decode === 'function') return img.decode().catch(() => {});
-                    return new Promise(resolve => {
-                        img.addEventListener('load', resolve, { once: true });
-                        img.addEventListener('error', resolve, { once: true });
+                    // Ensure any new stylesheet links in incoming page exist in document.head
+                    const newLinks = Array.from(newDoc.querySelectorAll('link[rel="stylesheet"]'));
+                    newLinks.forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href && !document.querySelector(`link[href="${href}"]`)) {
+                            const newLink = document.createElement('link');
+                            newLink.rel = 'stylesheet';
+                            newLink.href = href;
+                            document.head.appendChild(newLink);
+                        }
                     });
-                });
 
-                // Wait for images to be decoded (with safety max 650ms timeout) then reveal cleanly
-                Promise.race([
-                    Promise.all(imagePromises),
-                    new Promise(resolve => setTimeout(resolve, 650))
-                ]).then(() => {
-                    requestAnimationFrame(() => {
-                        window.scrollTo(0, 0);
-                        if (typeof window.lenis !== "undefined" && window.lenis && typeof window.lenis.scrollTo === "function") {
+                    // Update DOM content
+                    currentContainer.innerHTML = newContainer.innerHTML;
+
+                    // Execute inline & external scripts inside swapped container
+                    executeContainerScripts(currentContainer);
+
+                    // Update page metadata
+                    document.title = newDoc.title;
+
+                    // Update navbar active states by copying over class names from navbar items
+                    const currentNavbar = document.getElementById("navbarCollapse");
+                    const newNavbar = newDoc.getElementById("navbarCollapse");
+                    if (currentNavbar && newNavbar) {
+                        currentNavbar.innerHTML = newNavbar.innerHTML;
+                        // Re-bind mobile menu toggle since navbar HTML was overwritten
+                        const mobileBtn = document.getElementById('mobileMenuToggle');
+                        const collapseMenu = document.getElementById('navbarCollapse');
+                        if (mobileBtn && collapseMenu) {
+                            mobileBtn.addEventListener('click', () => {
+                                collapseMenu.classList.toggle('hidden');
+                                collapseMenu.classList.toggle('flex');
+                            });
+                        }
+                    }
+
+                    // Push history state if requested
+                    if (pushToHistory) {
+                        history.pushState(null, "", url);
+                    }
+
+                    // Force immediate synchronous scroll reset to top
+                    window.scrollTo(0, 0);
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
+                    if (typeof window.lenis !== "undefined" && window.lenis) {
+                        window.lenis.scroll = 0;
+                        if (typeof window.lenis.scrollTo === "function") {
                             window.lenis.scrollTo(0, { immediate: true });
                         }
+                    }
 
-                        // Re-initialize page scripts
-                        reinitPageScripts();
+                    // Pre-decode critical images in the new container with a tight 250ms race cap
+                    const newImages = Array.from(currentContainer.querySelectorAll("img"));
+                    const imagePromises = newImages.slice(0, 8).map(img => {
+                        if (img.complete && img.naturalWidth !== 0) return Promise.resolve();
+                        if (typeof img.decode === 'function') return img.decode().catch(() => {});
+                        return new Promise(resolve => {
+                            img.addEventListener('load', resolve, { once: true });
+                            img.addEventListener('error', resolve, { once: true });
+                        });
+                    });
 
-                        // Animate dynamic entry camera zoom & fade-in (Opacity & subtle scale only)
-                        gsap.fromTo(currentContainer,
-                            { opacity: 0, scale: 0.98 },
-                            {
-                                opacity: 1,
-                                scale: 1,
-                                duration: 0.35,
-                                ease: "power3.out",
-                                onComplete: () => {
-                                    gsap.set(currentContainer, { clearProps: "all" });
-                                    if (typeof ScrollTrigger !== "undefined") {
-                                        try {
-                                            ScrollTrigger.refresh(true);
-                                        } catch (e) {
-                                            console.warn("ScrollTrigger refresh non-fatal:", e);
+                    Promise.race([
+                        Promise.all(imagePromises),
+                        new Promise(resolve => setTimeout(resolve, 250))
+                    ]).then(() => {
+                        requestAnimationFrame(() => {
+                            window.scrollTo(0, 0);
+                            if (typeof window.lenis !== "undefined" && window.lenis && typeof window.lenis.scrollTo === "function") {
+                                window.lenis.scrollTo(0, { immediate: true });
+                            }
+
+                            // Re-initialize page scripts
+                            reinitPageScripts();
+
+                            // Animate dynamic entry camera zoom & fade-in (Opacity & subtle scale only)
+                            gsap.fromTo(currentContainer,
+                                { opacity: 0, scale: 0.98 },
+                                {
+                                    opacity: 1,
+                                    scale: 1,
+                                    duration: 0.3,
+                                    ease: "power3.out",
+                                    onComplete: () => {
+                                        gsap.set(currentContainer, { clearProps: "all" });
+                                        if (typeof ScrollTrigger !== "undefined") {
+                                            try {
+                                                ScrollTrigger.refresh(true);
+                                            } catch (e) {
+                                                console.warn("ScrollTrigger refresh non-fatal:", e);
+                                            }
                                         }
                                     }
                                 }
-                            }
-                        );
+                            );
 
-                        // Trigger Cinematic Dark Blinds In transition (Reveal page)
-                        triggerCinematicBlindsIn();
+                            // Trigger Cinematic Dark Blinds In transition (Reveal page)
+                            triggerCinematicBlindsIn();
+
+                            // Fade out progress bar smoothly
+                            setTimeout(() => {
+                                setPageProgress(100, 0);
+                                setTimeout(() => {
+                                    setPageProgress(0, 0);
+                                    isPageTransitioning = false;
+                                }, 250);
+                            }, 200);
+                        });
                     });
                 });
             } else {
@@ -900,8 +965,12 @@ function performPageSwap(url, pushToHistory = true) {
             }
         })
         .catch(err => {
-            console.error("PJAX load error: ", err);
+            console.warn("PJAX timeout or error, falling back to native navigation:", err);
+            clearTimeout(progressTimer);
+            clearTimeout(abortTimeout);
+            setPageProgress(100, 0);
             resetCinematicBlinds();
+            isPageTransitioning = false;
             window.location.href = url;
         });
 }
@@ -913,19 +982,25 @@ function executeContainerScripts(container) {
     if (!container) return;
     const scripts = Array.from(container.querySelectorAll("script"));
     scripts.forEach(oldScript => {
-        const newScript = document.createElement("script");
-        Array.from(oldScript.attributes).forEach(attr => {
-            newScript.setAttribute(attr.name, attr.value);
-        });
         if (oldScript.src) {
             if (!document.querySelector(`script[src="${oldScript.src}"]`)) {
-                newScript.src = oldScript.src;
+                const newScript = document.createElement("script");
+                Array.from(oldScript.attributes).forEach(attr => {
+                    newScript.setAttribute(attr.name, attr.value);
+                });
                 document.head.appendChild(newScript);
             }
         } else {
-            newScript.textContent = oldScript.textContent;
-            document.body.appendChild(newScript);
-            document.body.removeChild(newScript);
+            try {
+                const runFn = new Function(oldScript.textContent);
+                runFn.call(window);
+            } catch (e) {
+                try {
+                    window.eval(oldScript.textContent);
+                } catch (err) {
+                    console.warn("Inline script exec non-fatal:", err);
+                }
+            }
         }
     });
 }
@@ -1059,6 +1134,26 @@ function reinitPageScripts() {
 
     // Section 5: Admission Monster Text Horizontal Scroll & Hero CTA Card
     if (typeof initMwgHLatestAndPricing === "function") initMwgHLatestAndPricing();
+
+    // Section 6: Faculty & Teachers Stage
+    if (document.getElementById("faculty-fullscreen-stage") && typeof window.initFacultyPortfolioStage === "function") {
+        window.initFacultyPortfolioStage(true);
+    }
+
+    // Section 7: Classroom & Architecture Journal Gallery
+    if (document.getElementById("maj-architecture-journal") && typeof window.initClassroomGallery === "function") {
+        window.initClassroomGallery(window.__CLASSROOM_ITEMS__, window.__CLASSROOM_TARGET_ROOM__);
+    }
+
+    // Section 8: Graduate & Alumni Archive
+    if (document.getElementById("split-graduate-studio") && typeof window.initGraduateStudio === "function") {
+        window.initGraduateStudio(window.__GRADUATES_DATA__);
+    }
+
+    // Section 9: Activities & Events Gallery
+    if (document.getElementById("evt-activity-journal") && typeof window.initEventGallery === "function") {
+        window.initEventGallery(window.__EVENT_ITEMS__);
+    }
 
     // 10. Refresh Lenis Smooth Scroll & ScrollTrigger calculations after dynamic DOM updates
     if (window.lenis && typeof window.lenis.resize === "function") {
@@ -1362,7 +1457,9 @@ function initHeadingFadeAnimations() {
                 start: "top 92%",   // Begins fading in as element enters viewport bottom
                 end: "bottom 8%",   // Finishes fading out as element leaves viewport top
                 scrub: 0.6,         // Smooth scrub matching scroll speed
-                invalidateOnRefresh: true
+                invalidateOnRefresh: true,
+                fastScrollEnd: true,
+                preventOverlaps: true
             }
         });
 
@@ -2559,3 +2656,24 @@ if (document.readyState === 'loading') {
     initMwgHLatestAndPricing();
     initMobileStepsSlider();
 }
+
+// Dynamic ScrollTrigger Recalculation for Slow Network Image Loading
+(function() {
+    let refreshTimeout = null;
+    const scheduleRefresh = () => {
+        if (typeof ScrollTrigger === 'undefined') return;
+        clearTimeout(refreshTimeout);
+        refreshTimeout = setTimeout(() => {
+            try {
+                ScrollTrigger.refresh();
+            } catch (e) {}
+        }, 180);
+    };
+
+    window.addEventListener('load', scheduleRefresh, { passive: true });
+    document.addEventListener('load', (e) => {
+        if (e.target && e.target.tagName === 'IMG') {
+            scheduleRefresh();
+        }
+    }, true);
+})();

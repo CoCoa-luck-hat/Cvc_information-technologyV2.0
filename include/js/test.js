@@ -52,9 +52,9 @@ const lenis = new Lenis({
   smoothWheel: true,
   wheelMultiplier: 1,
   syncTouch: true,
-  syncTouchLerp: 0.055,
-  touchMultiplier: 0.9,
-  touchInertiaExponent: 1.4,
+  syncTouchLerp: 0.1,
+  touchMultiplier: 1,
+  touchInertiaExponent: 1.8,
   gestureOrientation: 'vertical',
 });
 window.lenis = lenis;

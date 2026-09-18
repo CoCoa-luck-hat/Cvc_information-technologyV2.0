@@ -17,7 +17,7 @@ if (!defined('INDEX_LOADED')) {
 ?>
 
 <!-- Modular Stylesheet -->
-<link rel="stylesheet" href="include/css/modules/faculty.css?v=<?= time() ?>">
+<link rel="stylesheet" href="include/css/modules/faculty.css?v=<?= function_exists('asset_v') ? asset_v('include/css/modules/faculty.css') : '2.0.0' ?>">
 
 <!-- MAIN FULLSCREEN STAGE -->
 <div id="faculty-fullscreen-stage">
@@ -180,4 +180,4 @@ if (!defined('INDEX_LOADED')) {
 </div>
 
 <!-- Modular JavaScript Engine -->
-<script src="include/js/modules/faculty.js?v=<?= time() ?>"></script>
+<script src="include/js/modules/faculty.js?v=<?= function_exists('asset_v') ? asset_v('include/js/modules/faculty.js') : '2.0.0' ?>"></script>

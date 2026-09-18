@@ -44,7 +44,7 @@ $initialLimit = 12;
 ?>
 
 <!-- Modular Stylesheet -->
-<link rel="stylesheet" href="include/css/modules/gallery.css?v=<?= time() ?>">
+<link rel="stylesheet" href="include/css/modules/gallery.css?v=<?= function_exists('asset_v') ? asset_v('include/css/modules/gallery.css') : '2.0.0' ?>">
 
 <!-- MAIN EVENT ACTIVITY JOURNAL COMPONENT -->
 <section id="evt-activity-journal">
@@ -123,4 +123,4 @@ $initialLimit = 12;
 <script>
     window.__EVENT_ITEMS__ = <?= json_encode($eventItems, JSON_UNESCAPED_UNICODE) ?>;
 </script>
-<script src="include/js/modules/gallery.js?v=<?= time() ?>"></script>
+<script src="include/js/modules/gallery.js?v=<?= function_exists('asset_v') ? asset_v('include/js/modules/gallery.js') : '2.0.0' ?>"></script>

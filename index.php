@@ -105,22 +105,22 @@ $pageDescription = 'หลักสูตรวิชาชีพด้านเ
     <!-- Preload Critical Assets (LCP Optimization) -->
     <link rel="preload" as="image" href="02_design/banner-1.webp" fetchpriority="high">
 
-    <!-- Google Web Fonts -->
+    <!-- Google Web Fonts (Optimized essential weights for blazing-fast mobile rendering) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <!-- Icon Font Stylesheet (High-reliability CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <link href="include/css/tailwind.css?v=<?= asset_v('include/css/tailwind.css') ?>" rel="stylesheet">
 
-    <!-- GSAP Core & Plugins -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Observer.min.js"></script>
+    <!-- GSAP Core & Plugins (Local High-Speed Vendor Bundle) -->
+    <script src="include/js/vendor/gsap.min.js?v=<?= asset_v('include/js/vendor/gsap.min.js') ?>"></script>
+    <script src="include/js/vendor/ScrollTrigger.min.js?v=<?= asset_v('include/js/vendor/ScrollTrigger.min.js') ?>"></script>
+    <script src="include/js/vendor/Observer.min.js?v=<?= asset_v('include/js/vendor/Observer.min.js') ?>"></script>
     <script>
         if (typeof gsap !== 'undefined') {
             gsap.registerPlugin(ScrollTrigger, Observer);
@@ -135,10 +135,19 @@ $pageDescription = 'หลักสูตรวิชาชีพด้านเ
 
     <!-- Custom Stylesheet with Smart Caching -->
     <link rel="stylesheet" href="include/css/test.css?v=<?= asset_v('include/css/test.css') ?>">
+
+    <!-- Subpage Module Stylesheets (Pre-cached for instant 0ms FOUC-free PJAX transitions) -->
+    <link rel="stylesheet" href="include/css/modules/faculty.css?v=<?= asset_v('include/css/modules/faculty.css') ?>">
+    <link rel="stylesheet" href="include/css/modules/classroom.css?v=<?= asset_v('include/css/modules/classroom.css') ?>">
+    <link rel="stylesheet" href="include/css/modules/graduate.css?v=<?= asset_v('include/css/modules/graduate.css') ?>">
+    <link rel="stylesheet" href="include/css/modules/gallery.css?v=<?= asset_v('include/css/modules/gallery.css') ?>">
 </head>
 
 
 <body class="bg-neutral-bg text-neutral-text relative font-sans overflow-x-hidden">
+    <!-- Fast Network-Adaptive PJAX Top Loading Indicator -->
+    <div id="page-progress-bar" style="position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: #dc2626; z-index: 9999999; transition: width 0.2s cubic-bezier(0.1, 0.9, 0.2, 1), opacity 0.3s ease; pointer-events: none; opacity: 0; box-shadow: 0 0 10px #dc2626, 0 0 5px #ef4444;"></div>
+
     <!-- Cinematic Dark Tech Preloader -->
     <?php include('include/preloader.php'); ?>
 
@@ -246,19 +255,22 @@ $pageDescription = 'หลักสูตรวิชาชีพด้านเ
         <?php include('components/footer.php'); ?>
     </div>
 
-    <!-- Core JavaScript Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core JavaScript Libraries (Local High-Speed Vendor Bundle) -->
+    <script src="include/js/vendor/jquery.min.js?v=<?= asset_v('include/js/vendor/jquery.min.js') ?>"></script>
+    <script src="include/js/vendor/bootstrap.bundle.min.js?v=<?= asset_v('include/js/vendor/bootstrap.bundle.min.js') ?>"></script>
 
     <!-- Template Javascript -->
     <script src="include/js/lenis.min.js?v=<?= asset_v('include/js/lenis.min.js') ?>"></script>
     <script src="include/js/main.js?v=<?= asset_v('include/js/main.js') ?>"></script>
     <script src="include/js/test.js?v=<?= asset_v('include/js/test.js') ?>"></script>
+    <!-- Subpage Interactive Modules -->
+    <script src="include/js/modules/faculty.js?v=<?= asset_v('include/js/modules/faculty.js') ?>"></script>
+    <script src="include/js/modules/classroom.js?v=<?= asset_v('include/js/modules/classroom.js') ?>"></script>
+    <script src="include/js/modules/graduate.js?v=<?= asset_v('include/js/modules/graduate.js') ?>"></script>
+    <script src="include/js/modules/gallery.js?v=<?= asset_v('include/js/modules/gallery.js') ?>"></script>
 
-    <?php if (in_array($route, ['', 'home'])): ?>
-    <!-- GSAP & Awwwards Homepage Interactions -->
+    <!-- GSAP & Awwwards Page Transitions and Interactions -->
     <script src="include/js/awwwards.js?v=<?= asset_v('include/js/awwwards.js') ?>"></script>
-    <?php endif; ?>
 
     <!-- Preloader Engine -->
     <script src="include/js/preloader.js?v=<?= asset_v('include/js/preloader.js') ?>"></script>

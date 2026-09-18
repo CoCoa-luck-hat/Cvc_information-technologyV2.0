@@ -65,7 +65,7 @@ $initialLimit = 12;
 ?>
 
 <!-- Modular Stylesheet -->
-<link rel="stylesheet" href="include/css/modules/classroom.css?v=<?= time() ?>">
+<link rel="stylesheet" href="include/css/modules/classroom.css?v=<?= function_exists('asset_v') ? asset_v('include/css/modules/classroom.css') : '2.0.0' ?>">
 
 <!-- MAIN ARCHITECTURAL JOURNAL STAGE -->
 <section id="maj-architecture-journal">
@@ -228,4 +228,4 @@ $initialLimit = 12;
     window.__CLASSROOM_ITEMS__ = <?= json_encode($galleryItems, JSON_UNESCAPED_UNICODE) ?>;
     window.__CLASSROOM_TARGET_ROOM__ = "<?= htmlspecialchars($targetRoom, ENT_QUOTES, 'UTF-8') ?>";
 </script>
-<script src="include/js/modules/classroom.js?v=<?= time() ?>"></script>
+<script src="include/js/modules/classroom.js?v=<?= function_exists('asset_v') ? asset_v('include/js/modules/classroom.js') : '2.0.0' ?>"></script>

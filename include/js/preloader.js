@@ -39,6 +39,11 @@
             if (animFrameId) cancelAnimationFrame(animFrameId);
             document.body.style.overflow = '';
 
+            if (window.__cvcPreloadFallbackTimer) {
+                clearTimeout(window.__cvcPreloadFallbackTimer);
+                window.__cvcPreloadFallbackTimer = null;
+            }
+
             try {
                 sessionStorage.setItem('cvc_it_preloader_shown', 'true');
             } catch (e) { }
@@ -197,17 +202,27 @@
             }
         }
 
-        // Strict Fallback Timer: Cap total preloader time at 1100ms max
+        // Strict Fallback Timer: Network-Adaptive Cap (300ms for slow networks, 850ms max for normal)
+        const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const isSlow = conn && (conn.saveData || conn.effectiveType === '2g' || conn.effectiveType === 'slow-2g');
+        const capDuration = isSlow ? 300 : 850;
+
         setTimeout(() => {
             if (!isCompleted) {
                 counterTween.kill();
                 updateCounter(100);
-                revealStage();
+                if (isSlow) {
+                    hidePreloader();
+                } else {
+                    revealStage();
+                }
             }
-        }, 1100);
+        }, capDuration);
     };
 
-    if (document.readyState === 'loading') {
+    if (document.getElementById('preloader-overlay')) {
+        run();
+    } else if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', run);
     } else {
         run();

@@ -1169,17 +1169,12 @@ body.preloader-active {
    Pizza Amici Steps & Ribbons CSS Rules (Fixed Exact Layout & Typography)
    ========================================================================== */
 
-/* Google Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400;500;600;700&family=La+Belle+Aurore&display=swap');
-
-/* Handwritten Calligraphic Accent Override */
+/* Handwritten Calligraphic Accent Override - Aligned with Prompt Standard */
 .alt-o,
 .alt-q {
-  font-family: 'La Belle Aurore', cursive !important;
-  font-weight: 400 !important;
-  text-transform: lowercase !important;
+  font-family: 'Prompt', sans-serif !important;
+  font-weight: 700 !important;
   display: inline-block !important;
-  transform: rotate(-3deg) !important;
   margin: 0 0.05em !important;
 }
 
