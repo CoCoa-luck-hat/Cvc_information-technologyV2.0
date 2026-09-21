@@ -196,6 +196,7 @@
         // Switch Teacher Slide Function
         function goToSlide(targetIdx, direction = 1, isAuto = false) {
             if (isBioMode) return;
+            if (!facultyDb || !facultyDb.length) return;
             const nextIdx = ((targetIdx % facultyDb.length) + facultyDb.length) % facultyDb.length;
             if (nextIdx === activeIdx && !forceReinit) return;
             if (isTransitioning) return;

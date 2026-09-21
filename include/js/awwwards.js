@@ -738,16 +738,18 @@ function setPageProgress(percent, opacity = 1) {
 let isPageTransitioning = false;
 
 /**
- * PJAX Custom Page Transition (Network-Adaptive with Top Progress Bar & 3.5s Safety Abort)
+ * Standard Multi-Page Navigation Engine (Full Page Reload)
+ * Clean, native browser navigation with disk-cached assets and zero PJAX/SPA lockup risks.
  */
 function initPageTransitions() {
     // Ensure blinds overlay is reset on init
     resetCinematicBlinds();
-    setPageProgress(0, 0);
+    setPageProgress(100, 0);
+    setTimeout(() => setPageProgress(0, 0), 200);
 
+    // Subtle instant visual response on internal link click
     document.addEventListener("click", (e) => {
         const link = e.target.closest("a");
-
         if (!link) return;
 
         const url = link.getAttribute("href");
@@ -766,213 +768,19 @@ function initPageTransitions() {
             return;
         }
 
-        // Check if URL points to same domain/subdomain directory
-        try {
-            const linkHost = new URL(link.href).host;
-            if (linkHost !== window.location.host) return;
-        } catch (err) {
-            // Handle relative URLs if host extraction fails
-            if (url.startsWith("http://") || url.startsWith("https://")) return;
-        }
-
-        // Prevent duplicate transition triggers
-        if (isPageTransitioning) return;
-
-        // Valid internal link: trigger non-blocking page transition
-        e.preventDefault();
-
-        // Perform parallel fetch with top progress bar
-        performPageSwap(url);
-    });
-
-    // Handle browser back/forward buttons
-    window.addEventListener("popstate", () => {
-        if (isPageTransitioning) return;
-        performPageSwap(window.location.href, false);
+        // Show immediate top progress bar for instant feedback while browser navigates
+        setPageProgress(45, 1);
+        // Native browser navigation will execute smoothly without e.preventDefault()
     });
 }
 
 /**
- * Fetch HTML in background, show top progress bar, and only trigger snappy blind reveal when ready
+ * Backward-compatible helper for programmatic page navigation
  */
-function performPageSwap(url, pushToHistory = true) {
-    isPageTransitioning = true;
-
-    // 1. Immediately show top progress bar
-    setPageProgress(25, 1);
-    const progressTimer = setTimeout(() => {
-        setPageProgress(65, 1);
-    }, 350);
-
-    // 2. AbortController with 3.5s timeout for slow connections
-    const controller = new AbortController();
-    const abortTimeout = setTimeout(() => {
-        controller.abort();
-    }, 3500);
-
-    fetch(url, { signal: controller.signal })
-        .then(response => {
-            clearTimeout(progressTimer);
-            clearTimeout(abortTimeout);
-            if (!response.ok) throw new Error("HTTP " + response.status);
-            return response.text();
-        })
-        .then(html => {
-            setPageProgress(95, 1);
-            const parser = new DOMParser();
-            const newDoc = parser.parseFromString(html, "text/html");
-
-            const newContainer = newDoc.getElementById("swup-container");
-            const currentContainer = document.getElementById("swup-container");
-
-            if (newContainer && currentContainer) {
-                // Trigger snappy blinds close now that content is ready
-                triggerCinematicBlindsOut(() => {
-                    setPageProgress(100, 1);
-
-                    // Defensively close mobile navigation overlay
-                    const mobileNav = document.getElementById("mobileNavOverlay");
-                    if (mobileNav) {
-                        mobileNav.classList.remove("mobile-menu-active");
-                        document.body.style.overflow = "";
-                    }
-
-                    // Defensive cleanup: kill existing ScrollTriggers BEFORE wiping DOM elements
-                    if (typeof ScrollTrigger !== "undefined") {
-                        try {
-                            ScrollTrigger.getAll().forEach(trigger => trigger.kill(true));
-                        } catch (err) {
-                            console.warn("ScrollTrigger teardown non-fatal:", err);
-                        }
-                    }
-
-                    // Ensure any new stylesheet links in incoming page exist in document.head
-                    const newLinks = Array.from(newDoc.querySelectorAll('link[rel="stylesheet"]'));
-                    newLinks.forEach(link => {
-                        const href = link.getAttribute('href');
-                        if (href && !document.querySelector(`link[href="${href}"]`)) {
-                            const newLink = document.createElement('link');
-                            newLink.rel = 'stylesheet';
-                            newLink.href = href;
-                            document.head.appendChild(newLink);
-                        }
-                    });
-
-                    // Update DOM content
-                    currentContainer.innerHTML = newContainer.innerHTML;
-
-                    // Execute inline & external scripts inside swapped container
-                    executeContainerScripts(currentContainer);
-
-                    // Update page metadata
-                    document.title = newDoc.title;
-
-                    // Update navbar active states by copying over class names from navbar items
-                    const currentNavbar = document.getElementById("navbarCollapse");
-                    const newNavbar = newDoc.getElementById("navbarCollapse");
-                    if (currentNavbar && newNavbar) {
-                        currentNavbar.innerHTML = newNavbar.innerHTML;
-                        // Re-bind mobile menu toggle since navbar HTML was overwritten
-                        const mobileBtn = document.getElementById('mobileMenuToggle');
-                        const collapseMenu = document.getElementById('navbarCollapse');
-                        if (mobileBtn && collapseMenu) {
-                            mobileBtn.addEventListener('click', () => {
-                                collapseMenu.classList.toggle('hidden');
-                                collapseMenu.classList.toggle('flex');
-                            });
-                        }
-                    }
-
-                    // Push history state if requested
-                    if (pushToHistory) {
-                        history.pushState(null, "", url);
-                    }
-
-                    // Force immediate synchronous scroll reset to top
-                    window.scrollTo(0, 0);
-                    document.documentElement.scrollTop = 0;
-                    document.body.scrollTop = 0;
-                    if (typeof window.lenis !== "undefined" && window.lenis) {
-                        window.lenis.scroll = 0;
-                        if (typeof window.lenis.scrollTo === "function") {
-                            window.lenis.scrollTo(0, { immediate: true });
-                        }
-                    }
-
-                    // Pre-decode critical images in the new container with a tight 250ms race cap
-                    const newImages = Array.from(currentContainer.querySelectorAll("img"));
-                    const imagePromises = newImages.slice(0, 8).map(img => {
-                        if (img.complete && img.naturalWidth !== 0) return Promise.resolve();
-                        if (typeof img.decode === 'function') return img.decode().catch(() => {});
-                        return new Promise(resolve => {
-                            img.addEventListener('load', resolve, { once: true });
-                            img.addEventListener('error', resolve, { once: true });
-                        });
-                    });
-
-                    Promise.race([
-                        Promise.all(imagePromises),
-                        new Promise(resolve => setTimeout(resolve, 250))
-                    ]).then(() => {
-                        requestAnimationFrame(() => {
-                            window.scrollTo(0, 0);
-                            if (typeof window.lenis !== "undefined" && window.lenis && typeof window.lenis.scrollTo === "function") {
-                                window.lenis.scrollTo(0, { immediate: true });
-                            }
-
-                            // Re-initialize page scripts
-                            reinitPageScripts();
-
-                            // Animate dynamic entry camera zoom & fade-in (Opacity & subtle scale only)
-                            gsap.fromTo(currentContainer,
-                                { opacity: 0, scale: 0.98 },
-                                {
-                                    opacity: 1,
-                                    scale: 1,
-                                    duration: 0.3,
-                                    ease: "power3.out",
-                                    onComplete: () => {
-                                        gsap.set(currentContainer, { clearProps: "all" });
-                                        if (typeof ScrollTrigger !== "undefined") {
-                                            try {
-                                                ScrollTrigger.refresh(true);
-                                            } catch (e) {
-                                                console.warn("ScrollTrigger refresh non-fatal:", e);
-                                            }
-                                        }
-                                    }
-                                }
-                            );
-
-                            // Trigger Cinematic Dark Blinds In transition (Reveal page)
-                            triggerCinematicBlindsIn();
-
-                            // Fade out progress bar smoothly
-                            setTimeout(() => {
-                                setPageProgress(100, 0);
-                                setTimeout(() => {
-                                    setPageProgress(0, 0);
-                                    isPageTransitioning = false;
-                                }, 250);
-                            }, 200);
-                        });
-                    });
-                });
-            } else {
-                // Fallback redirect if page structure doesn't match (#swup-container missing)
-                sessionStorage.setItem("cvc_page_transition_active", "1");
-                window.location.href = url;
-            }
-        })
-        .catch(err => {
-            console.warn("PJAX timeout or error, falling back to native navigation:", err);
-            clearTimeout(progressTimer);
-            clearTimeout(abortTimeout);
-            setPageProgress(100, 0);
-            resetCinematicBlinds();
-            isPageTransitioning = false;
-            window.location.href = url;
-        });
+function performPageSwap(url) {
+    if (!url) return;
+    setPageProgress(60, 1);
+    window.location.href = url;
 }
 
 /**
@@ -1231,50 +1039,50 @@ function initHeroParallax() {
  * 3D Card Deck Stacking Animation using GSAP ScrollTrigger Master Timeline
  */
 function init3DCardStacking() {
+    if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+    gsap.registerPlugin(ScrollTrigger);
+
     const titleStage = document.getElementById("majorsTitleStage");
     const titleContent = document.getElementById("majorsTitleContent");
     const wrapper = document.getElementById("majorsCardsWrapper");
-    const cards = gsap.utils.toArray("#majorsSection .majors-card");
+    const cards = gsap.utils ? gsap.utils.toArray("#majorsSection .majors-card") : Array.from(document.querySelectorAll("#majorsSection .majors-card") || []);
 
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-        gsap.registerPlugin(ScrollTrigger);
+    // 1. Fullscreen Title Pinning & Scrubbed Timeline
+    if (titleStage && titleContent) {
+        const isMobile = window.innerWidth < 768;
+        const endVal = isMobile ? "+=45%" : "+=120%";
+        const titleTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: titleStage,
+                start: "top top",
+                end: endVal,
+                pin: true,
+                scrub: true,
+                anticipatePin: 1,
+                fastScrollEnd: true,
+                preventOverlaps: true,
+                invalidateOnRefresh: true
+            }
+        });
 
-        // 1. Fullscreen Title Pinning & Scrubbed Timeline
-        if (titleStage && titleContent) {
-            const isMobile = window.innerWidth < 768;
-            const endVal = isMobile ? "+=45%" : "+=120%";
-            const titleTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: titleStage,
-                    start: "top top",
-                    end: endVal,
-                    pin: true,
-                    scrub: true,
-                    anticipatePin: 1,
-                    fastScrollEnd: true,
-                    preventOverlaps: true,
-                    invalidateOnRefresh: true
-                }
-            });
+        titleTl
+            .fromTo(titleContent,
+                { opacity: 0, scale: 0.88, y: 0 },
+                { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power2.out" }
+            )
+            .to(titleContent, { opacity: 1, scale: 1, y: 0, duration: 1 })
+            .to(titleContent,
+                { opacity: 0, scale: 1.25, y: 0, duration: 1, ease: "power2.in" }
+            );
+    }
 
-            titleTl
-                .fromTo(titleContent,
-                    { opacity: 0, scale: 0.88, y: 0 },
-                    { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power2.out" }
-                )
-                .to(titleContent, { opacity: 1, scale: 1, y: 0, duration: 1 })
-                .to(titleContent,
-                    { opacity: 0, scale: 1.25, y: 0, duration: 1, ease: "power2.in" }
-                );
-        }
-
-        // 2. Master 3D Card Deck Stacking - Discrete Snapshot Trigger Engine (elastic.out physics)
-        if (wrapper && cards.length >= 2) {
-            const isMobile = window.innerWidth < 768;
-            const getTopOffset = () => {
-                const vh = window.innerHeight;
-                const cardH = cards[0] && cards[0].offsetHeight ? cards[0].offsetHeight : 450;
-                const minOffset = isMobile ? 65 : 110;
+    // 2. Master 3D Card Deck Stacking - Discrete Snapshot Trigger Engine (elastic.out physics)
+    if (wrapper && cards && cards.length >= 2) {
+        const isMobile = window.innerWidth < 768;
+        const getTopOffset = () => {
+            const vh = window.innerHeight;
+            const cardH = cards[0] && cards[0].offsetHeight ? cards[0].offsetHeight : 450;
+            const minOffset = isMobile ? 65 : 110;
                 return Math.max(minOffset, Math.round((vh - cardH) / 2));
             };
 
@@ -1379,7 +1187,6 @@ function init3DCardStacking() {
                 }
             });
         }
-    }
 }
 
 /**
@@ -2047,7 +1854,7 @@ function initPvcHTextsAndCards() {
     function splitWordsToChars(containerEl) {
         if (!containerEl) return [];
         const words = containerEl.querySelectorAll('.mwg-word');
-        const targetElements = words.length ? Array.from(words) : [containerEl];
+        const targetElements = (words && words.length) ? Array.from(words) : [containerEl];
         const chars = [];
 
         targetElements.forEach(wordEl => {
@@ -2134,7 +1941,8 @@ function initPvcHTextsAndCards() {
         });
     }
 
-    const numCards = circles.length;
+    const numCards = circles ? circles.length : 0;
+    if (!numCards) return;
 
     // Pre-computed Dynamic Re-centering Fan Coordinate Tables for 1, 2, 3, and 4 cards (Optimized for 340px card width)
     const fanStates = {

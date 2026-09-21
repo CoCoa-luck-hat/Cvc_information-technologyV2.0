@@ -122,14 +122,8 @@ $pageDescription = 'หลักสูตรวิชาชีพด้านเ
     <script src="include/js/vendor/ScrollTrigger.min.js?v=<?= asset_v('include/js/vendor/ScrollTrigger.min.js') ?>"></script>
     <script src="include/js/vendor/Observer.min.js?v=<?= asset_v('include/js/vendor/Observer.min.js') ?>"></script>
     <script>
-        if (typeof gsap !== 'undefined') {
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && typeof Observer !== 'undefined') {
             gsap.registerPlugin(ScrollTrigger, Observer);
-            if (typeof ScrollTrigger !== 'undefined') {
-                ScrollTrigger.config({
-                    ignoreMobileResize: true,
-                    autoRefreshEvents: "visibilitychange,DOMContentLoaded,load"
-                });
-            }
         }
     </script>
 
