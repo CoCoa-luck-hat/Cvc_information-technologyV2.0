@@ -599,12 +599,8 @@ function triggerHeroReveal() {
             { scale: 1.0, duration: 1.4, ease: "power3.out" }
         );
 
-        const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        const isSlow = conn && (conn.saveData || conn.effectiveType === '2g' || conn.effectiveType === 'slow-2g');
-        const isDesktop = window.innerWidth >= 768;
         const vidSrc = heroVideo.querySelector('source[src]');
-
-        if (!isSlow && isDesktop && vidSrc) {
+        if (vidSrc) {
             const playPromise = heroVideo.play();
             if (playPromise !== undefined) {
                 playPromise.catch(() => {

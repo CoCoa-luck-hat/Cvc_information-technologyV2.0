@@ -19,6 +19,44 @@
                 if (p !== undefined) {
                     p.catch(function() {});
                 }
+                // Smart Performance Observer: Pause video when hero section leaves viewport
+                if ('IntersectionObserver' in window) {
+                    var heroTrack = document.getElementById('heroScrollTrack');
+                    if (heroTrack) {
+                        var obs = new IntersectionObserver(function(entries) {
+                            entries.forEach(function(entry) {
+                                if (entry.isIntersecting) {
+                                    if (vid.paused) vid.play().catch(function() {});
+                                } else {
+                                    if (!vid.paused) vid.pause();
+                                }
+                            });
+                        }, { threshold: 0.05 });
+                        obs.observe(heroTrack);
+                    }
+                }
+            }
+
+            // Interactive Scroll Indicator Click Handler
+            var scrollIndicator = document.getElementById('heroScrollIndicator');
+            if (scrollIndicator) {
+                var handleScrollClick = function(e) {
+                    e.preventDefault();
+                    var target = document.querySelector('.radius-section') || document.getElementById('majorsSection');
+                    if (target) {
+                        if (typeof window.lenis?.scrollTo === 'function') {
+                            window.lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+                        } else {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }
+                };
+                scrollIndicator.addEventListener('click', handleScrollClick);
+                scrollIndicator.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        handleScrollClick(e);
+                    }
+                });
             }
         })();
         </script>
@@ -36,19 +74,14 @@
                 <span class="block hero-line-animate">THE IT WAY</span>
             </h1>
             
-            <!-- CTAs -->
-            <div class="flex flex-wrap justify-start gap-4 mt-8 md:mt-12" id="heroCtaGroup">
-                <a href="tel:+053713036" class="bg-primary hover:bg-white hover:text-gray-900 text-white font-medium py-3 px-8 rounded-xl transition duration-300 shadow-md" data-magnetic aria-label="โทรสอบถามข้อมูลแผนก">
-                    <span>ติดต่อสอบถาม</span>
-                </a>
-            </div>
+
         </div>
 
         <!-- Louver Blind Strips Container -->
         <div class="home-hero-cover"></div>
         
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-10 flex flex-col items-center text-center select-none cursor-pointer z-20" id="heroScrollIndicator">
+        <div class="absolute bottom-10 flex flex-col items-center text-center select-none cursor-pointer z-20" id="heroScrollIndicator" role="button" tabindex="0" aria-label="เลื่อนลงเพื่อดูเนื้อหา">
             <span class="text-[10px] text-white/75 uppercase tracking-[0.3em] mb-2 font-medium">Scroll to explore</span>
             <div class="w-6 h-10 border border-white/30 rounded-full flex justify-center p-1">
                 <div class="w-1.5 h-3 bg-primary rounded-full animate-bounce"></div>
